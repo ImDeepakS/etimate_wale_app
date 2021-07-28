@@ -72,7 +72,7 @@ class _QueriesListPageState extends State<QueriesListPage> {
                         ),
                       ),
                       Text(
-                        "Shop Name",
+                        "Shop",
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           color: Color(0xfff7e841),
@@ -137,31 +137,28 @@ class _QueriesListPageState extends State<QueriesListPage> {
                 child: ListView.builder(
                   itemCount: queriesDummy.length,
                   itemBuilder: (context, index) {
-                    return Container(
-                      width: width,
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                queriesDummy[index].index,
-                              ),
-                              Text(
-                                queriesDummy[index].brand,
-                              ),
-                              Text(
-                                queriesDummy[index].brand,
-                              ),
-                              Text(
-                                queriesDummy[index].model,
-                              ),
-                              Text(
-                                queriesDummy[index].problem,
-                              ),
-                            ],
-                          ),
+                    return Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              queriesDummy[index].index,
+                            ),
+                            Text(
+                              queriesDummy[index].shopName,
+                            ),
+                            Text(
+                              queriesDummy[index].brand,
+                            ),
+                            Text(
+                              queriesDummy[index].model,
+                            ),
+                            Text(
+                              queriesDummy[index].problem,
+                            ),
+                          ],
                         ),
                       ),
                     );
