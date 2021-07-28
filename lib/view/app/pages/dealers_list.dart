@@ -62,7 +62,7 @@ class _DealersListPageState extends State<DealersListPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              height: height / 6,
+                              height: height / 5.8,
                               width: width / 3.5,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
