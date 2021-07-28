@@ -62,7 +62,7 @@ class _DealersListPageState extends State<DealersListPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              height: height / 5.8,
+                              height: height / 6,
                               width: width / 3.5,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
@@ -126,7 +126,7 @@ class _DealersListPageState extends State<DealersListPage> {
                                 ),
                                 SizedBox(height: 12),
                                 Container(
-                                  height: height / 24,
+                                  height: height / 26,
                                   width: width / 1.6,
                                   decoration: BoxDecoration(
                                     color: Colors.black.withOpacity(0.7),

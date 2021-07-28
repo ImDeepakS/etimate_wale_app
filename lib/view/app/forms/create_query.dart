@@ -1,4 +1,5 @@
 import 'package:fix_team_app/view/app/forms/create_query.dart';
+import 'package:fix_team_app/view/app/forms/list_query.dart';
 import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:fix_team_app/view/app/pages/dealers_list.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
@@ -276,21 +277,30 @@ class _CreateQueryPageState extends State<CreateQueryPage> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(16),
-                      child: Container(
-                        height: 60,
-                        child: Center(
-                          child: Text(
-                            "Submit",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => DealersListPage(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 60,
+                          child: Center(
+                            child: Text(
+                              "Submit",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
                             ),
                           ),
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(3),
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(3),
+                          ),
                         ),
                       ),
                     ),

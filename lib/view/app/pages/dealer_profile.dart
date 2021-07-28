@@ -1,3 +1,4 @@
+import 'package:fix_team_app/view/app/forms/list_query.dart';
 import 'package:flutter/material.dart';
 
 class DealerProfilePage extends StatefulWidget {
@@ -269,19 +270,28 @@ class _DealerProfilePageState extends State<DealerProfilePage> {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
-              child: Container(
-                height: height / 16,
-                width: width / 2,
-                decoration: BoxDecoration(
-                  color: Color(0xfff7e841),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Center(
-                  child: Text(
-                    "Accept",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => QueriesListPage(),
+                    ),
+                  );
+                },
+                child: Container(
+                  height: height / 16,
+                  width: width / 2,
+                  decoration: BoxDecoration(
+                    color: Color(0xfff7e841),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Accept",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ),
