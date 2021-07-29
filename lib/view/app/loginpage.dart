@@ -136,13 +136,11 @@ class LoginPage extends StatelessWidget {
                             hint: "Enter Password",
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 45,
-                            right: 45,
-                            top: 20,
-                          ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10, bottom: 20),
+                          width: width,
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 "Don't remember your password?",

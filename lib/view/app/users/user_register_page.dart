@@ -1,8 +1,10 @@
-import 'package:fix_team_app/view/app/forms/create_query.dart';
+import 'package:fix_team_app/controller/user/register_user_controller.dart';
+import 'package:fix_team_app/model/user_register_model.dart';
 import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
 import 'package:fix_team_app/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class UserRegisterPage extends StatefulWidget {
   const UserRegisterPage({Key? key}) : super(key: key);
@@ -12,13 +14,19 @@ class UserRegisterPage extends StatefulWidget {
 }
 
 class _UserRegisterPageState extends State<UserRegisterPage> {
-  TextEditingController? usernameController;
-  TextEditingController? emailController;
-  TextEditingController? phoneController;
-  TextEditingController? passwordController;
-  TextEditingController? confirmPasswordController;
-  TextEditingController? zipcodeController;
-  TextEditingController? addressController;
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController zipcodeController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+
+  bool userCreated = false;
+
+  Future<User>? _futureUser;
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +85,7 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Container(
-                      height: height / 1,
+                      height: height / 0.89,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -112,6 +120,7 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                               bottom: 20,
                             ),
                             child: Form(
+                              key: _formKey,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -141,18 +150,114 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                                   SizedBox(height: 20),
                                   LabelText(label: "Password"),
                                   SizedBox(height: 10),
-                                  TextFieldWidget(
-                                    message: "Password can't be empty",
+                                  TextFormField(
+                                    obscureText: true,
+                                    decoration: new InputDecoration(
+                                      isDense: true,
+                                      fillColor: Colors.white,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                        borderSide: BorderSide(
+                                          color: Colors.blue,
+                                          width: 2,
+                                        ),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                        borderSide: BorderSide(
+                                          color: Colors.red.shade700,
+                                          width: 2,
+                                        ),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                        borderSide: BorderSide(
+                                          color: Colors.black,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                        borderSide: BorderSide(
+                                          color: Colors.black,
+                                          width: 1,
+                                        ),
+                                      ),
+                                    ),
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(30),
+                                    ],
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.grey.shade600,
+                                      letterSpacing: 2,
+                                    ),
+                                    validator: (String? value) {
+                                      if (value != null && value.isEmpty) {
+                                        return "Password can't be empty";
+                                      }
+                                      return null;
+                                    },
                                     controller: passwordController,
-                                    inputType: TextInputType.visiblePassword,
+                                    keyboardType: TextInputType.visiblePassword,
                                   ),
                                   SizedBox(height: 20),
                                   LabelText(label: "Confirm Password"),
                                   SizedBox(height: 10),
-                                  TextFieldWidget(
-                                    message: "Confirm Password can't be empty",
+                                  TextFormField(
+                                    obscureText: true,
+                                    decoration: new InputDecoration(
+                                      isDense: true,
+                                      fillColor: Colors.white,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                        borderSide: BorderSide(
+                                          color: Colors.blue,
+                                          width: 2,
+                                        ),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                        borderSide: BorderSide(
+                                          color: Colors.red.shade700,
+                                          width: 2,
+                                        ),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                        borderSide: BorderSide(
+                                          color: Colors.black,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                        borderSide: BorderSide(
+                                          color: Colors.black,
+                                          width: 1,
+                                        ),
+                                      ),
+                                    ),
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(30),
+                                    ],
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.grey.shade600,
+                                      letterSpacing: 2,
+                                    ),
+                                    validator: (String? value) {
+                                      if (confirmPasswordController.text !=
+                                              passwordController.text ||
+                                          value != null && value.isEmpty) {
+                                        return "Password doesn't match or empty";
+                                      }
+                                      return null;
+                                    },
                                     controller: confirmPasswordController,
-                                    inputType: TextInputType.text,
+                                    keyboardType: TextInputType.visiblePassword,
                                   ),
                                   SizedBox(height: 20),
                                   LabelText(label: "Zipcode"),
@@ -182,21 +287,45 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
               ),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: InkWell(
-                  onTap: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => CreateQueryPage(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    width: width,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
+                child: Container(
+                  width: width,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: InkWell(
+                      onTap: () {
+                        FocusManager.instance.primaryFocus!.unfocus();
+                        if (_formKey.currentState!.validate()) {
+                          setState(() {
+                            _futureUser = createUser(
+                              usernameController.text,
+                              emailController.text,
+                              phoneController.text,
+                              passwordController.text,
+                              zipcodeController.text,
+                              addressController.text,
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("User created successfully"),
+                                backgroundColor: Colors.green,
+                              ),
+                            );
+                            this.setState(() {
+                              usernameController.clear();
+                              emailController.clear();
+                              phoneController.clear();
+                              passwordController.clear();
+                              confirmPasswordController.clear();
+                              zipcodeController.clear();
+                              addressController.clear();
+                            });
+                          });
+                          buildFutureBuilder();
+                        }
+                      },
                       child: Container(
                         height: 60,
                         child: Center(
@@ -222,6 +351,21 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
           ),
         ),
       ),
+    );
+  }
+
+  FutureBuilder<User> buildFutureBuilder() {
+    return FutureBuilder<User>(
+      future: _futureUser,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Text("User created successfully");
+        } else if (snapshot.hasError) {
+          return Text('${snapshot.error}');
+        }
+
+        return const CircularProgressIndicator();
+      },
     );
   }
 }

@@ -1,9 +1,6 @@
-import 'package:fix_team_app/view/app/forms/create_query.dart';
-import 'package:fix_team_app/view/app/forms/list_query.dart';
 import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:fix_team_app/view/app/pages/dealers_list.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
-import 'package:fix_team_app/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 
 class CreateQueryPage extends StatefulWidget {

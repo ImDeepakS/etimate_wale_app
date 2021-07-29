@@ -30,6 +30,20 @@ class TextFieldWidget extends StatelessWidget {
             width: 2,
           ),
         ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(
+            color: Colors.red.shade700,
+            width: 2,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(
+            color: Colors.black,
+            width: 1,
+          ),
+        ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide(
