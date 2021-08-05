@@ -1,3 +1,4 @@
+import 'package:fix_team_app/controller/login/login_controller.dart';
 import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:fix_team_app/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
@@ -166,22 +167,31 @@ class LoginPage extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 30),
-                          child: Container(
-                            padding: EdgeInsets.only(
-                              top: 10,
-                              bottom: 10,
-                              left: 35,
-                              right: 35,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                            ),
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                          child: InkWell(
+                            onTap: () {
+                              login(
+                                context,
+                                usernameController?.text,
+                                passwordController?.text,
+                              );
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                top: 10,
+                                bottom: 10,
+                                left: 35,
+                                right: 35,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.black,
+                              ),
+                              child: Text(
+                                "Login",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),

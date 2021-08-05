@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:fix_team_app/controller/user/register_user_controller.dart';
 import 'package:fix_team_app/model/user_register_model.dart';
 import 'package:fix_team_app/view/app/homepage.dart';
+import 'package:fix_team_app/view/app/loginpage.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
 import 'package:fix_team_app/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 class UserRegisterPage extends StatefulWidget {
   const UserRegisterPage({Key? key}) : super(key: key);
@@ -299,7 +303,9 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                         FocusManager.instance.primaryFocus!.unfocus();
                         if (_formKey.currentState!.validate()) {
                           setState(() {
-                            _futureUser = createUser(
+                            // createUser();
+                            senddata(
+                              context,
                               usernameController.text,
                               emailController.text,
                               phoneController.text,
@@ -307,12 +313,12 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                               zipcodeController.text,
                               addressController.text,
                             );
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text("User created successfully"),
-                                backgroundColor: Colors.green,
-                              ),
-                            );
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   SnackBar(
+                            //     content: Text("User created successfully"),
+                            //     backgroundColor: Colors.green,
+                            //   ),
+                            // );
                             this.setState(() {
                               usernameController.clear();
                               emailController.clear();
@@ -323,7 +329,6 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                               addressController.clear();
                             });
                           });
-                          buildFutureBuilder();
                         }
                       },
                       child: Container(
@@ -351,21 +356,6 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
           ),
         ),
       ),
-    );
-  }
-
-  FutureBuilder<User> buildFutureBuilder() {
-    return FutureBuilder<User>(
-      future: _futureUser,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return Text("User created successfully");
-        } else if (snapshot.hasError) {
-          return Text('${snapshot.error}');
-        }
-
-        return const CircularProgressIndicator();
-      },
     );
   }
 }
