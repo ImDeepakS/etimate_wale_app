@@ -11,8 +11,8 @@ class LoginPage extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
-    TextEditingController? usernameController;
-    TextEditingController? passwordController;
+    TextEditingController usernameController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
 
     return Scaffold(
       body: Container(
@@ -171,8 +171,8 @@ class LoginPage extends StatelessWidget {
                             onTap: () {
                               login(
                                 context,
-                                usernameController?.text,
-                                passwordController?.text,
+                                usernameController.text,
+                                passwordController.text,
                               );
                             },
                             child: Container(

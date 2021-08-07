@@ -304,7 +304,7 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                         if (_formKey.currentState!.validate()) {
                           setState(() {
                             // createUser();
-                            senddata(
+                            registerUser(
                               context,
                               usernameController.text,
                               emailController.text,

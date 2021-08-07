@@ -1,7 +1,9 @@
+import 'package:fix_team_app/controller/dealer/register_dealer_controller.dart';
 import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
 import 'package:fix_team_app/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 enum MobileBrands { all, iphone, samsung, oppo, vivo, mi, honor, other }
 
@@ -31,15 +33,23 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
 
   Agree? _agree = Agree.yes;
 
-  TextEditingController? usernameController;
-  TextEditingController? emailController;
-  TextEditingController? phoneController;
-  TextEditingController? phoneController1;
-  TextEditingController? shopNameController;
-  TextEditingController? passwordController;
-  TextEditingController? confirmPasswordController;
-  TextEditingController? zipcodeController;
-  TextEditingController? addressController;
+  bool visibility = false;
+
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController phoneController1 = TextEditingController();
+  TextEditingController shopNameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController landlineController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController fbController = TextEditingController();
+  TextEditingController instaController = TextEditingController();
+  TextEditingController shopyearController = TextEditingController();
+
+  String imgPath = "";
+  final picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +190,7 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                                   SizedBox(height: 10),
                                   TextFieldWidget(
                                     message: "Landline number can't be empty",
-                                    controller: phoneController,
+                                    controller: landlineController,
                                     inputType: TextInputType.phone,
                                   ),
                                   SizedBox(height: 20),
@@ -196,7 +206,7 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                                   SizedBox(height: 10),
                                   TextFieldWidget(
                                     message: "Facebook ID can't be empty",
-                                    controller: phoneController,
+                                    controller: fbController,
                                     inputType: TextInputType.emailAddress,
                                   ),
                                   SizedBox(height: 20),
@@ -204,7 +214,7 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                                   SizedBox(height: 10),
                                   TextFieldWidget(
                                     message: "Instagram ID can't be empty",
-                                    controller: phoneController,
+                                    controller: instaController,
                                     inputType: TextInputType.phone,
                                   ),
                                   SizedBox(height: 20),
@@ -213,7 +223,7 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                                   SizedBox(height: 10),
                                   TextFieldWidget(
                                     message: "Shop Years can't be empty",
-                                    controller: phoneController,
+                                    controller: shopyearController,
                                     inputType: TextInputType.phone,
                                   ),
                                   SizedBox(height: 30),
@@ -532,9 +542,18 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                                         onChanged: (Agree? value) {
                                           setState(() {
                                             _agree = value;
+                                            if (_agree == Agree.other) {
+                                              visibility = true;
+                                            } else if (_agree == Agree.yes ||
+                                                _agree == Agree.no) {
+                                              visibility = false;
+                                            }
                                           });
                                         },
                                       ),
+                                      // visibility
+                                      //     ? TextFieldWidget()
+                                      //     : Container(),
                                     ],
                                   ),
                                   SizedBox(height: 30),
@@ -543,22 +562,40 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                                   SizedBox(height: 20),
                                   Row(
                                     children: [
-                                      Container(
-                                        padding: EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                          color: Colors.black,
-                                          borderRadius:
-                                              BorderRadius.circular(2),
-                                        ),
-                                        child: Text(
-                                          "Choose File",
-                                          style: TextStyle(
-                                            color: Colors.white,
+                                      InkWell(
+                                        onTap: () async {
+                                          final pickedFile =
+                                              await picker.pickImage(
+                                                  source: ImageSource.gallery);
+                                          if (pickedFile != null) {
+                                            setState(() {
+                                              imgPath = pickedFile.path;
+                                            });
+                                          }
+                                        },
+                                        child: Container(
+                                          padding: EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            color: Colors.black,
+                                            borderRadius:
+                                                BorderRadius.circular(2),
+                                          ),
+                                          child: Text(
+                                            "Choose File",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
                                           ),
                                         ),
                                       ),
                                       SizedBox(width: 5),
-                                      Text("No File Choosen"),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: SizedBox(
+                                          width: width / 2,
+                                          child: Text(imgPath),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                   SizedBox(height: 30),
@@ -590,7 +627,25 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    registerDealer(
+                      context,
+                      usernameController.text,
+                      emailController.text,
+                      phoneController.text,
+                      passwordController.text,
+                      addressController.text,
+                      phoneController1.text,
+                      shopNameController.text,
+                      landlineController.text,
+                      fbController.text,
+                      instaController.text,
+                      shopyearController.text,
+                      _brands.toString(),
+                      _products.toString(),
+                      _agree.toString(),
+                    );
+                  },
                   child: Container(
                     width: width,
                     decoration: BoxDecoration(

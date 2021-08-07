@@ -3,20 +3,43 @@ import 'package:fix_team_app/view/app/loginpage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-Future registerUser(BuildContext context, user, email, phone, password, zipcode,
-    address) async {
+Future registerDealer(
+  BuildContext context,
+  user,
+  email,
+  phone,
+  password,
+  address,
+  phoneno1,
+  shopname,
+  landlineno,
+  fbid,
+  instaid,
+  shopyear,
+  mobilebrand,
+  specialist,
+  agree,
+) async {
   try {
     final response = await http.post(
         Uri.parse(
-          "https://flymediatech.in/location/application/restapi/userregister.php",
+          "https://flymediatech.in/location/application/restapi/dealerregister.php",
         ),
         body: {
           "username": user,
           "email": email,
           "contact": phone,
           "password": password,
-          "zipcode": zipcode,
           "address": address,
+          "phoneno1": phoneno1,
+          "shopname": shopname,
+          "landlineno": landlineno,
+          "fbid": fbid,
+          "instaid": instaid,
+          "shopyear": shopyear,
+          "mobilebrand": mobilebrand,
+          "specialist": specialist,
+          "agreeprice": agree,
         });
     var message = jsonDecode(json.encode(response.body));
 
@@ -60,6 +83,6 @@ Future registerUser(BuildContext context, user, email, phone, password, zipcode,
       );
     }
   } on Exception catch (e) {
-    print("Exception is: " + e.toString());
+    print("exception is: " + e.toString());
   }
 }
