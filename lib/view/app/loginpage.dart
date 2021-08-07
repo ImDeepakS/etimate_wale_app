@@ -3,16 +3,21 @@ import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:fix_team_app/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-
-    TextEditingController usernameController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
 
     return Scaffold(
       body: Container(
