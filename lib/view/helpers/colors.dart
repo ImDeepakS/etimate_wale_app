@@ -4,6 +4,8 @@ Color mainColor = Color(0xfff7e841);
 Color black = Colors.black;
 Color shadyGrey = Colors.grey.shade400;
 Color dimGrey = Colors.grey.shade500;
+Color white = Colors.white;
+Color greenBody = Colors.tealAccent;
 
 class SizeConfig {
   static double? height;
