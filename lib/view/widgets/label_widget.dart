@@ -1,4 +1,6 @@
+import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LabelText extends StatelessWidget {
   final String label;
@@ -11,9 +13,9 @@ class LabelText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       label,
-      style: TextStyle(
+      style: GoogleFonts.poppins(
+        color: shadyGrey,
         fontWeight: FontWeight.w500,
-        fontSize: 14,
       ),
     );
   }
