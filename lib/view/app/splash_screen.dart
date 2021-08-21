@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:fix_team_app/view/app/homepage.dart';
+import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/helpers/fade_route.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/services.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -65,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen> {
     double _h = MediaQuery.of(context).size.height;
     double _w = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: mainColor,
       body: Center(
         child: Column(
           children: [

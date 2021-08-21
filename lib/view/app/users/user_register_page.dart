@@ -1,16 +1,11 @@
-import 'dart:convert';
-
 import 'package:fix_team_app/controller/user/register_user_controller.dart';
 import 'package:fix_team_app/model/user_register_model.dart';
-import 'package:fix_team_app/view/app/homepage.dart';
-import 'package:fix_team_app/view/app/loginpage.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
 import 'package:fix_team_app/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
 
 class UserRegisterPage extends StatefulWidget {
   const UserRegisterPage({Key? key}) : super(key: key);
@@ -142,6 +137,7 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                           SizedBox(height: 10),
                           TextFieldWidget(
                             message: "Zipcode can't be empty",
+                            hint: "Enter Zipcode",
                             controller: zipcodeController,
                             inputType: TextInputType.number,
                           ),
@@ -150,6 +146,7 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                           SizedBox(height: 10),
                           TextFieldWidget(
                             message: "Address can't be empty",
+                            hint: "Enter Address",
                             controller: addressController,
                             inputType: TextInputType.streetAddress,
                           ),
