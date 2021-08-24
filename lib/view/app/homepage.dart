@@ -27,23 +27,17 @@ class _HomePageState extends State<HomePage> {
 
   List _screen = [
     HomeWidget(),
-    UserRegisterPage(),
+    StorePage(),
     DealerRegisterPage(),
     CreateQueryPage(),
     ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
-    if (index == 0 || index == 4) {
+    if (index == 0 || index == 1 || index == 4) {
       setState(() {
         _selectedIndex = index;
       });
-    } else if (index == 1) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => StorePage(),
-        ),
-      );
     } else if (index == 2) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
