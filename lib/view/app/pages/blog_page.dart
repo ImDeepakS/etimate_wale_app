@@ -24,14 +24,15 @@ class _BlogPageState extends State<BlogPage> {
           ),
         ),
         leading: InkWell(
-            onTap: () {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) => HomePage(),
-                ),
-              );
-            },
-            child: Icon(Icons.arrow_back)),
+          onTap: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => HomePage(),
+              ),
+            );
+          },
+          child: Icon(Icons.arrow_back),
+        ),
       ),
     );
   }
