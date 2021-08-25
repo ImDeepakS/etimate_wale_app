@@ -34,6 +34,7 @@ class _BlogPageState extends State<BlogPage> {
           child: Icon(Icons.arrow_back),
         ),
       ),
+      body: Container(),
     );
   }
 }
