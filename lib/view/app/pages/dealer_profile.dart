@@ -1,5 +1,9 @@
 import 'package:fix_team_app/view/app/forms/list_query.dart';
+import 'package:fix_team_app/view/app/pages/dealers_list.dart';
+import 'package:fix_team_app/view/helpers/colors.dart';
+import 'package:fix_team_app/view/widgets/prob_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DealerProfilePage extends StatefulWidget {
   final String dealerName;
@@ -32,243 +36,200 @@ class _DealerProfilePageState extends State<DealerProfilePage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 10),
-          child: Image(
-            image: AssetImage("assets/logo.png"),
-            height: 20,
+        backgroundColor: mainColor,
+        title: Text(
+          "EstimateWale",
+          style: GoogleFonts.poppins(
+            color: white,
+            fontWeight: FontWeight.w600,
           ),
         ),
+        leading: InkWell(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Icon(Icons.arrow_back),
+        ),
       ),
-      body: Container(
-        height: height,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              children: [
-                Container(
-                  width: width,
-                  height: height / 4,
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(widget.shopImage),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
                     children: [
-                      Text(
-                        widget.shopName,
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          shadows: [
-                            Shadow(
-                              offset: Offset(2, 2),
-                              blurRadius: 3,
-                              color: Colors.black,
+                      Container(
+                        width: width,
+                        height: height / 4,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(widget.shopImage),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              widget.shopName,
+                              style: GoogleFonts.poppins(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                                shadows: [
+                                  Shadow(
+                                    offset: Offset(1, 1),
+                                    blurRadius: 3,
+                                    color: black.withOpacity(0.5),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  widget.dealerName,
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.grey.shade200,
+                                    shadows: [
+                                      Shadow(
+                                        offset: Offset(1, 1),
+                                        blurRadius: 3,
+                                        color: black.withOpacity(0.5),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  widget.contactNumber,
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.grey.shade200,
+                                    shadows: [
+                                      Shadow(
+                                        offset: Offset(1, 1),
+                                        blurRadius: 3,
+                                        color: black.withOpacity(0.5),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  widget.address,
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.grey.shade200,
+                                    shadows: [
+                                      Shadow(
+                                        offset: Offset(1, 1),
+                                        blurRadius: 3,
+                                        color: black.withOpacity(0.5),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.dealerName,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey.shade400,
-                              shadows: [
-                                Shadow(
-                                  offset: Offset(2, 2),
-                                  blurRadius: 3,
-                                  color: Colors.black,
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            widget.contactNumber,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey.shade400,
-                              shadows: [
-                                Shadow(
-                                  offset: Offset(2, 2),
-                                  blurRadius: 3,
-                                  color: Colors.black,
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            widget.address,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey.shade400,
-                              shadows: [
-                                Shadow(
-                                  offset: Offset(2, 2),
-                                  blurRadius: 3,
-                                  color: Colors.black,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
                       Padding(
-                        padding: const EdgeInsets.only(
-                          top: 20,
-                          left: 10,
-                          right: 10,
-                          bottom: 10,
+                        padding: const EdgeInsets.all(10),
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          width: width,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Your Query",
+                                style: GoogleFonts.poppins(
+                                  color: dimGrey,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              Container(
+                                padding: EdgeInsets.only(
+                                  top: 10,
+                                  left: 10,
+                                  right: 10,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: mainColor1,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: black.withOpacity(0.2),
+                                      blurRadius: 1,
+                                      offset: Offset(0.5, 0.5),
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  children: [
+                                    ProbTextWidget(
+                                      label: "Mobile :",
+                                      text: "IPhone 6",
+                                    ),
+                                    ProbTextWidget(
+                                      label: "Distance in KM :",
+                                      text: "5 KM",
+                                    ),
+                                    ProbTextWidget(
+                                      label: "Mobile Problem :",
+                                      text: "LCD Broken",
+                                    ),
+                                    SizedBox(height: 10),
+                                    Container(
+                                      width: width,
+                                      decoration: BoxDecoration(
+                                        color: mainColor,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20),
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "\$ 500",
+                                          style: GoogleFonts.poppins(
+                                            color: green,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        child: Text(
-                          "Your Query",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            width: width / 2.7,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey.shade500),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Problems list",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            width: width / 3.2,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey.shade500),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Distance",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            width: width / 3.2,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey.shade500),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Price",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            width: width / 2.7,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey.shade500),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Mobile Problem",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.grey.shade500,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            width: width / 3.2,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey.shade500),
-                            ),
-                            child: Center(
-                              child: Text(
-                                widget.distance,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.grey.shade500,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            width: width / 3.2,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey.shade500),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "\$" + widget.price,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xfff7e841),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
                       ),
                     ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-            Padding(
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: InkWell(
                 onTap: () {
@@ -282,23 +243,24 @@ class _DealerProfilePageState extends State<DealerProfilePage> {
                   height: height / 16,
                   width: width / 2,
                   decoration: BoxDecoration(
-                    color: Color(0xfff7e841),
+                    color: mainColor,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Center(
                     child: Text(
                       "Accept",
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
+                        color: white,
                       ),
                     ),
                   ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

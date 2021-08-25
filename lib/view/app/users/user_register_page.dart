@@ -1,5 +1,6 @@
 import 'package:fix_team_app/controller/user/register_user_controller.dart';
 import 'package:fix_team_app/model/user_register_model.dart';
+import 'package:fix_team_app/view/app/pages/profile_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
 import 'package:fix_team_app/view/widgets/text_field_widget.dart';
@@ -36,16 +37,19 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: white,
-        leading: InkWell(
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-          child: Icon(
-            Icons.arrow_back,
-            color: dimGrey,
+        backgroundColor: mainColor,
+        title: Text(
+          "EstimateWale",
+          style: GoogleFonts.poppins(
+            color: white,
+            fontWeight: FontWeight.w600,
           ),
         ),
+        leading: InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Icon(Icons.arrow_back)),
       ),
       body: Stack(
         children: [
@@ -71,7 +75,7 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                       right: 10,
                     ),
                     child: Text(
-                      "Sign Up",
+                      "Customer Sign Up",
                       style: GoogleFonts.poppins(
                         color: dimGrey,
                         fontWeight: FontWeight.w600,

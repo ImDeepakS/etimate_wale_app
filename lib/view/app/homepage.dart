@@ -1,13 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fix_team_app/model/brand_model.dart';
-import 'package:fix_team_app/view/app/forms/create_query.dart';
+import 'package:fix_team_app/view/app/forms/estimate_price.dart';
 import 'package:fix_team_app/view/app/forms/search_file.dart';
-import 'package:fix_team_app/view/app/loginpage.dart';
 import 'package:fix_team_app/view/app/pages/blog_page.dart';
 import 'package:fix_team_app/view/app/pages/profile_page.dart';
 import 'package:fix_team_app/view/app/pages/store_page.dart';
 import 'package:fix_team_app/view/app/users/dealer_register_page.dart';
-import 'package:fix_team_app/view/app/users/user_register_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/service_tile_widget.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +27,7 @@ class _HomePageState extends State<HomePage> {
     HomeWidget(),
     StorePage(),
     DealerRegisterPage(),
-    CreateQueryPage(),
+    EstimatePricePage(),
     ProfilePage(),
   ];
 
@@ -47,7 +45,7 @@ class _HomePageState extends State<HomePage> {
     } else if (index == 3) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => CreateQueryPage(),
+          builder: (context) => EstimatePricePage(),
         ),
       );
     }

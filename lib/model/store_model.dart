@@ -21,7 +21,7 @@ class StoreModel {
 List<StoreModel> storeData = [
   new StoreModel(
     storeImage:
-        "https://estimatewala.com/assets/images/dealers/1627452303_Important_Display_Message.jpg",
+        "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg",
     storeName: "IQBAL TELECOM",
     storeAddress: "Giaspura,Ludhiana,Punjab",
     contact: "1234567890",
@@ -31,7 +31,7 @@ List<StoreModel> storeData = [
   ),
   new StoreModel(
     storeImage:
-        "https://estimatewala.com/assets/images/dealers/1627452303_Important_Display_Message.jpg",
+        "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg",
     storeName: "IQBAL TELECOM",
     storeAddress: "Giaspura,Ludhiana,Punjab",
     contact: "1234567890",
@@ -41,7 +41,7 @@ List<StoreModel> storeData = [
   ),
   new StoreModel(
     storeImage:
-        "https://estimatewala.com/assets/images/dealers/1627452303_Important_Display_Message.jpg",
+        "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg",
     storeName: "IQBAL TELECOM",
     storeAddress: "Giaspura,Ludhiana,Punjab",
     contact: "1234567890",
@@ -51,7 +51,7 @@ List<StoreModel> storeData = [
   ),
   new StoreModel(
     storeImage:
-        "https://estimatewala.com/assets/images/dealers/1627452303_Important_Display_Message.jpg",
+        "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg",
     storeName: "IQBAL TELECOM",
     storeAddress: "Giaspura,Ludhiana,Punjab",
     contact: "1234567890",
@@ -61,7 +61,7 @@ List<StoreModel> storeData = [
   ),
   new StoreModel(
     storeImage:
-        "https://estimatewala.com/assets/images/dealers/1627452303_Important_Display_Message.jpg",
+        "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg",
     storeName: "IQBAL TELECOM",
     storeAddress: "Giaspura,Ludhiana,Punjab",
     contact: "1234567890",

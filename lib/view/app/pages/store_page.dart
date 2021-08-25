@@ -1,3 +1,4 @@
+import 'package:fix_team_app/model/dealer_model.dart';
 import 'package:fix_team_app/model/store_model.dart';
 import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:fix_team_app/view/app/pages/store_detail_page.dart';
@@ -19,201 +20,177 @@ class _StorePageState extends State<StorePage> {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: white,
-        leading: InkWell(
-          onTap: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => HomePage(),
-              ),
-            );
-          },
-          child: Icon(
-            Icons.arrow_back,
-            color: dimGrey,
+        backgroundColor: mainColor,
+        title: Text(
+          "EstimateWale",
+          style: GoogleFonts.poppins(
+            color: white,
+            fontWeight: FontWeight.w600,
           ),
         ),
+        leading: InkWell(
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => HomePage(),
+                ),
+              );
+            },
+            child: Icon(Icons.arrow_back)),
       ),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Container(
-              decoration: BoxDecoration(color: white),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  FutureBuilder(
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      switch (snapshot.connectionState) {
-                        case ConnectionState.waiting:
-                          return CircularProgressIndicator(
-                            color: mainColor,
-                          );
-                        default:
-                          if (snapshot.hasError) {
-                            return Text("error ${snapshot.error}");
-                          } else {
-                            return SingleChildScrollView(
-                              physics: ScrollPhysics(),
-                              scrollDirection: Axis.vertical,
-                              child: Column(
-                                children: [
-                                  ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: storeData.length,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.only(
-                                          top: 30,
-                                          left: 20,
-                                          right: 20,
+      body: Container(
+        height: height,
+        decoration: BoxDecoration(
+          color: white,
+        ),
+        child: ListView.builder(
+          itemCount: dummyData.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.all(12),
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => StoreDetailsPage(
+                        storeAddress: storeData[index].storeAddress,
+                        storeImage: storeData[index].storeImage,
+                        storeName: storeData[index].storeName,
+                        storeContact: storeData[index].contact,
+                        storeEmail: storeData[index].email,
+                        storeExp: storeData[index].shopExp,
+                        storeUser: storeData[index].username,
+                      ),
+                    ),
+                  );
+                },
+                child: Card(
+                  child: Container(
+                    width: width,
+                    child: Column(
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: height / 5.38,
+                              width: width / 3.5,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                    dummyData[index].shopImage,
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 10,
+                                    left: 15,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        dummyData[index].shopName.toString(),
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
                                         ),
-                                        child: InkWell(
-                                          onTap: () {
-                                            Navigator.of(context)
-                                                .pushReplacement(
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    StoreDetailsPage(
-                                                  storeAddress: storeData[index]
-                                                      .storeAddress,
-                                                  storeImage: storeData[index]
-                                                      .storeImage,
-                                                  storeName: storeData[index]
-                                                      .storeName,
-                                                  storeContact:
-                                                      storeData[index].contact,
-                                                  storeEmail:
-                                                      storeData[index].email,
-                                                  storeExp:
-                                                      storeData[index].shopExp,
-                                                  storeUser:
-                                                      storeData[index].username,
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                          child: Container(
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                  height: 80,
-                                                  width: 80,
-                                                  padding: EdgeInsets.all(15),
-                                                  decoration: BoxDecoration(
-                                                    color: mainColor,
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                      topLeft:
-                                                          Radius.circular(10),
-                                                      bottomLeft:
-                                                          Radius.circular(10),
-                                                    ),
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        blurRadius: 1,
-                                                        color: black
-                                                            .withOpacity(0.4),
-                                                        offset: Offset(-0.5, 0),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      image: DecorationImage(
-                                                        image: NetworkImage(
-                                                          storeData[index]
-                                                              .storeImage,
-                                                        ),
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  width: width - 120,
-                                                  height: 80,
-                                                  decoration: BoxDecoration(
-                                                    color: mainColor1,
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                      topRight:
-                                                          Radius.circular(10),
-                                                      bottomRight:
-                                                          Radius.circular(10),
-                                                    ),
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        blurRadius: 1,
-                                                        color: black
-                                                            .withOpacity(0.4),
-                                                        offset:
-                                                            Offset(0.5, 0.5),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 10, left: 10),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          storeData[index]
-                                                              .storeName,
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: dimGrey,
-                                                            fontSize: 16,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          storeData[index]
-                                                              .storeAddress,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: GoogleFonts
-                                                              .poppins(
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: dimGrey,
-                                                            fontSize: 14,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        dummyData[index].dealerName.toString(),
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.grey.shade500,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        dummyData[index]
+                                            .contactNumber
+                                            .toString(),
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.grey.shade500,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        dummyData[index].address.toString(),
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.grey.shade500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 12),
+                                Container(
+                                  height: height / 26,
+                                  width: width / 1.6,
+                                  decoration: BoxDecoration(
+                                    color: mainColor1,
+                                    borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(4),
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 15),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          "Distance: " +
+                                              dummyData[index]
+                                                  .distance
+                                                  .toString(),
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.green,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 80),
+                                          child: Text(
+                                            "\$" +
+                                                dummyData[index]
+                                                    .price
+                                                    .toString(),
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xfff7e841),
                                             ),
                                           ),
                                         ),
-                                      );
-                                    },
+                                      ],
+                                    ),
                                   ),
-                                  SizedBox(height: 80),
-                                ],
-                              ),
-                            );
-                          }
-                      }
-                    },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
-        ],
+            );
+          },
+        ),
       ),
     );
   }

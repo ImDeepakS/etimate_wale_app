@@ -1,6 +1,9 @@
 import 'package:fix_team_app/model/queries_model.dart';
 import 'package:fix_team_app/view/app/homepage.dart';
+import 'package:fix_team_app/view/helpers/colors.dart';
+import 'package:fix_team_app/view/widgets/prob_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class QueriesListPage extends StatefulWidget {
   const QueriesListPage({Key? key}) : super(key: key);
@@ -16,158 +19,144 @@ class _QueriesListPageState extends State<QueriesListPage> {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 10),
-          child: Image(
-            image: AssetImage("assets/logo.png"),
-            height: 20,
+        backgroundColor: mainColor,
+        title: Text(
+          "EstimateWale",
+          style: GoogleFonts.poppins(
+            color: white,
+            fontWeight: FontWeight.w600,
           ),
         ),
-        actions: [
-          InkWell(
-              onTap: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => HomePage(),
-                  ),
-                );
-              },
-              child: Icon(Icons.arrow_back_ios)),
-        ],
+        leading: InkWell(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Icon(Icons.arrow_back),
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Container(
-          width: width,
-          height: height,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Your Queries",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Sr.",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xfff7e841),
-                          shadows: [
-                            Shadow(
-                              offset: Offset(1, 1),
-                              blurRadius: 1,
-                              color: Colors.black,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Container(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      width: width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Your Queries",
+                            style: GoogleFonts.poppins(
+                              color: dimGrey,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
                             ),
-                          ],
-                        ),
+                          ),
+                          SizedBox(height: 20),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "1.",
+                                style: GoogleFonts.poppins(
+                                  color: dimGrey,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Container(
+                                width: width / 1.21,
+                                padding: EdgeInsets.only(
+                                  left: 10,
+                                  right: 10,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: mainColor1,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: black.withOpacity(0.2),
+                                      blurRadius: 1,
+                                      offset: Offset(0.5, 0.5),
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      width: width,
+                                      decoration: BoxDecoration(
+                                        color: mainColor,
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(20),
+                                          bottomRight: Radius.circular(20),
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "B.S Teleshop",
+                                          style: GoogleFonts.poppins(
+                                            color: white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 10),
+                                    ProbTextWidget(
+                                      label: "Mobile :",
+                                      text: "IPhone 6",
+                                    ),
+                                    ProbTextWidget(
+                                      label: "Distance in KM :",
+                                      text: "5 KM",
+                                    ),
+                                    ProbTextWidget(
+                                      label: "Mobile Problem :",
+                                      text: "LCD Broken",
+                                    ),
+                                    SizedBox(height: 10),
+                                    Container(
+                                      width: width,
+                                      decoration: BoxDecoration(
+                                        color: mainColor,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20),
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "\$ 500",
+                                          style: GoogleFonts.poppins(
+                                            color: green,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                      Text(
-                        "Shop",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xfff7e841),
-                          shadows: [
-                            Shadow(
-                              offset: Offset(1, 1),
-                              blurRadius: 1,
-                              color: Colors.black,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Text(
-                        "Brand",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xfff7e841),
-                          shadows: [
-                            Shadow(
-                              offset: Offset(1, 1),
-                              blurRadius: 1,
-                              color: Colors.black,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Text(
-                        "Model",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xfff7e841),
-                          shadows: [
-                            Shadow(
-                              offset: Offset(1, 1),
-                              blurRadius: 1,
-                              color: Colors.black,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Text(
-                        "Problem",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xfff7e841),
-                          shadows: [
-                            Shadow(
-                              offset: Offset(1, 1),
-                              blurRadius: 1,
-                              color: Colors.black,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-              Container(
-                height: height / 1.33,
-                width: width,
-                child: ListView.builder(
-                  itemCount: queriesDummy.length,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              queriesDummy[index].index,
-                            ),
-                            Text(
-                              queriesDummy[index].shopName,
-                            ),
-                            Text(
-                              queriesDummy[index].brand,
-                            ),
-                            Text(
-                              queriesDummy[index].model,
-                            ),
-                            Text(
-                              queriesDummy[index].problem,
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

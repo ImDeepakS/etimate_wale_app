@@ -1,6 +1,7 @@
 import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BlogPage extends StatefulWidget {
   const BlogPage({Key? key}) : super(key: key);
@@ -14,20 +15,23 @@ class _BlogPageState extends State<BlogPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: white,
-        leading: InkWell(
-          onTap: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => HomePage(),
-              ),
-            );
-          },
-          child: Icon(
-            Icons.arrow_back,
-            color: dimGrey,
+        backgroundColor: mainColor,
+        title: Text(
+          "EstimateWale",
+          style: GoogleFonts.poppins(
+            color: white,
+            fontWeight: FontWeight.w600,
           ),
         ),
+        leading: InkWell(
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => HomePage(),
+                ),
+              );
+            },
+            child: Icon(Icons.arrow_back)),
       ),
     );
   }

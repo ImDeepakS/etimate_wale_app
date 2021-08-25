@@ -8,7 +8,7 @@ Future registerUser(BuildContext context, user, email, phone, password, zipcode,
   try {
     final response = await http.post(
         Uri.parse(
-          "https://flymediatech.in/location/application/restapi/userregister.php",
+          "https://estimatewale.com/application/restapi/userregister.php",
         ),
         body: {
           "username": user,

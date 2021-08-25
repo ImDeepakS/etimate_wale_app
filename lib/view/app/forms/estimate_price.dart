@@ -1,17 +1,18 @@
 import 'package:fix_team_app/view/app/homepage.dart';
+import 'package:fix_team_app/view/app/pages/dealers_list.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CreateQueryPage extends StatefulWidget {
-  const CreateQueryPage({Key? key}) : super(key: key);
+class EstimatePricePage extends StatefulWidget {
+  const EstimatePricePage({Key? key}) : super(key: key);
 
   @override
-  _CreateQueryPageState createState() => _CreateQueryPageState();
+  _EstimatePricePageState createState() => _EstimatePricePageState();
 }
 
-class _CreateQueryPageState extends State<CreateQueryPage> {
+class _EstimatePricePageState extends State<EstimatePricePage> {
   String phoneValue = 'HTC';
   String locationValue = '5 KM';
   String problemValue = 'Please Select The Option';
@@ -26,20 +27,23 @@ class _CreateQueryPageState extends State<CreateQueryPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: white,
-        leading: InkWell(
-          onTap: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => HomePage(),
-              ),
-            );
-          },
-          child: Icon(
-            Icons.arrow_back,
-            color: dimGrey,
+        backgroundColor: mainColor,
+        title: Text(
+          "EstimateWale",
+          style: GoogleFonts.poppins(
+            color: white,
+            fontWeight: FontWeight.w600,
           ),
         ),
+        leading: InkWell(
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => HomePage(),
+                ),
+              );
+            },
+            child: Icon(Icons.arrow_back)),
       ),
       body: Stack(
         children: [
@@ -311,6 +315,11 @@ class _CreateQueryPageState extends State<CreateQueryPage> {
                 child: InkWell(
                   onTap: () {
                     FocusManager.instance.primaryFocus!.unfocus();
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => DealersListPage(),
+                      ),
+                    );
                   },
                   child: Container(
                     height: 50,

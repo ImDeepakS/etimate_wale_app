@@ -6,6 +6,7 @@ import 'package:fix_team_app/view/helpers/fade_route.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -105,18 +106,17 @@ class _SplashScreenState extends State<SplashScreen> {
                     _d ? BorderRadius.only() : BorderRadius.circular(30),
               ),
               child: _e
-                  ? Padding(
-                      padding: const EdgeInsets.only(left: 50, top: 20),
+                  ? Center(
                       child: AnimatedTextKit(
                         totalRepeatCount: 1,
                         animatedTexts: [
                           FadeAnimatedText(
-                            "fixteam",
+                            "EstimateWale",
                             duration: Duration(milliseconds: 1700),
-                            textStyle: TextStyle(
-                              fontSize: 30,
+                            textStyle: GoogleFonts.poppins(
+                              fontSize: 20,
                               fontWeight: FontWeight.w700,
-                              color: Colors.black,
+                              color: dimGrey,
                             ),
                           ),
                         ],

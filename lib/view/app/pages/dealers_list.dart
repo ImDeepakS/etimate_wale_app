@@ -1,6 +1,8 @@
 import 'package:fix_team_app/model/dealer_model.dart';
 import 'package:fix_team_app/view/app/pages/dealer_profile.dart';
+import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DealersListPage extends StatefulWidget {
   const DealersListPage({Key? key}) : super(key: key);
@@ -17,19 +19,19 @@ class _DealersListPageState extends State<DealersListPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 10),
-          child: Image(
-            image: AssetImage("assets/logo.png"),
-            height: 20,
+        backgroundColor: mainColor,
+        title: Text(
+          "EstimateWale",
+          style: GoogleFonts.poppins(
+            color: white,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),
       body: Container(
         height: height,
         decoration: BoxDecoration(
-          color: Colors.grey.shade300,
+          color: white,
         ),
         child: ListView.builder(
           itemCount: dummyData.length,
@@ -54,7 +56,6 @@ class _DealersListPageState extends State<DealersListPage> {
                 },
                 child: Card(
                   child: Container(
-                    height: height / 6,
                     width: width,
                     child: Column(
                       children: [
@@ -62,7 +63,7 @@ class _DealersListPageState extends State<DealersListPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              height: height / 6,
+                              height: height / 5.38,
                               width: width / 3.5,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
@@ -87,7 +88,7 @@ class _DealersListPageState extends State<DealersListPage> {
                                     children: [
                                       Text(
                                         dummyData[index].shopName.toString(),
-                                        style: TextStyle(
+                                        style: GoogleFonts.poppins(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -95,7 +96,7 @@ class _DealersListPageState extends State<DealersListPage> {
                                       SizedBox(height: 5),
                                       Text(
                                         dummyData[index].dealerName.toString(),
-                                        style: TextStyle(
+                                        style: GoogleFonts.poppins(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w500,
                                           color: Colors.grey.shade500,
@@ -106,7 +107,7 @@ class _DealersListPageState extends State<DealersListPage> {
                                         dummyData[index]
                                             .contactNumber
                                             .toString(),
-                                        style: TextStyle(
+                                        style: GoogleFonts.poppins(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w500,
                                           color: Colors.grey.shade500,
@@ -115,7 +116,7 @@ class _DealersListPageState extends State<DealersListPage> {
                                       SizedBox(height: 5),
                                       Text(
                                         dummyData[index].address.toString(),
-                                        style: TextStyle(
+                                        style: GoogleFonts.poppins(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w500,
                                           color: Colors.grey.shade500,
@@ -129,7 +130,7 @@ class _DealersListPageState extends State<DealersListPage> {
                                   height: height / 26,
                                   width: width / 1.6,
                                   decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.7),
+                                    color: mainColor1,
                                     borderRadius: BorderRadius.only(
                                       bottomRight: Radius.circular(4),
                                     ),
@@ -143,7 +144,7 @@ class _DealersListPageState extends State<DealersListPage> {
                                               dummyData[index]
                                                   .distance
                                                   .toString(),
-                                          style: TextStyle(
+                                          style: GoogleFonts.poppins(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w500,
                                             color: Colors.green,
@@ -157,7 +158,7 @@ class _DealersListPageState extends State<DealersListPage> {
                                                 dummyData[index]
                                                     .price
                                                     .toString(),
-                                            style: TextStyle(
+                                            style: GoogleFonts.poppins(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w500,
                                               color: Color(0xfff7e841),

@@ -1,3 +1,4 @@
+import 'package:fix_team_app/view/app/forms/estimate_price.dart';
 import 'package:fix_team_app/view/app/users/dealer_register_page.dart';
 import 'package:fix_team_app/view/app/users/user_register_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
@@ -59,7 +60,7 @@ class ProfilePage extends StatelessWidget {
                                 PopupMenuItem(
                                   child: InkWell(
                                     onTap: () {
-                                      Navigator.of(context).pushReplacement(
+                                      Navigator.of(context).push(
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               UserRegisterPage(),
@@ -203,16 +204,26 @@ class ProfilePage extends StatelessWidget {
                               ),
                             ),
                             children: [
-                              Container(
-                                padding: EdgeInsets.only(
-                                  left: 15,
-                                  bottom: 15,
-                                ),
-                                child: Text(
-                                  "Repair Your phone",
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    color: shadyGrey,
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => EstimatePricePage(),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                    left: 15,
+                                    bottom: 15,
+                                  ),
+                                  child: Text(
+                                    "Repair Your phone",
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      color: shadyGrey,
+                                    ),
                                   ),
                                 ),
                               ),

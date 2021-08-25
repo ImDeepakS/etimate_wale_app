@@ -1,5 +1,6 @@
 import 'package:fix_team_app/controller/dealer/register_dealer_controller.dart';
 import 'package:fix_team_app/model/radio_data_model.dart';
+import 'package:fix_team_app/view/app/pages/profile_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
 import 'package:fix_team_app/view/widgets/text_field_widget.dart';
@@ -58,23 +59,19 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        backgroundColor: white,
-        leading: InkWell(
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-          child: Container(
-            padding: EdgeInsets.only(left: 10, top: 10),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.arrow_back,
-                  color: dimGrey,
-                ),
-              ],
-            ),
+        backgroundColor: mainColor,
+        title: Text(
+          "EstimateWale",
+          style: GoogleFonts.poppins(
+            color: white,
+            fontWeight: FontWeight.w600,
           ),
         ),
+        leading: InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Icon(Icons.arrow_back)),
       ),
       body: Stack(
         children: [
@@ -101,7 +98,7 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                       right: 10,
                     ),
                     child: Text(
-                      "Sign Up",
+                      "Retailer Sign Up",
                       style: GoogleFonts.poppins(
                         color: dimGrey,
                         fontWeight: FontWeight.w600,
@@ -145,7 +142,7 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                           TextFieldWidget(
                             message: "Shop name can't be empty",
                             controller: shopNameController,
-                            inputType: TextInputType.phone,
+                            inputType: TextInputType.name,
                           ),
                           SizedBox(height: 20),
                           LabelText(label: "Address"),
@@ -185,7 +182,7 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                           TextFieldWidget(
                             message: "Instagram ID can't be empty",
                             controller: instaController,
-                            inputType: TextInputType.phone,
+                            inputType: TextInputType.emailAddress,
                           ),
                           SizedBox(height: 20),
                           LabelText(label: "Shop From Last How Many Years?"),

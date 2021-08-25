@@ -23,7 +23,7 @@ Future registerDealer(
   try {
     final response = await http.post(
         Uri.parse(
-          "https://flymediatech.in/location/application/restapi/dealerregister.php",
+          "https://estimatewale.com/application/restapi/dealerregister.php",
         ),
         body: {
           "username": user,
