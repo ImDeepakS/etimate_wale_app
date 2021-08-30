@@ -99,41 +99,6 @@ class AboutUsPage extends StatelessWidget {
                   ],
                 ),
               ),
-              // Container(
-              //   height: height,
-              //   width: width,
-              //   padding: EdgeInsets.all(10),
-              //   child: GridView.builder(
-              //     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              //         maxCrossAxisExtent: 2),
-              //     itemBuilder: (BuildContext context, int index) {
-              //       return Column(
-              //         children: [
-              //           Container(
-              //             height: 40,
-              //             width: 40,
-              //             decoration: BoxDecoration(
-              //               color: white,
-              //               borderRadius: BorderRadius.circular(10),
-              //               boxShadow: [
-              //                 BoxShadow(
-              //                   color: black.withOpacity(0.2),
-              //                   blurRadius: 5,
-              //                   offset: Offset(0.5, 0.5),
-              //                 ),
-              //               ],
-              //             ),
-              //             child: Center(
-              //               child: Image(
-              //                 image: AssetImage("assets/price_icon.png"),
-              //               ),
-              //             ),
-              //           ),
-              //         ],
-              //       );
-              //     },
-              //   ),
-              // ),
             ],
           ),
         ),
