@@ -1,6 +1,9 @@
 import 'package:fix_team_app/view/app/forms/estimate_price.dart';
 import 'package:fix_team_app/view/app/pages/about_page.dart';
 import 'package:fix_team_app/view/app/pages/contact_page.dart';
+import 'package:fix_team_app/view/app/pages/my_account_page.dart';
+import 'package:fix_team_app/view/app/pages/term_page.dart';
+import 'package:fix_team_app/view/app/pages/testimonial_page.dart';
 import 'package:fix_team_app/view/app/users/dealer_register_page.dart';
 import 'package:fix_team_app/view/app/users/user_register_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
@@ -193,6 +196,32 @@ class ProfilePage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MyAccountPage(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding:
+                                EdgeInsets.only(top: 15, bottom: 15, left: 15),
+                            child: Text(
+                              "My Account",
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: dimGrey,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Divider(
+                          height: 1,
+                          color: black,
+                        ),
                         Theme(
                           data: Theme.of(context)
                               .copyWith(dividerColor: Colors.transparent),
@@ -288,15 +317,25 @@ class ProfilePage extends StatelessWidget {
                           height: 1,
                           color: black,
                         ),
-                        Container(
-                          padding:
-                              EdgeInsets.only(top: 15, bottom: 15, left: 15),
-                          child: Text(
-                            "Terms & Conditions!",
-                            style: GoogleFonts.poppins(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: dimGrey,
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TermsConditionPage(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding:
+                                EdgeInsets.only(top: 15, bottom: 15, left: 15),
+                            child: Text(
+                              "Terms & Conditions!",
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: dimGrey,
+                              ),
                             ),
                           ),
                         ),
@@ -304,15 +343,25 @@ class ProfilePage extends StatelessWidget {
                           height: 1,
                           color: black,
                         ),
-                        Container(
-                          padding:
-                              EdgeInsets.only(top: 15, bottom: 15, left: 15),
-                          child: Text(
-                            "Our Testomonials!",
-                            style: GoogleFonts.poppins(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: dimGrey,
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TestimonialPage(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding:
+                                EdgeInsets.only(top: 15, bottom: 15, left: 15),
+                            child: Text(
+                              "Our Testomonials!",
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: dimGrey,
+                              ),
                             ),
                           ),
                         ),

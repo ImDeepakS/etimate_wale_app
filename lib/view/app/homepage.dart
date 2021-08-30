@@ -237,107 +237,56 @@ class HomeWidget extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  Container(
-                                    padding: EdgeInsets.only(left: 130),
-                                    child: Row(
-                                      children: [
-                                        Stack(
-                                          children: [
-                                            Icon(
-                                              Icons.favorite,
-                                              color: shadyGrey,
-                                              size: 24,
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                left: 16,
-                                              ),
-                                              child: Container(
-                                                width: 10,
-                                                height: 10,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: mainColor,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(width: 8),
-                                        Stack(
-                                          children: [
-                                            Icon(
-                                              Icons.shopping_cart,
-                                              color: shadyGrey,
-                                              size: 24,
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                left: 16,
-                                              ),
-                                              child: Container(
-                                                width: 10,
-                                                height: 10,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: mainColor,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
                                 ],
                               ),
                             ),
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 20, right: 20),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => SearchFile(),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            width: width / 1.2,
-                            height: 35,
-                            decoration: BoxDecoration(
-                              color: white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  offset: Offset(0.5, 0.5),
-                                  blurRadius: 5,
-                                  color: black.withOpacity(0.1),
-                                ),
-                              ],
-                            ),
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.search,
-                                  size: 20,
-                                ),
-                                border: InputBorder.none,
-                                hintText: "What you want to sell?",
-                                hintStyle: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 12,
-                                  color: dimGrey,
-                                ),
-                                enabled: false,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.only(left: 20, right: 20),
+                      //   child: InkWell(
+                      //     onTap: () {
+                      //       Navigator.of(context).push(
+                      //         MaterialPageRoute(
+                      //           builder: (context) => SearchFile(),
+                      //         ),
+                      //       );
+                      //     },
+                      //     child: Container(
+                      //       width: width / 1.2,
+                      //       height: 35,
+                      //       decoration: BoxDecoration(
+                      //         color: white,
+                      //         borderRadius: BorderRadius.circular(10),
+                      //         boxShadow: [
+                      //           BoxShadow(
+                      //             offset: Offset(0.5, 0.5),
+                      //             blurRadius: 5,
+                      //             color: black.withOpacity(0.1),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //       child: TextFormField(
+                      //         decoration: InputDecoration(
+                      //           prefixIcon: Icon(
+                      //             Icons.search,
+                      //             size: 20,
+                      //           ),
+                      //           border: InputBorder.none,
+                      //           hintText: "What you want to sell?",
+                      //           hintStyle: GoogleFonts.poppins(
+                      //             fontWeight: FontWeight.w500,
+                      //             fontSize: 12,
+                      //             color: dimGrey,
+                      //           ),
+                      //           enabled: false,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         padding: EdgeInsets.only(bottom: 10),

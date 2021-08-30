@@ -99,6 +99,519 @@ class AboutUsPage extends StatelessWidget {
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
+                child: Container(
+                  width: width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(
+                              left: 20,
+                              right: 20,
+                              bottom: 10,
+                            ),
+                            width: 120,
+                            height: 130,
+                            decoration: BoxDecoration(
+                              color: white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: black.withOpacity(0.2),
+                                  blurRadius: 5,
+                                  offset: Offset(0.5, 0.5),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 80,
+                                  height: 80,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image:
+                                          AssetImage("assets/price_icon.png"),
+                                    ),
+                                    color: white,
+                                  ),
+                                ),
+                                Text(
+                                  "Best price Estimate",
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12,
+                                    color: shadyGrey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(
+                              left: 20,
+                              right: 20,
+                              bottom: 10,
+                            ),
+                            width: 120,
+                            height: 130,
+                            decoration: BoxDecoration(
+                              color: white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: black.withOpacity(0.2),
+                                  blurRadius: 5,
+                                  offset: Offset(0.5, 0.5),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 70,
+                                  height: 70,
+                                  padding: EdgeInsets.only(top: 10),
+                                  decoration: BoxDecoration(
+                                    color: white,
+                                  ),
+                                  child: Center(
+                                    child: Image(
+                                      image: AssetImage("assets/premium.png"),
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  "Premium Repair",
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12,
+                                    color: shadyGrey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(
+                              left: 20,
+                              right: 20,
+                              bottom: 10,
+                            ),
+                            width: 120,
+                            height: 130,
+                            decoration: BoxDecoration(
+                              color: white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: black.withOpacity(0.2),
+                                  blurRadius: 5,
+                                  offset: Offset(0.5, 0.5),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 80,
+                                  height: 80,
+                                  decoration: BoxDecoration(
+                                    color: white,
+                                  ),
+                                  padding: EdgeInsets.only(top: 10),
+                                  child: Center(
+                                    child: Image(
+                                      image:
+                                          AssetImage("assets/repair_icon.png"),
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  "Instant Mobile Repair",
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 11,
+                                    color: shadyGrey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(
+                              left: 20,
+                              right: 20,
+                              bottom: 10,
+                            ),
+                            width: 120,
+                            height: 130,
+                            decoration: BoxDecoration(
+                              color: white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: black.withOpacity(0.2),
+                                  blurRadius: 5,
+                                  offset: Offset(0.5, 0.5),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 80,
+                                  height: 80,
+                                  decoration: BoxDecoration(
+                                    color: white,
+                                  ),
+                                  padding: EdgeInsets.only(top: 10),
+                                  child: Center(
+                                    child: Image(
+                                      image: AssetImage(
+                                          "assets/technician_icon.png"),
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  "Skilled Technicians",
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12,
+                                    color: shadyGrey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(
+                                left: 20,
+                                right: 20,
+                                bottom: 10,
+                              ),
+                              width: 120,
+                              height: 130,
+                              decoration: BoxDecoration(
+                                color: white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: black.withOpacity(0.2),
+                                    blurRadius: 5,
+                                    offset: Offset(0.5, 0.5),
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    height: 80,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            "assets/safety_icon.png"),
+                                      ),
+                                      color: white,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Guaranteed Safety",
+                                    style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 11,
+                                      color: shadyGrey,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 30),
+              Container(
+                width: width,
+                decoration: BoxDecoration(
+                  color: mainColor,
+                ),
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Container(
+                      width: width,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 80,
+                            width: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage("assets/clients.png"),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Container(
+                            width: 2,
+                            height: 80,
+                            color: white,
+                          ),
+                          SizedBox(width: 16),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Happy Clients",
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    color: white.withOpacity(0.6),
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Text(
+                                  "94816",
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    color: white.withOpacity(0.8),
+                                    fontSize: 24,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      width: width,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  "Completed Deals",
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    color: white.withOpacity(0.6),
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Text(
+                                  "102370",
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    color: white.withOpacity(0.8),
+                                    fontSize: 24,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: 16),
+                          Container(
+                            width: 2,
+                            height: 80,
+                            color: white,
+                          ),
+                          SizedBox(width: 10),
+                          Container(
+                            height: 80,
+                            width: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage("assets/deal.png"),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      width: width,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 80,
+                            width: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage("assets/project.png"),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Container(
+                            width: 2,
+                            height: 80,
+                            color: white,
+                          ),
+                          SizedBox(width: 16),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Running Projects",
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    color: white.withOpacity(0.6),
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Text(
+                                  "579",
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    color: white.withOpacity(0.8),
+                                    fontSize: 24,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      width: width,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  "Award Winning",
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    color: white.withOpacity(0.6),
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Text(
+                                  "3226",
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    color: white.withOpacity(0.8),
+                                    fontSize: 24,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: 16),
+                          Container(
+                            width: 2,
+                            height: 80,
+                            color: white,
+                          ),
+                          SizedBox(width: 10),
+                          Container(
+                            height: 80,
+                            width: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage("assets/award.png"),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 30),
+              Container(
+                width: width,
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: width / 1.45,
+                      child: SizedBox(
+                        width: width / 1.2,
+                        child: Text(
+                          "Looking For A Fast & Reliable Repair Service",
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 12,
+                            color: dimGrey,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: mainColor,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        "Estimate",
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 30),
             ],
           ),
         ),
