@@ -52,8 +52,8 @@ class _SplashScreenState extends State<SplashScreen> {
     });
     Timer(Duration(milliseconds: 3850), () {
       setState(() {
-        Navigator.of(context).pushReplacement(
-            ThisIsFadeRoute(route: HomePage(), page: HomePage()));
+        Navigator.of(context)
+            .push(ThisIsFadeRoute(route: HomePage(), page: HomePage()));
       });
     });
   }

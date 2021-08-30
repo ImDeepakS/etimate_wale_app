@@ -1,10 +1,17 @@
 import 'package:fix_team_app/controller/login/login_controller.dart';
 import 'package:fix_team_app/view/app/homepage.dart';
+import 'package:fix_team_app/view/helpers/colors.dart';
+import 'package:fix_team_app/view/widgets/label_widget.dart';
 import 'package:fix_team_app/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  final int loginAs;
+  const LoginPage({
+    Key? key,
+    required this.loginAs,
+  }) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -14,227 +21,204 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: Container(
-        height: height,
-        width: width,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: AssetImage(
-              "assets/background.jpg",
-            ),
+      appBar: AppBar(
+        backgroundColor: mainColor,
+        title: Text(
+          "EstimateWale",
+          style: GoogleFonts.poppins(
+            color: white,
+            fontWeight: FontWeight.w600,
           ),
         ),
-        child: SafeArea(
-          child: SingleChildScrollView(
+        leading: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomePage(),
+              ),
+            );
+          },
+          child: Icon(Icons.arrow_back),
+        ),
+      ),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
             scrollDirection: Axis.vertical,
-            child: Column(
-              children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => HomePage(),
-                              ),
-                            );
-                          },
-                          child: Icon(
-                            Icons.arrow_back_ios,
-                            color: Colors.white,
-                          ),
-                        ),
+            child: Container(
+              width: width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: height / 3,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/Sign-in.png"),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 30),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 10,
+                      right: 10,
+                    ),
+                    child: Text(
+                      "Login as ",
+                      style: GoogleFonts.poppins(
+                        color: dimGrey,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Form(
+                      key: _formKey,
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Image(
-                            image: AssetImage(
-                              "assets/logo.png",
-                            ),
+                          LabelText(label: "Please Enter Username"),
+                          SizedBox(height: 10),
+                          TextFieldWidget(
+                            controller: usernameController,
+                            hint: "Enter username",
+                            inputType: TextInputType.name,
+                            message: "Username is empty",
                           ),
                           SizedBox(height: 20),
-                          Text(
-                            "We Can Help You Know",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 22,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 50),
-                  child: Container(
-                    height: height / 2.2,
-                    width: width / 1.2,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(7),
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 30),
-                        Text(
-                          "Sign In",
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black,
-                          ),
-                        ),
-                        SizedBox(height: 7),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              color: Color(0xFFf7e841),
-                              height: 2,
-                              width: width / 20,
-                            ),
-                            Container(
-                              color: Colors.black,
-                              height: 2,
-                              width: width / 9.5,
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 40),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 30,
-                            right: 30,
-                          ),
-                          child: TextFieldWidget(
-                            message: "Username can't be empty",
-                            inputType: TextInputType.emailAddress,
-                            controller: usernameController,
-                            hint: "Enter Username",
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 30,
-                            right: 30,
-                          ),
-                          child: TextFieldWidget(
-                            message: "Password can't be empty",
-                            inputType: TextInputType.emailAddress,
+                          LabelText(label: "Please Enter Password"),
+                          SizedBox(height: 10),
+                          PasswordFieldWidget(
                             controller: passwordController,
-                            hint: "Enter Password",
+                            hint: "Enter Paasword",
+                            inputType: TextInputType.visiblePassword,
+                            message: "Password is empty",
+                            securetext: true,
                           ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: 10, bottom: 20),
-                          width: width,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                          SizedBox(height: 30),
+                          Column(
                             children: [
-                              Text(
-                                "Don't remember your password?",
-                                style: TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
+                              Center(
+                                child: Text(
+                                  "Also Sign In With",
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w500,
+                                    color: shadyGrey,
+                                  ),
                                 ),
                               ),
-                              InkWell(
-                                onTap: () {},
-                                child: Text(
-                                  " Click Here",
-                                  style: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                              SizedBox(height: 10),
+                              Container(
+                                width: 90,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      height: 42,
+                                      width: 42,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image:
+                                              AssetImage("assets/fb_icon.png"),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage(
+                                              "assets/google_icon.png"),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: width,
+              decoration: BoxDecoration(
+                color: white,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: InkWell(
+                  onTap: () {
+                    FocusManager.instance.primaryFocus!.unfocus();
+                    if (usernameController.text == "" &&
+                        passwordController.text == "") {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: new Text("Please fill all the details"),
+                            actions: <Widget>[
+                              TextButton(
+                                child: new Text("OK"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      login(
+                        context,
+                        usernameController.text,
+                        passwordController.text,
+                      );
+                    }
+                  },
+                  child: Container(
+                    height: 50,
+                    child: Center(
+                      child: Text(
+                        "Login",
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                          letterSpacing: 1,
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 30),
-                          child: InkWell(
-                            onTap: () {
-                              login(
-                                context,
-                                usernameController.text,
-                                passwordController.text,
-                              );
-                            },
-                            child: Container(
-                              padding: EdgeInsets.only(
-                                top: 10,
-                                bottom: 10,
-                                left: 35,
-                                right: 35,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.black,
-                              ),
-                              child: Text(
-                                "Login",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      color: mainColor,
+                      borderRadius: BorderRadius.circular(3),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: Column(
-                    children: [
-                      Text(
-                        "Also Sign In with :-",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 20,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 18),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image(image: AssetImage("assets/fb_icon.png")),
-                            SizedBox(width: 10),
-                            Image(image: AssetImage("assets/google_icon.png")),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

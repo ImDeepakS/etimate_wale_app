@@ -1,5 +1,6 @@
 import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:fix_team_app/view/app/pages/dealers_list.dart';
+import 'package:fix_team_app/view/app/pages/profile_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
 import 'package:flutter/material.dart';
@@ -37,9 +38,9 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
         ),
         leading: InkWell(
             onTap: () {
-              Navigator.of(context).pushReplacement(
+              Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => HomePage(),
+                  builder: (context) => ProfilePage(),
                 ),
               );
             },

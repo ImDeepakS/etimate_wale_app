@@ -233,7 +233,7 @@ class _DealerProfilePageState extends State<DealerProfilePage> {
               padding: const EdgeInsets.only(bottom: 10),
               child: InkWell(
                 onTap: () {
-                  Navigator.of(context).pushReplacement(
+                  Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => QueriesListPage(),
                     ),

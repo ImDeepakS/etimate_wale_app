@@ -1,6 +1,5 @@
 import 'package:fix_team_app/controller/dealer/register_dealer_controller.dart';
 import 'package:fix_team_app/model/radio_data_model.dart';
-import 'package:fix_team_app/view/app/pages/profile_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
 import 'package:fix_team_app/view/widgets/text_field_widget.dart';

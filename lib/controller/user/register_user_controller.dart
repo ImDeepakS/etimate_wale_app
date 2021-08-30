@@ -32,7 +32,9 @@ Future registerUser(BuildContext context, user, email, phone, password, zipcode,
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => LoginPage(),
+                      builder: (context) => LoginPage(
+                        loginAs: 1,
+                      ),
                     ),
                   );
                 },

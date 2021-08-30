@@ -1,4 +1,5 @@
 import 'package:fix_team_app/view/app/splash_screen.dart';
+import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -14,6 +15,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        canvasColor: white,
+      ),
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
     );

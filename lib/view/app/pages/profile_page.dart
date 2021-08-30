@@ -1,4 +1,6 @@
 import 'package:fix_team_app/view/app/forms/estimate_price.dart';
+import 'package:fix_team_app/view/app/pages/about_page.dart';
+import 'package:fix_team_app/view/app/pages/contact_page.dart';
 import 'package:fix_team_app/view/app/users/dealer_register_page.dart';
 import 'package:fix_team_app/view/app/users/user_register_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
@@ -80,7 +82,7 @@ class ProfilePage extends StatelessWidget {
                                 PopupMenuItem(
                                   child: InkWell(
                                     onTap: () {
-                                      Navigator.of(context).pushReplacement(
+                                      Navigator.of(context).push(
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               DealerRegisterPage(),
@@ -234,15 +236,25 @@ class ProfilePage extends StatelessWidget {
                           height: 1,
                           color: black,
                         ),
-                        Container(
-                          padding:
-                              EdgeInsets.only(top: 15, bottom: 15, left: 15),
-                          child: Text(
-                            "Contact Us!",
-                            style: GoogleFonts.poppins(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: dimGrey,
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ContactUsPage(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding:
+                                EdgeInsets.only(top: 15, bottom: 15, left: 15),
+                            child: Text(
+                              "Contact Us!",
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: dimGrey,
+                              ),
                             ),
                           ),
                         ),
@@ -250,15 +262,25 @@ class ProfilePage extends StatelessWidget {
                           height: 1,
                           color: black,
                         ),
-                        Container(
-                          padding:
-                              EdgeInsets.only(top: 15, bottom: 15, left: 15),
-                          child: Text(
-                            "About Us!",
-                            style: GoogleFonts.poppins(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: dimGrey,
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AboutUsPage(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding:
+                                EdgeInsets.only(top: 15, bottom: 15, left: 15),
+                            child: Text(
+                              "About Us!",
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: dimGrey,
+                              ),
                             ),
                           ),
                         ),

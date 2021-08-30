@@ -55,7 +55,9 @@ Future registerDealer(
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => LoginPage(),
+                      builder: (context) => LoginPage(
+                        loginAs: 2,
+                      ),
                     ),
                   );
                 },
@@ -83,6 +85,6 @@ Future registerDealer(
       );
     }
   } on Exception catch (e) {
-    print("exception is: " + e.toString());
+    print("exception is : " + e.toString());
   }
 }

@@ -37,13 +37,13 @@ class _HomePageState extends State<HomePage> {
         _selectedIndex = index;
       });
     } else if (index == 2) {
-      Navigator.of(context).pushReplacement(
+      Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => BlogPage(),
         ),
       );
     } else if (index == 3) {
-      Navigator.of(context).pushReplacement(
+      Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => EstimatePricePage(),
         ),
@@ -299,7 +299,7 @@ class HomeWidget extends StatelessWidget {
                         padding: EdgeInsets.only(left: 20, right: 20),
                         child: InkWell(
                           onTap: () {
-                            Navigator.of(context).pushReplacement(
+                            Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => SearchFile(),
                               ),

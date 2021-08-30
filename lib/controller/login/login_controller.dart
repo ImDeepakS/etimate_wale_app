@@ -1,12 +1,10 @@
 import 'dart:convert';
-
-import 'package:fix_team_app/view/app/homepage.dart';
+import 'package:fix_team_app/view/app/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 Future login(BuildContext context, username, password) async {
-  String apiurl =
-      "https://flymediatech.in/location/application/restapi/login.php";
+  String apiurl = "https://estimatewale.com/application/restapi/login.php";
   var response = await http.post(Uri.parse(apiurl), body: {
     'username': username, //get the username text
     'password': password, //get password text
@@ -25,7 +23,7 @@ Future login(BuildContext context, username, password) async {
               onPressed: () {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
+                    builder: (context) => ProfilePage(),
                   ),
                 );
               },

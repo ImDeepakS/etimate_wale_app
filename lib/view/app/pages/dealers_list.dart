@@ -40,7 +40,7 @@ class _DealersListPageState extends State<DealersListPage> {
               padding: const EdgeInsets.all(12),
               child: InkWell(
                 onTap: () {
-                  Navigator.of(context).pushReplacement(
+                  Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => DealerProfilePage(
                         shopImage: dummyData[index].shopImage,
