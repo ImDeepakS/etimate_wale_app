@@ -1,6 +1,5 @@
 import 'package:fix_team_app/controller/user/register_user_controller.dart';
 import 'package:fix_team_app/model/user_register_model.dart';
-import 'package:fix_team_app/view/app/pages/profile_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
 import 'package:fix_team_app/view/widgets/text_field_widget.dart';
@@ -21,8 +20,6 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
-  TextEditingController zipcodeController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
 
   bool userCreated = false;
 
@@ -36,6 +33,7 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: mainColor,
         title: Text(
@@ -62,7 +60,7 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    height: height / 3,
+                    height: height / 4,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("assets/login-art.png"),
@@ -75,7 +73,7 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                       right: 10,
                     ),
                     child: Text(
-                      "Customer Sign Up",
+                      "Sign Up",
                       style: GoogleFonts.poppins(
                         color: dimGrey,
                         fontWeight: FontWeight.w600,
@@ -136,24 +134,6 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                             inputType: TextInputType.phone,
                             message: "Password not match",
                           ),
-                          SizedBox(height: 20),
-                          LabelText(label: "Zipcode"),
-                          SizedBox(height: 10),
-                          TextFieldWidget(
-                            message: "Zipcode can't be empty",
-                            hint: "Enter Zipcode",
-                            controller: zipcodeController,
-                            inputType: TextInputType.number,
-                          ),
-                          SizedBox(height: 20),
-                          LabelText(label: "Address"),
-                          SizedBox(height: 10),
-                          TextFieldWidget(
-                            message: "Address can't be empty",
-                            hint: "Enter Address",
-                            controller: addressController,
-                            inputType: TextInputType.streetAddress,
-                          ),
                           SizedBox(height: 80),
                         ],
                       ),
@@ -184,8 +164,6 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                           emailController.text,
                           phoneController.text,
                           passwordController.text,
-                          zipcodeController.text,
-                          addressController.text,
                         );
                         // ScaffoldMessenger.of(context).showSnackBar(
                         //   SnackBar(
@@ -199,8 +177,6 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                           phoneController.clear();
                           passwordController.clear();
                           confirmPasswordController.clear();
-                          zipcodeController.clear();
-                          addressController.clear();
                         });
                       });
                     }

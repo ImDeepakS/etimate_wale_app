@@ -1,16 +1,19 @@
+import 'dart:convert';
+
 import 'package:fix_team_app/controller/login/login_controller.dart';
 import 'package:fix_team_app/view/app/homepage.dart';
+import 'package:fix_team_app/view/app/pages/forgot_password_page.dart';
+import 'package:fix_team_app/view/app/users/user_register_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
 import 'package:fix_team_app/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
-  final int loginAs;
   const LoginPage({
     Key? key,
-    required this.loginAs,
   }) : super(key: key);
 
   @override
@@ -60,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    height: height / 3,
+                    height: height / 4,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("assets/Sign-in.png"),
@@ -105,6 +108,67 @@ class _LoginPageState extends State<LoginPage> {
                             inputType: TextInputType.visiblePassword,
                             message: "Password is empty",
                             securetext: true,
+                          ),
+                          Container(
+                            width: width,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Don't have an account?",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w600,
+                                    color: shadyGrey,
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            UserRegisterPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: Text(
+                                    "Sign Up",
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: mainColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ForgotPasswordPage(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: width,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Forgot Your Password",
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600,
+                                      color: mainColor1,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                           SizedBox(height: 30),
                           Column(

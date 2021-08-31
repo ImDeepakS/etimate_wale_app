@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:fix_team_app/view/app/homepage.dart';
+import 'package:fix_team_app/view/app/loginpage.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/helpers/fade_route.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -52,8 +52,12 @@ class _SplashScreenState extends State<SplashScreen> {
     });
     Timer(Duration(milliseconds: 3850), () {
       setState(() {
-        Navigator.of(context)
-            .push(ThisIsFadeRoute(route: HomePage(), page: HomePage()));
+        Navigator.of(context).push(
+          ThisIsFadeRoute(
+            route: LoginPage(),
+            page: LoginPage(),
+          ),
+        );
       });
     });
   }

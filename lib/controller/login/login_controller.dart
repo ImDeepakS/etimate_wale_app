@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:fix_team_app/view/app/pages/profile_page.dart';
+import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -9,7 +9,7 @@ Future login(BuildContext context, username, password) async {
     'username': username, //get the username text
     'password': password, //get password text
   });
-  var message = json.decode(json.encode(response.body));
+  var message = json.decode(response.body);
 
   if (response.statusCode == 200) {
     showDialog(
@@ -21,11 +21,18 @@ Future login(BuildContext context, username, password) async {
             TextButton(
               child: new Text("OK"),
               onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => ProfilePage(),
-                  ),
-                );
+                if (message == "Login Successful") {
+                  print("message");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomePage(),
+                    ),
+                  );
+                } else {
+                  print("error message");
+                  Navigator.pop(context);
+                }
               },
             ),
           ],

@@ -55,9 +55,7 @@ Future registerDealer(
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => LoginPage(
-                        loginAs: 2,
-                      ),
+                      builder: (context) => LoginPage(),
                     ),
                   );
                 },

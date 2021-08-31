@@ -3,8 +3,7 @@ import 'package:fix_team_app/view/app/loginpage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-Future registerUser(BuildContext context, user, email, phone, password, zipcode,
-    address) async {
+Future registerUser(BuildContext context, user, email, phone, password) async {
   try {
     final response = await http.post(
         Uri.parse(
@@ -15,8 +14,6 @@ Future registerUser(BuildContext context, user, email, phone, password, zipcode,
           "email": email,
           "contact": phone,
           "password": password,
-          "zipcode": zipcode,
-          "address": address,
         });
     var message = jsonDecode(json.encode(response.body));
 
@@ -32,9 +29,7 @@ Future registerUser(BuildContext context, user, email, phone, password, zipcode,
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => LoginPage(
-                        loginAs: 1,
-                      ),
+                      builder: (context) => LoginPage(),
                     ),
                   );
                 },
