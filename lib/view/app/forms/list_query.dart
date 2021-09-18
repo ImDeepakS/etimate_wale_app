@@ -1,5 +1,3 @@
-import 'package:fix_team_app/model/queries_model.dart';
-import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/prob_text_widget.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,4 @@
 import 'package:fix_team_app/view/app/forms/list_query.dart';
-import 'package:fix_team_app/view/app/pages/dealers_list.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/prob_text_widget.dart';
 import 'package:flutter/material.dart';

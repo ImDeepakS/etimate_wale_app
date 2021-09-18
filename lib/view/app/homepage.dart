@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fix_team_app/model/brand_model.dart';
 import 'package:fix_team_app/view/app/forms/estimate_price.dart';
-import 'package:fix_team_app/view/app/forms/search_file.dart';
 import 'package:fix_team_app/view/app/pages/blog_page.dart';
 import 'package:fix_team_app/view/app/pages/profile_page.dart';
 import 'package:fix_team_app/view/app/pages/store_page.dart';

@@ -1,9 +1,6 @@
 import 'package:fix_team_app/view/app/forms/accepted_queries.dart';
 import 'package:fix_team_app/view/app/forms/declined_queries.dart';
 import 'package:fix_team_app/view/app/forms/generated_queris.dart';
-import 'package:fix_team_app/view/app/pages/contact_page.dart';
-import 'package:fix_team_app/view/app/pages/term_page.dart';
-import 'package:fix_team_app/view/app/pages/testimonial_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

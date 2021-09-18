@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:fix_team_app/view/app/loginpage.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/helpers/fade_route.dart';

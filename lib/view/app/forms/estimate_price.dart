@@ -1,4 +1,3 @@
-import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:fix_team_app/view/app/pages/dealers_list.dart';
 import 'package:fix_team_app/view/app/pages/profile_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';

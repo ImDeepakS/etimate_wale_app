@@ -1,4 +1,3 @@
-import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:fix_team_app/view/app/pages/store_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
