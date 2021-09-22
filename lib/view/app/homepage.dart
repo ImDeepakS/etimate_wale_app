@@ -242,50 +242,6 @@ class HomeWidget extends StatelessWidget {
                           ),
                         ],
                       ),
-                      // Padding(
-                      //   padding: EdgeInsets.only(left: 20, right: 20),
-                      //   child: InkWell(
-                      //     onTap: () {
-                      //       Navigator.of(context).push(
-                      //         MaterialPageRoute(
-                      //           builder: (context) => SearchFile(),
-                      //         ),
-                      //       );
-                      //     },
-                      //     child: Container(
-                      //       width: width / 1.2,
-                      //       height: 35,
-                      //       decoration: BoxDecoration(
-                      //         color: white,
-                      //         borderRadius: BorderRadius.circular(10),
-                      //         boxShadow: [
-                      //           BoxShadow(
-                      //             offset: Offset(0.5, 0.5),
-                      //             blurRadius: 5,
-                      //             color: black.withOpacity(0.1),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //       child: TextFormField(
-                      //         decoration: InputDecoration(
-                      //           prefixIcon: Icon(
-                      //             Icons.search,
-                      //             size: 20,
-                      //           ),
-                      //           border: InputBorder.none,
-                      //           hintText: "What you want to sell?",
-                      //           hintStyle: GoogleFonts.poppins(
-                      //             fontWeight: FontWeight.w500,
-                      //             fontSize: 12,
-                      //             color: dimGrey,
-                      //           ),
-                      //           enabled: false,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         padding: EdgeInsets.only(bottom: 10),
@@ -333,16 +289,18 @@ class HomeWidget extends StatelessWidget {
                         width: width,
                         child: GridView.builder(
                           itemCount: brand.length,
+                          physics: NeverScrollableScrollPhysics(),
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
+                            crossAxisCount: 4,
                           ),
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding: const EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(2),
                               child: Container(
                                 decoration: BoxDecoration(
                                   color: white,
+                                  borderRadius: BorderRadius.circular(3),
                                   boxShadow: [
                                     BoxShadow(
                                       color: black.withOpacity(0.4),

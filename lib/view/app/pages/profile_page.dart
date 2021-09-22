@@ -1,3 +1,5 @@
+import 'package:fix_team_app/controller/login/login_controller.dart';
+import 'package:fix_team_app/model/profile_model.dart';
 import 'package:fix_team_app/view/app/forms/estimate_price.dart';
 import 'package:fix_team_app/view/app/pages/about_page.dart';
 import 'package:fix_team_app/view/app/pages/contact_page.dart';
@@ -10,8 +12,21 @@ import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  String username = "";
+
+  @override
+  void initState() {
+    super.initState();
+    checkLogin();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +52,7 @@ class ProfilePage extends StatelessWidget {
                       child: Row(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(top: 60, left: 20),
+                            padding: const EdgeInsets.only(top: 50, left: 20),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -49,82 +64,86 @@ class ProfilePage extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  "Please login/signup!",
+                                  username.toUpperCase(),
                                   style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.w600,
+                                    fontSize: 30,
+                                    letterSpacing: 1,
                                     color: white,
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 100),
-                            child: PopupMenuButton(
-                              itemBuilder: (context) => [
-                                PopupMenuItem(
-                                  child: InkWell(
-                                    onTap: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              UserRegisterPage(),
+                          username != null
+                              ? Container()
+                              : Padding(
+                                  padding: const EdgeInsets.only(left: 100),
+                                  child: PopupMenuButton(
+                                    itemBuilder: (context) => [
+                                      PopupMenuItem(
+                                        child: InkWell(
+                                          onTap: () {
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    UserRegisterPage(),
+                                              ),
+                                            );
+                                          },
+                                          child: Text(
+                                            "Sign Up as Customer",
+                                            style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w500,
+                                              color: dimGrey,
+                                            ),
+                                          ),
                                         ),
-                                      );
-                                    },
-                                    child: Text(
-                                      "Sign Up as Customer",
-                                      style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w500,
-                                        color: dimGrey,
+                                        value: 1,
+                                      ),
+                                      PopupMenuItem(
+                                        child: InkWell(
+                                          onTap: () {
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DealerRegisterPage(),
+                                              ),
+                                            );
+                                          },
+                                          child: Text(
+                                            "Sign Up as Retailer",
+                                            style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w500,
+                                              color: dimGrey,
+                                            ),
+                                          ),
+                                        ),
+                                        value: 2,
+                                      ),
+                                    ],
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: black.withOpacity(0.3),
+                                            blurRadius: 10,
+                                            offset: Offset(0.5, 0.5),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Text(
+                                        "Sign Up!",
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                  value: 1,
                                 ),
-                                PopupMenuItem(
-                                  child: InkWell(
-                                    onTap: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              DealerRegisterPage(),
-                                        ),
-                                      );
-                                    },
-                                    child: Text(
-                                      "Sign Up as Retailer",
-                                      style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w500,
-                                        color: dimGrey,
-                                      ),
-                                    ),
-                                  ),
-                                  value: 2,
-                                ),
-                              ],
-                              child: Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: black.withOpacity(0.3),
-                                      blurRadius: 10,
-                                      offset: Offset(0.5, 0.5),
-                                    ),
-                                  ],
-                                ),
-                                child: Text(
-                                  "Sign Up!",
-                                  style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
                         ],
                       ),
                     ),
@@ -201,7 +220,13 @@ class ProfilePage extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => MyAccountPage(),
+                                builder: (context) => MyAccountPage(
+                                  username: profileDetails.user_name,
+                                  zipcode: profileDetails.zip_code,
+                                  address: profileDetails.address_txt,
+                                  email: profileDetails.e_mail,
+                                  phone: profileDetails.phone_no,
+                                ),
                               ),
                             );
                           },
@@ -387,5 +412,20 @@ class ProfilePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  ProfileDetails profileDetails = ProfileDetails();
+
+  checkLogin() async {
+    String? tokne = await getToken();
+    print("tokne");
+    print(tokne);
+    if (tokne != null) {
+      setState(() {
+        username = tokne;
+      });
+    } else {
+      username = "Please Login or SignUp";
+    }
   }
 }

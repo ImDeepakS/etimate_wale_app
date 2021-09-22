@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:fix_team_app/controller/login/login_controller.dart';
+import 'package:fix_team_app/controller/login/profile_controller.dart';
+import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:fix_team_app/view/app/loginpage.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/helpers/fade_route.dart';
@@ -21,9 +24,12 @@ class _SplashScreenState extends State<SplashScreen> {
   bool _d = false;
   bool _e = false;
 
+  Widget currentPage = HomePage();
+
   @override
   void initState() {
     super.initState();
+    checkLogin();
     Timer(Duration(milliseconds: 400), () {
       setState(() {
         _a = true;
@@ -53,8 +59,8 @@ class _SplashScreenState extends State<SplashScreen> {
       setState(() {
         Navigator.of(context).push(
           ThisIsFadeRoute(
-            route: LoginPage(),
-            page: LoginPage(),
+            route: currentPage,
+            page: currentPage,
           ),
         );
       });
@@ -131,5 +137,19 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+  }
+
+  checkLogin() async {
+    String? tokne = await getToken();
+    print("tokne");
+    print(tokne);
+    if (tokne != null) {
+      setState(() {
+        currentPage = HomePage();
+        userProfile(context, tokne);
+      });
+    } else {
+      currentPage = LoginPage();
+    }
   }
 }
