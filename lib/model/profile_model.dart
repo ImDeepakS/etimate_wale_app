@@ -1,7 +1,7 @@
 class ProfileDetails {
   String username = "", phoneno = "", email = "", zipcode = "", address = "";
 
-  int rollId = 0;
+  String rollId = "";
 
   String get user_name {
     return username;
@@ -43,11 +43,11 @@ class ProfileDetails {
     this.address = adr;
   }
 
-  int get role_id {
+  String get role_id {
     return rollId;
   }
 
-  set role_id(int id) {
+  set role_id(String id) {
     this.rollId = id;
   }
 }

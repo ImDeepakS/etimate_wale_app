@@ -1,23 +1,22 @@
-import 'package:fix_team_app/model/profile_model.dart';
 import 'package:fix_team_app/view/app/forms/accepted_queries.dart';
 import 'package:fix_team_app/view/app/forms/declined_queries.dart';
+import 'package:fix_team_app/view/app/forms/estimate_price.dart';
 import 'package:fix_team_app/view/app/forms/generated_queris.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyAccountPage extends StatelessWidget {
-  final String username, address, phone, email, zipcode;
-  final int? rollId;
-  const MyAccountPage(
-      {Key? key,
-      required this.username,
-      required this.address,
-      required this.phone,
-      required this.email,
-      required this.zipcode,
-      this.rollId})
-      : super(key: key);
+  final String username, address, phone, email, zipcode, rollId;
+  const MyAccountPage({
+    Key? key,
+    required this.username,
+    required this.address,
+    required this.phone,
+    required this.email,
+    required this.zipcode,
+    required this.rollId,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -170,86 +169,201 @@ class MyAccountPage extends StatelessWidget {
                           right: 10,
                           bottom: 10,
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        GeneratedQueriesList(),
+                        child: rollId == "3"
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              GeneratedQueriesList(),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.only(
+                                          top: 15, bottom: 15, left: 15),
+                                      child: Text(
+                                        "Estimate Price List",
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          color: dimGrey,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                );
-                              },
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                    top: 15, bottom: 15, left: 15),
-                                child: Text(
-                                  "Generated Queries List",
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: dimGrey,
+                                  Divider(
+                                    height: 1,
+                                    color: black,
                                   ),
-                                ),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              AcceptedQueriesList(),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.only(
+                                          top: 15, bottom: 15, left: 15),
+                                      child: Text(
+                                        "Accepted Queries",
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          color: dimGrey,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Divider(
+                                    height: 1,
+                                    color: black,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              DeclinedQueriesList(),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.only(
+                                          top: 15, bottom: 15, left: 15),
+                                      child: Text(
+                                        "User Queries",
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          color: dimGrey,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              GeneratedQueriesList(),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.only(
+                                          top: 15, bottom: 15, left: 15),
+                                      child: Text(
+                                        "List Queries",
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          color: dimGrey,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Divider(
+                                    height: 1,
+                                    color: black,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              AcceptedQueriesList(),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.only(
+                                          top: 15, bottom: 15, left: 15),
+                                      child: Text(
+                                        "Accepted Queries",
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          color: dimGrey,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Divider(
+                                    height: 1,
+                                    color: black,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              DeclinedQueriesList(),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.only(
+                                          top: 15, bottom: 15, left: 15),
+                                      child: Text(
+                                        "Rejected Queris",
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          color: dimGrey,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Divider(
+                                    height: 1,
+                                    color: black,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              EstimatePricePage(),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.only(
+                                        top: 15,
+                                        bottom: 15,
+                                        left: 15,
+                                      ),
+                                      child: Text(
+                                        "Add Query",
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          color: dimGrey,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                            Divider(
-                              height: 1,
-                              color: black,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => AcceptedQueriesList(),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                    top: 15, bottom: 15, left: 15),
-                                child: Text(
-                                  "Accepted Queries",
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: dimGrey,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Divider(
-                              height: 1,
-                              color: black,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => DeclinedQueriesList(),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                    top: 15, bottom: 15, left: 15),
-                                child: Text(
-                                  "Rejected Queris",
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: dimGrey,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
                     ),
                   ),

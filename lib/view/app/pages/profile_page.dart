@@ -1,15 +1,17 @@
 import 'package:fix_team_app/controller/login/login_controller.dart';
+import 'package:fix_team_app/controller/login/profile_controller.dart';
 import 'package:fix_team_app/model/profile_model.dart';
 import 'package:fix_team_app/view/app/forms/estimate_price.dart';
+import 'package:fix_team_app/view/app/loginpage.dart';
 import 'package:fix_team_app/view/app/pages/about_page.dart';
 import 'package:fix_team_app/view/app/pages/contact_page.dart';
-import 'package:fix_team_app/view/app/pages/my_account_page.dart';
 import 'package:fix_team_app/view/app/pages/term_page.dart';
 import 'package:fix_team_app/view/app/pages/testimonial_page.dart';
 import 'package:fix_team_app/view/app/users/dealer_register_page.dart';
 import 'package:fix_team_app/view/app/users/user_register_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -21,6 +23,8 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   String username = "";
+
+  final storage = new FlutterSecureStorage();
 
   @override
   void initState() {
@@ -50,6 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: mainColor,
                       ),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(top: 50, left: 20),
@@ -76,7 +81,43 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ),
                           username != null
-                              ? Container()
+                              ? Padding(
+                                  padding: const EdgeInsets.only(
+                                    right: 20,
+                                    top: 20,
+                                  ),
+                                  child: InkWell(
+                                    onTap: () {
+                                      storage.delete(key: "token");
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => LoginPage(),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: black.withOpacity(0.3),
+                                            blurRadius: 10,
+                                            offset: Offset(0.5, 0.5),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Text(
+                                        "Log Out",
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
                               : Padding(
                                   padding: const EdgeInsets.only(left: 100),
                                   child: PopupMenuButton(
@@ -217,18 +258,19 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         InkWell(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MyAccountPage(
-                                  username: profileDetails.user_name,
-                                  zipcode: profileDetails.zip_code,
-                                  address: profileDetails.address_txt,
-                                  email: profileDetails.e_mail,
-                                  phone: profileDetails.phone_no,
-                                ),
-                              ),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => MyAccountPage(
+                            //       username: profileDetails.user_name,
+                            //       zipcode: profileDetails.zip_code,
+                            //       address: profileDetails.address_txt,
+                            //       email: profileDetails.e_mail,
+                            //       phone: profileDetails.phone_no,
+                            //     ),
+                            //   ),
+                            // );
+                            userProfile(context, username);
                           },
                           child: Container(
                             padding:

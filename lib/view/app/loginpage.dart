@@ -23,6 +23,8 @@ class _LoginPageState extends State<LoginPage> {
 
   final _formKey = GlobalKey<FormState>();
 
+  String username = "";
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -38,17 +40,7 @@ class _LoginPageState extends State<LoginPage> {
             fontWeight: FontWeight.w600,
           ),
         ),
-        leading: InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => HomePage(),
-              ),
-            );
-          },
-          child: Icon(Icons.arrow_back),
-        ),
+        automaticallyImplyLeading: false,
       ),
       body: Stack(
         children: [
