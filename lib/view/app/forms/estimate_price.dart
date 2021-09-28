@@ -18,41 +18,61 @@ class EstimatePricePage extends StatefulWidget {
 }
 
 class _EstimatePricePageState extends State<EstimatePricePage> {
-  String phoneValue = 'HTC';
+  String phoneValue = '';
   String locationValue = '5 KM';
   String problemValue = 'Please Select The Option';
   String modelValue = 'Select The Option';
-
-  List<dynamic> data = [];
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-    getMobile();
+    phoneBrand();
   }
 
-  Future getMobile() async {
-    try {
-      String apiurl =
-          "https://estimatewale.com/application/restapi/phone_list.php";
-      var response = await http
-          .get(Uri.parse(apiurl), headers: {"Accept": "application/json"});
+  List data = [];
 
-      var jsonBody = response.body;
-      var jsonData = json.decode(jsonEncode(jsonBody));
+  Future phoneBrand() async {
+    String apiurl =
+        "https://estimatewale.com/application/restapi/phone_list.php";
+    var response = await http.get(Uri.parse(apiurl), headers: headers);
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> phoneData = json.decode(response.body);
 
       setState(() {
-        data = (jsonData as List<dynamic>).cast<String>();
+        data = phoneData["body"];
       });
 
-      print("json data received $jsonData");
-      return "success";
-    } catch (e) {
-      throw Exception(e);
+      print("data is $data");
+    } else {
+      jsonDecode("Not found any data");
+      throw Exception("Failed to load brands data");
     }
   }
+
+  // Future getMobile() async {
+  //   try {
+  //     String apiurl =
+  //         "https://estimatewale.com/application/restapi/phone_list.php";
+  //     var response = await http
+  //         .get(Uri.parse(apiurl), headers: {"Accept": "application/json"});
+
+  //     var jsonBody = response.body;
+  //     var jsonData = json.decode(jsonEncode(jsonBody));
+
+  //     setState(() {
+  //       data = (jsonData as List<dynamic>).cast<String>();
+  //     });
+
+  //     print("json data received $jsonData");
+  //     return "success";
+  //   } catch (e) {
+  //     // throw Exception(e);
+  //     print(e);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -106,238 +126,200 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
                       ),
                     ),
                   ),
-                  FutureBuilder(
-                    future: getMobile(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        return Text("Error");
-                      } else if (snapshot.data != null) {
-                        return Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Form(
-                            key: _formKey,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                LabelText(label: "Select Mobile Brand"),
-                                SizedBox(height: 10),
-                                Container(
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    color: white,
-                                    border:
-                                        Border.all(width: 1, color: dimGrey),
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: black.withOpacity(0.2),
-                                        blurRadius: 10,
-                                        offset: Offset(0.5, 0.5),
-                                      ),
-                                    ],
-                                  ),
-                                  width: width,
-                                  child: DropdownButtonHideUnderline(
-                                    child: ButtonTheme(
-                                      alignedDropdown: true,
-                                      child: DropdownButton(
-                                        value: phoneValue,
-                                        onChanged: (String? newValue) {
-                                          setState(() {
-                                            phoneValue = newValue!;
-                                          });
-                                        },
-                                        items: data
-                                            .map<DropdownMenuItem<String>>(
-                                                (value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(
-                                              value,
-                                              style: GoogleFonts.poppins(
-                                                fontSize: 14,
-                                                color: dimGrey,
-                                              ),
-                                            ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  ),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          LabelText(label: "Select Mobile Brand"),
+                          SizedBox(height: 10),
+                          Container(
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: white,
+                              border: Border.all(width: 1, color: dimGrey),
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: black.withOpacity(0.2),
+                                  blurRadius: 10,
+                                  offset: Offset(0.5, 0.5),
                                 ),
-                                SizedBox(height: 30),
-                                LabelText(label: "Select Mobile Model"),
-                                SizedBox(height: 10),
-                                Container(
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    color: white,
-                                    border:
-                                        Border.all(width: 1, color: dimGrey),
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: black.withOpacity(0.2),
-                                        blurRadius: 10,
-                                        offset: Offset(0.5, 0.5),
-                                      ),
-                                    ],
-                                  ),
-                                  width: width,
-                                  child: DropdownButtonHideUnderline(
-                                    child: ButtonTheme(
-                                      alignedDropdown: true,
-                                      child: DropdownButton(
-                                        value: phoneValue,
-                                        onChanged: (String? newValue) {
-                                          setState(() {
-                                            phoneValue = newValue!;
-                                          });
-                                        },
-                                        items: <String>[
-                                          'HTC',
-                                          'IPhone',
-                                          'Nokia',
-                                          'Oppo',
-                                          'RealMe',
-                                          'Samsung galaxy',
-                                          'Vivo',
-                                        ].map<DropdownMenuItem<String>>(
-                                            (String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(
-                                              value,
-                                              style: GoogleFonts.poppins(
-                                                fontSize: 14,
-                                                color: dimGrey,
-                                              ),
-                                            ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height: 30),
-                                LabelText(label: "Select Mobile Problem"),
-                                SizedBox(height: 10),
-                                Container(
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    color: white,
-                                    border:
-                                        Border.all(width: 1, color: dimGrey),
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: black.withOpacity(0.2),
-                                        blurRadius: 10,
-                                        offset: Offset(0.5, 0.5),
-                                      ),
-                                    ],
-                                  ),
-                                  width: width,
-                                  child: DropdownButtonHideUnderline(
-                                    child: ButtonTheme(
-                                      alignedDropdown: true,
-                                      child: DropdownButton(
-                                        value: phoneValue,
-                                        onChanged: (String? newValue) {
-                                          setState(() {
-                                            phoneValue = newValue!;
-                                          });
-                                        },
-                                        items: <String>[
-                                          'HTC',
-                                          'IPhone',
-                                          'Nokia',
-                                          'Oppo',
-                                          'RealMe',
-                                          'Samsung galaxy',
-                                          'Vivo',
-                                        ].map<DropdownMenuItem<String>>(
-                                            (String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(
-                                              value,
-                                              style: GoogleFonts.poppins(
-                                                fontSize: 14,
-                                                color: dimGrey,
-                                              ),
-                                            ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height: 30),
-                                LabelText(label: "Select Distance"),
-                                SizedBox(height: 10),
-                                Container(
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    color: white,
-                                    border:
-                                        Border.all(width: 1, color: dimGrey),
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: black.withOpacity(0.2),
-                                        blurRadius: 10,
-                                        offset: Offset(0.5, 0.5),
-                                      ),
-                                    ],
-                                  ),
-                                  width: width,
-                                  child: DropdownButtonHideUnderline(
-                                    child: ButtonTheme(
-                                      alignedDropdown: true,
-                                      child: DropdownButton(
-                                        value: phoneValue,
-                                        onChanged: (String? newValue) {
-                                          setState(() {
-                                            phoneValue = newValue!;
-                                          });
-                                        },
-                                        items: <String>[
-                                          'HTC',
-                                          'IPhone',
-                                          'Nokia',
-                                          'Oppo',
-                                          'RealMe',
-                                          'Samsung galaxy',
-                                          'Vivo',
-                                        ].map<DropdownMenuItem<String>>(
-                                            (String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(
-                                              value,
-                                              style: GoogleFonts.poppins(
-                                                fontSize: 14,
-                                                color: dimGrey,
-                                              ),
-                                            ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height: 80),
                               ],
                             ),
+                            width: width,
+                            child: DropdownButtonHideUnderline(
+                              child: ButtonTheme(
+                                alignedDropdown: true,
+                                child: DropdownButton<String>(
+                                  value: phoneValue == null ? null : phoneValue,
+                                  iconSize: 30,
+                                  icon: (null),
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 16,
+                                  ),
+                                  hint: Text('Select City'),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      phoneValue = newValue!;
+                                      print("phone value is $phoneValue");
+                                    });
+                                  },
+                                  items: data.map((item) {
+                                    return new DropdownMenuItem(
+                                      child: new Text(item['mobilebrand']),
+                                      value: item['id'].toString(),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ),
                           ),
-                        );
-                      }
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 100),
-                        child: Center(child: CircularProgressIndicator()),
-                      );
-                    },
+                          SizedBox(height: 30),
+                          LabelText(label: "Select Mobile Model"),
+                          SizedBox(height: 10),
+                          Container(
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: white,
+                              border: Border.all(width: 1, color: dimGrey),
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: black.withOpacity(0.2),
+                                  blurRadius: 10,
+                                  offset: Offset(0.5, 0.5),
+                                ),
+                              ],
+                            ),
+                            width: width,
+                            child: DropdownButtonHideUnderline(
+                              child: ButtonTheme(
+                                alignedDropdown: true,
+                                child: DropdownButton<String>(
+                                  value: null,
+                                  iconSize: 30,
+                                  icon: (null),
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 16,
+                                  ),
+                                  hint: Text('Select City'),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      phoneValue = newValue!;
+                                      print("phone value is $phoneValue");
+                                    });
+                                  },
+                                  items: data.map((item) {
+                                    return new DropdownMenuItem(
+                                      child: new Text(item['mobilebrand']),
+                                      value: item['id'].toString(),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 30),
+                          LabelText(label: "Select Mobile Problem"),
+                          SizedBox(height: 10),
+                          Container(
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: white,
+                              border: Border.all(width: 1, color: dimGrey),
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: black.withOpacity(0.2),
+                                  blurRadius: 10,
+                                  offset: Offset(0.5, 0.5),
+                                ),
+                              ],
+                            ),
+                            width: width,
+                            child: DropdownButtonHideUnderline(
+                              child: ButtonTheme(
+                                alignedDropdown: true,
+                                child: DropdownButton<String>(
+                                  value: null,
+                                  iconSize: 30,
+                                  icon: (null),
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 16,
+                                  ),
+                                  hint: Text('Select City'),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      phoneValue = newValue!;
+                                      print("phone value is $phoneValue");
+                                    });
+                                  },
+                                  items: data.map((item) {
+                                    return new DropdownMenuItem(
+                                      child: new Text(item['mobilebrand']),
+                                      value: item['id'].toString(),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 30),
+                          LabelText(label: "Select Distance"),
+                          SizedBox(height: 10),
+                          Container(
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: white,
+                              border: Border.all(width: 1, color: dimGrey),
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: black.withOpacity(0.2),
+                                  blurRadius: 10,
+                                  offset: Offset(0.5, 0.5),
+                                ),
+                              ],
+                            ),
+                            width: width,
+                            child: DropdownButtonHideUnderline(
+                              child: ButtonTheme(
+                                alignedDropdown: true,
+                                child: DropdownButton<String>(
+                                  value: null,
+                                  iconSize: 30,
+                                  icon: (null),
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 16,
+                                  ),
+                                  hint: Text('Select City'),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      phoneValue = newValue!;
+                                      print("phone value is $phoneValue");
+                                    });
+                                  },
+                                  items: data.map((item) {
+                                    return new DropdownMenuItem(
+                                      child: new Text(item['mobilebrand']),
+                                      value: item['id'].toString(),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 80),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),

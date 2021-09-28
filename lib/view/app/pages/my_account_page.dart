@@ -1,3 +1,4 @@
+import 'package:fix_team_app/controller/user/user_queries_controller.dart';
 import 'package:fix_team_app/view/app/forms/accepted_queries.dart';
 import 'package:fix_team_app/view/app/forms/declined_queries.dart';
 import 'package:fix_team_app/view/app/forms/estimate_price.dart';
@@ -257,13 +258,14 @@ class MyAccountPage extends StatelessWidget {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              GeneratedQueriesList(),
-                                        ),
-                                      );
+                                      // Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //     builder: (context) =>
+                                      //         GeneratedQueriesList(),
+                                      //   ),
+                                      // );
+                                      userQueries(context, rollId);
                                     },
                                     child: Container(
                                       padding: EdgeInsets.only(
