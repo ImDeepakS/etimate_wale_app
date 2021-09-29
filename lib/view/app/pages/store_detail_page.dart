@@ -52,6 +52,7 @@ class StoreDetailsPage extends StatelessWidget {
         scrollDirection: Axis.vertical,
         child: Container(
           width: width,
+          height: height,
           decoration: BoxDecoration(
             color: white,
           ),
@@ -113,10 +114,13 @@ class StoreDetailsPage extends StatelessWidget {
                     Row(
                       children: [
                         LabelText(label: "Address : "),
-                        Text(
-                          storeAddress,
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w500,
+                        SizedBox(
+                          width: width / 1.38,
+                          child: Text(
+                            storeAddress,
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ],

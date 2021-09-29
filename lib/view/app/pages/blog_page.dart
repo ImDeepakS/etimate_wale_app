@@ -1,9 +1,10 @@
-import 'package:fix_team_app/model/blog_model.dart';
+import 'dart:convert';
 import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:fix_team_app/view/app/pages/blog_details_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
 class BlogPage extends StatefulWidget {
   const BlogPage({Key? key}) : super(key: key);
@@ -13,6 +14,43 @@ class BlogPage extends StatefulWidget {
 }
 
 class _BlogPageState extends State<BlogPage> {
+  List data = [];
+  String imgData = "";
+  String blogImg = '';
+
+  Map<String, String> headers = {
+    'content-Type': 'application/json;charset=UTF-8',
+    'Charset': 'utf-8'
+  };
+
+  Future blogPosts() async {
+    String apiurl = "https://estimatewale.com/application/restapi/blog.php";
+    var response = await http.get(Uri.parse(apiurl), headers: headers);
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> phoneData = json.decode(response.body);
+
+      try {
+        setState(() {
+          data = phoneData["postData"];
+        });
+      } catch (e) {
+        print("exception is $e");
+      }
+
+      print("blog data is $data");
+    } else {
+      jsonDecode("Not found any data");
+      throw Exception("Failed to load brands data");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    blogPosts();
+  }
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -45,21 +83,26 @@ class _BlogPageState extends State<BlogPage> {
           Container(
             height: 200,
             child: ListView.builder(
-              itemCount: 5,
+              itemCount: data.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
+                    setState(() {
+                      imgData =
+                          "https://estimatewale.com/blog/wp-content/uploads/2021/08/${data[index]["post_image"]}";
+                    });
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => BlogDetailPage(
-                          image: blogModel[index].image,
-                          heading: blogModel[index].heading,
-                          data:
-                              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
-                          date: blogModel[index].date,
-                          views: blogModel[index].views,
+                          image: imgData.isEmpty
+                              ? "https://estimatewale.com/blog/wp-content/uploads/2021/08/bg51-1024x576-1-825x510.jpg"
+                              : imgData,
+                          heading: data[index]["title"],
+                          data: data[index]["body"],
+                          date: data[index]["created_at"],
+                          // views: blogModel[index].views,
                         ),
                       ),
                     );
@@ -80,7 +123,11 @@ class _BlogPageState extends State<BlogPage> {
                             borderRadius: BorderRadius.circular(10),
                             color: mainColor,
                             image: DecorationImage(
-                              image: NetworkImage(blogModel[index].image),
+                              image: NetworkImage(
+                                  "https://estimatewale.com/blog/wp-content/uploads/2021/08/${data[index]["post_image"]}"
+                                          .isEmpty
+                                      ? "https://estimatewale.com/blog/wp-content/uploads/2021/08/bg51-1024x576-1-825x510.jpg"
+                                      : "https://estimatewale.com/blog/wp-content/uploads/2021/08/${data[index]["post_image"]}"),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -95,7 +142,7 @@ class _BlogPageState extends State<BlogPage> {
                         child: SizedBox(
                           width: width - 40,
                           child: Text(
-                            blogModel[index].heading,
+                            data[index]["title"],
                             style: GoogleFonts.poppins(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -123,7 +170,7 @@ class _BlogPageState extends State<BlogPage> {
                                   ),
                                   SizedBox(width: 5),
                                   Text(
-                                    blogModel[index].date,
+                                    data[index]["created_at"],
                                     style: GoogleFonts.poppins(
                                       color: shadyGrey,
                                       fontSize: 12,
@@ -140,14 +187,14 @@ class _BlogPageState extends State<BlogPage> {
                                     size: 14,
                                   ),
                                   SizedBox(width: 5),
-                                  Text(
-                                    blogModel[index].views,
-                                    style: GoogleFonts.poppins(
-                                      color: shadyGrey,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
+                                  // Text(
+                                  //   blogModel[index].views,
+                                  //   style: GoogleFonts.poppins(
+                                  //     color: shadyGrey,
+                                  //     fontSize: 12,
+                                  //     fontWeight: FontWeight.w400,
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ],
@@ -180,7 +227,7 @@ class _BlogPageState extends State<BlogPage> {
                 color: white,
               ),
               child: ListView.builder(
-                itemCount: blogModel.length,
+                itemCount: data.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(12),
@@ -190,12 +237,12 @@ class _BlogPageState extends State<BlogPage> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => BlogDetailPage(
-                              image: blogModel[index].image,
-                              heading: blogModel[index].heading,
-                              data:
-                                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
-                              date: blogModel[index].date,
-                              views: blogModel[index].views,
+                              image: imgData.isEmpty
+                                  ? "https://estimatewale.com/blog/wp-content/uploads/2021/08/bg51-1024x576-1-825x510.jpg"
+                                  : imgData,
+                              heading: data[index]["title"],
+                              data: data[index]["body"],
+                              date: data[index]["created_at"],
                             ),
                           ),
                         );
@@ -216,7 +263,10 @@ class _BlogPageState extends State<BlogPage> {
                                       decoration: BoxDecoration(
                                           image: DecorationImage(
                                             image: NetworkImage(
-                                              blogModel[index].image,
+                                              "https://estimatewale.com/blog/wp-content/uploads/2021/08/${data[index]["post_image"]}"
+                                                      .isEmpty
+                                                  ? "https://estimatewale.com/blog/wp-content/uploads/2021/08/bg51-1024x576-1-825x510.jpg"
+                                                  : "https://estimatewale.com/blog/wp-content/uploads/2021/08/${data[index]["post_image"]}",
                                             ),
                                             fit: BoxFit.cover,
                                           ),
@@ -241,7 +291,7 @@ class _BlogPageState extends State<BlogPage> {
                                               width: width / 1.55,
                                               height: 50,
                                               child: Text(
-                                                blogModel[index].heading,
+                                                data[index]["title"],
                                                 style: GoogleFonts.poppins(
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.w600,
@@ -265,7 +315,8 @@ class _BlogPageState extends State<BlogPage> {
                                                       ),
                                                       SizedBox(width: 5),
                                                       Text(
-                                                        blogModel[index].date,
+                                                        data[index]
+                                                            ["created_at"],
                                                         style:
                                                             GoogleFonts.poppins(
                                                           color: shadyGrey,
@@ -284,16 +335,16 @@ class _BlogPageState extends State<BlogPage> {
                                                         size: 14,
                                                       ),
                                                       SizedBox(width: 5),
-                                                      Text(
-                                                        blogModel[index].views,
-                                                        style:
-                                                            GoogleFonts.poppins(
-                                                          color: shadyGrey,
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      ),
+                                                      // Text(
+                                                      //   blogModel[index].views,
+                                                      //   style:
+                                                      //       GoogleFonts.poppins(
+                                                      //     color: shadyGrey,
+                                                      //     fontSize: 12,
+                                                      //     fontWeight:
+                                                      //         FontWeight.w400,
+                                                      //   ),
+                                                      // ),
                                                     ],
                                                   ),
                                                 ],

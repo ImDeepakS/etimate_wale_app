@@ -1,10 +1,11 @@
 import 'package:fix_team_app/model/dealer_model.dart';
-import 'package:fix_team_app/model/store_model.dart';
 import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:fix_team_app/view/app/pages/store_detail_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class StorePage extends StatefulWidget {
   const StorePage({Key? key}) : super(key: key);
@@ -14,6 +15,40 @@ class StorePage extends StatefulWidget {
 }
 
 class _StorePageState extends State<StorePage> {
+  @override
+  void initState() {
+    super.initState();
+    stores();
+  }
+
+  List data = [];
+
+  String imageData = '';
+  String videoData = '';
+
+  Map<String, String> headers = {
+    'content-Type': 'application/json;charset=UTF-8',
+    'Charset': 'utf-8'
+  };
+
+  Future stores() async {
+    String apiurl =
+        "https://estimatewale.com/application/restapi/store_list.php";
+    var response = await http.get(Uri.parse(apiurl), headers: headers);
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> phoneData = json.decode(response.body);
+
+      setState(() {
+        data = phoneData["body"];
+        print("store data is $data");
+      });
+    } else {
+      jsonDecode("Not found any data");
+      throw Exception("Failed to load brands data");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -44,7 +79,7 @@ class _StorePageState extends State<StorePage> {
           color: white,
         ),
         child: ListView.builder(
-          itemCount: dummyData.length,
+          itemCount: data.length,
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.all(12),
@@ -53,13 +88,15 @@ class _StorePageState extends State<StorePage> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => StoreDetailsPage(
-                        storeAddress: storeData[index].storeAddress,
-                        storeImage: storeData[index].storeImage,
-                        storeName: storeData[index].storeName,
-                        storeContact: storeData[index].contact,
-                        storeEmail: storeData[index].email,
-                        storeExp: storeData[index].shopExp,
-                        storeUser: storeData[index].username,
+                        storeAddress: data[index]["address"],
+                        storeImage: data[index]["image"] == null
+                            ? "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg"
+                            : "https://estimatewale.com/assets/images/dealers/${data[index]["image"]}",
+                        storeName: data[index]["shopname"],
+                        storeContact: data[index]["contact"],
+                        storeEmail: data[index]["email"],
+                        storeExp: data[index]["shopyear"],
+                        storeUser: data[index]["username"],
                       ),
                     ),
                   );
@@ -73,14 +110,16 @@ class _StorePageState extends State<StorePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              height: height / 5.38,
+                              height: height / 4.8,
                               width: width / 3.5,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: NetworkImage(
-                                    dummyData[index].shopImage,
+                                    data[index]["image"] == null
+                                        ? "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg"
+                                        : "https://estimatewale.com/assets/images/dealers/${data[index]["image"]}",
                                   ),
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.fill,
                                 ),
                               ),
                             ),
@@ -96,16 +135,19 @@ class _StorePageState extends State<StorePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        dummyData[index].shopName.toString(),
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600,
+                                      SizedBox(
+                                        width: width / 1.8,
+                                        child: Text(
+                                          data[index]["shopname"],
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                         ),
                                       ),
                                       SizedBox(height: 5),
                                       Text(
-                                        dummyData[index].dealerName.toString(),
+                                        data[index]["username"],
                                         style: GoogleFonts.poppins(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w500,
@@ -114,9 +156,7 @@ class _StorePageState extends State<StorePage> {
                                       ),
                                       SizedBox(height: 5),
                                       Text(
-                                        dummyData[index]
-                                            .contactNumber
-                                            .toString(),
+                                        data[index]["contact"],
                                         style: GoogleFonts.poppins(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w500,
@@ -124,12 +164,15 @@ class _StorePageState extends State<StorePage> {
                                         ),
                                       ),
                                       SizedBox(height: 5),
-                                      Text(
-                                        dummyData[index].address.toString(),
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.grey.shade500,
+                                      SizedBox(
+                                        width: width / 1.8,
+                                        child: Text(
+                                          data[index]["address"],
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.grey.shade500,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -147,36 +190,36 @@ class _StorePageState extends State<StorePage> {
                                   ),
                                   child: Padding(
                                     padding: EdgeInsets.only(left: 15),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          "Distance: " +
-                                              dummyData[index]
-                                                  .distance
-                                                  .toString(),
-                                          style: GoogleFonts.poppins(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.green,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 80),
-                                          child: Text(
-                                            "\$" +
-                                                dummyData[index]
-                                                    .price
-                                                    .toString(),
-                                            style: GoogleFonts.poppins(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xfff7e841),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                    // child: Row(
+                                    //   children: [
+                                    //     Text(
+                                    //       "Distance: " +
+                                    //           dummyData[index]
+                                    //               .distance
+                                    //               .toString(),
+                                    //       style: GoogleFonts.poppins(
+                                    //         fontSize: 12,
+                                    //         fontWeight: FontWeight.w500,
+                                    //         color: Colors.green,
+                                    //       ),
+                                    //     ),
+                                    //     Padding(
+                                    //       padding:
+                                    //           const EdgeInsets.only(left: 80),
+                                    //       child: Text(
+                                    //         "\$" +
+                                    //             dummyData[index]
+                                    //                 .price
+                                    //                 .toString(),
+                                    //         style: GoogleFonts.poppins(
+                                    //           fontSize: 12,
+                                    //           fontWeight: FontWeight.w500,
+                                    //           color: Color(0xfff7e841),
+                                    //         ),
+                                    //       ),
+                                    //     ),
+                                    //   ],
+                                    // ),
                                   ),
                                 ),
                               ],

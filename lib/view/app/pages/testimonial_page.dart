@@ -3,9 +3,52 @@ import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class TestimonialPage extends StatelessWidget {
+class TestimonialPage extends StatefulWidget {
   const TestimonialPage({Key? key}) : super(key: key);
+
+  @override
+  State<TestimonialPage> createState() => _TestimonialPageState();
+}
+
+class _TestimonialPageState extends State<TestimonialPage> {
+  @override
+  void initState() {
+    super.initState();
+    testimonials();
+  }
+
+  List data = [];
+
+  Map<String, String> headers = {
+    'content-Type': 'application/json;charset=UTF-8',
+    'Charset': 'utf-8'
+  };
+
+  Future testimonials() async {
+    String apiurl =
+        "https://estimatewale.com/application/restapi/testimonials.php";
+    var response = await http.get(Uri.parse(apiurl), headers: headers);
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> phoneData = json.decode(response.body);
+
+      try {
+        setState(() {
+          data = phoneData["body"];
+        });
+      } catch (e) {
+        print("exception is $e");
+      }
+
+      print("testimonial data is $data");
+    } else {
+      jsonDecode("Not found any data");
+      throw Exception("Failed to load brands data");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +91,7 @@ class TestimonialPage extends StatelessWidget {
           Container(
             height: height / 1.25,
             child: ListView.builder(
-              itemCount: testimonialData.length,
+              itemCount: data.length,
               itemBuilder: (BuildContext context, int index) {
                 return Column(
                   children: [
@@ -92,9 +135,7 @@ class TestimonialPage extends StatelessWidget {
                                                 ),
                                                 SizedBox(width: 10),
                                                 Text(
-                                                  testimonialData[index]
-                                                      .name
-                                                      .toString(),
+                                                  data[index]["name"],
                                                   style: GoogleFonts.poppins(
                                                     fontSize: 16,
                                                     color: dimGrey,
@@ -107,9 +148,7 @@ class TestimonialPage extends StatelessWidget {
                                             SizedBox(
                                               width: width / 1.2,
                                               child: Text(
-                                                testimonialData[index]
-                                                    .desc
-                                                    .toString(),
+                                                data[index]["description"],
                                                 style: GoogleFonts.poppins(
                                                   fontSize: 14,
                                                   color: shadyGrey,
@@ -117,27 +156,16 @@ class TestimonialPage extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            RatingBar.builder(
-                                              initialRating:
-                                                  testimonialData[index].star,
-                                              itemSize: 25,
-                                              minRating: 1,
-                                              direction: Axis.horizontal,
-                                              allowHalfRating: true,
-                                              itemCount: 5,
-                                              unratedColor:
-                                                  Colors.amber.withAlpha(50),
-                                              itemPadding: EdgeInsets.symmetric(
-                                                  horizontal: 4.0),
-                                              itemBuilder: (context, _) => Icon(
-                                                Icons.star,
-                                                color: Colors.amber,
+                                            SizedBox(
+                                              width: width / 1.2,
+                                              child: Text(
+                                                data[index]["domain"],
+                                                style: GoogleFonts.poppins(
+                                                  fontSize: 14,
+                                                  color: mainColor,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
                                               ),
-                                              onRatingUpdate: (rating) {
-                                                print(
-                                                  "rating" + rating.toString(),
-                                                );
-                                              },
                                             ),
                                             SizedBox(height: 10),
                                           ],

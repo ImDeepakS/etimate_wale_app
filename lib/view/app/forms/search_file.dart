@@ -22,24 +22,24 @@ class _SearchLocationFileState extends State<SearchLocationFile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: white,
-      //   title: TextFormField(
-      //     decoration: InputDecoration(
-      //       border: InputBorder.none,
-      //       hintText: "Search your model",
-      //       hintStyle: GoogleFonts.poppins(
-      //         fontWeight: FontWeight.w500,
-      //         fontSize: 14,
-      //         color: dimGrey,
-      //       ),
-      //     ),
-      //   ),
-      //   leading: Icon(
-      //     Icons.search,
-      //     color: dimGrey,
-      //   ),
-      // ),
+      appBar: AppBar(
+        backgroundColor: white,
+        title: TextFormField(
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: "Search your model",
+            hintStyle: GoogleFonts.poppins(
+              fontWeight: FontWeight.w500,
+              fontSize: 14,
+              color: dimGrey,
+            ),
+          ),
+        ),
+        leading: Icon(
+          Icons.search,
+          color: dimGrey,
+        ),
+      ),
       body: GoogleMap(
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(target: _center, zoom: 11.0),

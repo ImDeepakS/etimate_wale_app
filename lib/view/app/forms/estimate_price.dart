@@ -1,9 +1,5 @@
 import 'dart:convert';
-
-import 'package:fix_team_app/controller/lists/mobile_controller.dart';
-import 'package:fix_team_app/model/mobile_brand_model.dart';
 import 'package:fix_team_app/view/app/pages/dealers_list.dart';
-import 'package:fix_team_app/view/app/pages/profile_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +15,11 @@ class EstimatePricePage extends StatefulWidget {
 
 class _EstimatePricePageState extends State<EstimatePricePage> {
   String phoneValue = '';
-  String locationValue = '5 KM';
-  String problemValue = 'Please Select The Option';
-  String modelValue = 'Select The Option';
+  String locationValue = '';
+  String problemValue = '';
+  String modelValue = '';
+
+  String phoneValueStore = '';
 
   final _formKey = GlobalKey<FormState>();
 
@@ -29,9 +27,16 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
   void initState() {
     super.initState();
     phoneBrand();
+    // phoneModel();
   }
 
   List data = [];
+  List dataModel = [];
+
+  Map<String, String> headers = {
+    'content-Type': 'application/json;charset=UTF-8',
+    'Charset': 'utf-8'
+  };
 
   Future phoneBrand() async {
     String apiurl =
@@ -52,27 +57,24 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
     }
   }
 
-  // Future getMobile() async {
-  //   try {
-  //     String apiurl =
-  //         "https://estimatewale.com/application/restapi/phone_list.php";
-  //     var response = await http
-  //         .get(Uri.parse(apiurl), headers: {"Accept": "application/json"});
+  Future phoneModel(int cat_brands) async {
+    String apiurl =
+        "https://estimatewale.com/application/restapi/mobile_models.php?cat_brands=$cat_brands";
+    var response = await http.get(Uri.parse(apiurl), headers: headers);
 
-  //     var jsonBody = response.body;
-  //     var jsonData = json.decode(jsonEncode(jsonBody));
+    if (response.statusCode == 200) {
+      Map<String, dynamic> modelData = json.decode(response.body);
 
-  //     setState(() {
-  //       data = (jsonData as List<dynamic>).cast<String>();
-  //     });
+      setState(() {
+        dataModel = modelData["body"];
+      });
 
-  //     print("json data received $jsonData");
-  //     return "success";
-  //   } catch (e) {
-  //     // throw Exception(e);
-  //     print(e);
-  //   }
-  // }
+      print("model data is $dataModel");
+    } else {
+      jsonDecode("Not found any data");
+      throw Exception("Failed to load brands data");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -154,18 +156,19 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
                               child: ButtonTheme(
                                 alignedDropdown: true,
                                 child: DropdownButton<String>(
-                                  value: phoneValue == null ? null : phoneValue,
+                                  value: phoneValue.isEmpty ? null : phoneValue,
                                   iconSize: 30,
                                   icon: (null),
                                   style: TextStyle(
                                     color: Colors.black54,
                                     fontSize: 16,
                                   ),
-                                  hint: Text('Select City'),
+                                  hint: Text('Select Mobile Brand'),
                                   onChanged: (String? newValue) {
                                     setState(() {
                                       phoneValue = newValue!;
                                       print("phone value is $phoneValue");
+                                      phoneModel(int.parse(phoneValue));
                                     });
                                   },
                                   items: data.map((item) {
@@ -200,23 +203,29 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
                               child: ButtonTheme(
                                 alignedDropdown: true,
                                 child: DropdownButton<String>(
-                                  value: null,
+                                  value: modelValue.isEmpty ? null : modelValue,
                                   iconSize: 30,
                                   icon: (null),
                                   style: TextStyle(
                                     color: Colors.black54,
                                     fontSize: 16,
                                   ),
-                                  hint: Text('Select City'),
+                                  hint: Text('Select Mobile Model'),
                                   onChanged: (String? newValue) {
-                                    setState(() {
-                                      phoneValue = newValue!;
-                                      print("phone value is $phoneValue");
-                                    });
+                                    if (mounted) {
+                                      try {
+                                        setState(() {
+                                          modelValue = newValue!;
+                                          print("model value is $modelValue");
+                                        });
+                                      } catch (e) {
+                                        print("Exception $e");
+                                      }
+                                    }
                                   },
-                                  items: data.map((item) {
+                                  items: dataModel.map((item) {
                                     return new DropdownMenuItem(
-                                      child: new Text(item['mobilebrand']),
+                                      child: new Text(item['mobilemodel']),
                                       value: item['id'].toString(),
                                     );
                                   }).toList(),

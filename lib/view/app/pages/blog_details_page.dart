@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BlogDetailPage extends StatelessWidget {
-  final String image, heading, data, date, views;
+  final String image, heading, data, date;
 
   const BlogDetailPage({
     Key? key,
@@ -11,7 +11,7 @@ class BlogDetailPage extends StatelessWidget {
     required this.heading,
     required this.data,
     required this.date,
-    required this.views,
+    // required this.views,
   }) : super(key: key);
 
   @override
@@ -79,14 +79,14 @@ class BlogDetailPage extends StatelessWidget {
                           size: 14,
                         ),
                         SizedBox(width: 5),
-                        Text(
-                          views,
-                          style: GoogleFonts.poppins(
-                            color: shadyGrey,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
+                        // Text(
+                        //   views,
+                        //   style: GoogleFonts.poppins(
+                        //     color: shadyGrey,
+                        //     fontSize: 12,
+                        //     fontWeight: FontWeight.w400,
+                        //   ),
+                        // ),
                       ],
                     ),
                   ],
