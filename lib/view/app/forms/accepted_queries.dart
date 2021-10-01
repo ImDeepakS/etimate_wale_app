@@ -3,9 +3,45 @@ import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/prob_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class AcceptedQueriesList extends StatelessWidget {
+class AcceptedQueriesList extends StatefulWidget {
   const AcceptedQueriesList({Key? key}) : super(key: key);
+
+  @override
+  State<AcceptedQueriesList> createState() => _AcceptedQueriesListState();
+}
+
+class _AcceptedQueriesListState extends State<AcceptedQueriesList> {
+  List data = [];
+  String mobileBrand = '';
+  String mobileModel = '';
+  String mobileProblem = '';
+
+  Map<String, String> headers = {
+    'content-Type': 'application/json;charset=UTF-8',
+    'Charset': 'utf-8'
+  };
+
+  Future acceptedQueriesList() async {
+    String apiurl =
+        "https://estimatewale.com/application/restapi/accepted_queries.php";
+    var response = await http.get(Uri.parse(apiurl), headers: headers);
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> modelData = json.decode(response.body);
+
+      setState(() {
+        data = modelData["body"];
+      });
+
+      print("queries data is $data");
+    } else {
+      jsonDecode("Not found any data");
+      throw Exception("Failed to load brands data");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,43 +127,33 @@ class AcceptedQueriesList extends StatelessWidget {
                                       child: Column(
                                         children: [
                                           ProbTextWidget(
-                                            label: "Mobile :",
+                                            label: "Brand :",
                                             text: dealerQueryData[index]
                                                 .mobileName,
                                           ),
                                           ProbTextWidget(
-                                            label: "Distance in KM :",
-                                            text:
-                                                dealerQueryData[index].distance,
+                                            label: "Model :",
+                                            text: dealerQueryData[index]
+                                                .mobileName,
                                           ),
                                           ProbTextWidget(
                                             label: "Mobile Problem :",
                                             text:
                                                 dealerQueryData[index].problem,
                                           ),
-                                          SizedBox(height: 10),
-                                          Container(
-                                            width: width,
-                                            decoration: BoxDecoration(
-                                              color: mainColor,
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(20),
-                                                topRight: Radius.circular(20),
-                                              ),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                "\$ " +
-                                                    dealerQueryData[index]
-                                                        .amount,
-                                                style: GoogleFonts.poppins(
-                                                  color: green,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
-                                            ),
+                                          ProbTextWidget(
+                                            label: "Email :",
+                                            text: "emailtest@email.com",
                                           ),
+                                          ProbTextWidget(
+                                            label: "Contact :",
+                                            text: "00000000000",
+                                          ),
+                                          ProbTextWidget(
+                                            label: "Price :",
+                                            text: "estimate price",
+                                          ),
+                                          SizedBox(height: 10),
                                         ],
                                       ),
                                     ),

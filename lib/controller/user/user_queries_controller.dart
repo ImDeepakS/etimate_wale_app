@@ -42,7 +42,7 @@ Future userQueries(BuildContext context, userId) async {
     //     ),
     //   );
     // }
-    String demo = obj['0'];
+    String demo = obj;
     print("queries received $demo");
   } else {
     showDialog(

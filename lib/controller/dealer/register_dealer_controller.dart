@@ -19,6 +19,9 @@ Future registerDealer(
   mobilebrand,
   specialist,
   agree,
+  zipcode,
+  lat,
+  lng,
 ) async {
   try {
     final response = await http.post(
@@ -40,6 +43,9 @@ Future registerDealer(
           "mobilebrand": mobilebrand,
           "specialist": specialist,
           "agreeprice": agree,
+          "zipcode": zipcode,
+          "lat": lat,
+          "lng": lng,
         });
     var message = jsonDecode(json.encode(response.body));
 

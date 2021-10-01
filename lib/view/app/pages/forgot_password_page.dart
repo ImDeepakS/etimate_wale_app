@@ -115,6 +115,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           LabelText(label: "Please Enter Your Email Id"),
                           SizedBox(height: 10),
                           TextFieldWidget(
+                            enable: true,
                             controller: emailController,
                             hint: "Enter Email Id",
                             inputType: TextInputType.name,

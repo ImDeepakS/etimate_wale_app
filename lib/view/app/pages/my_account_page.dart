@@ -3,6 +3,7 @@ import 'package:fix_team_app/view/app/forms/accepted_queries.dart';
 import 'package:fix_team_app/view/app/forms/declined_queries.dart';
 import 'package:fix_team_app/view/app/forms/estimate_price.dart';
 import 'package:fix_team_app/view/app/forms/generated_queris.dart';
+import 'package:fix_team_app/view/app/forms/list_query.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -234,7 +235,7 @@ class MyAccountPage extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              DeclinedQueriesList(),
+                                              QueriesListPage(),
                                         ),
                                       );
                                     },

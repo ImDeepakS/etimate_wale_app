@@ -179,6 +179,7 @@ class ContactUsPage extends StatelessWidget {
                           LabelText(label: "Your Name"),
                           SizedBox(height: 10),
                           TextFieldWidget(
+                            enable: true,
                             hint: "Enter Your Name",
                             inputType: TextInputType.name,
                           ),
@@ -186,6 +187,7 @@ class ContactUsPage extends StatelessWidget {
                           LabelText(label: "Your Email Id"),
                           SizedBox(height: 10),
                           TextFieldWidget(
+                            enable: true,
                             hint: "Enter Your Email Id",
                             inputType: TextInputType.emailAddress,
                           ),
@@ -193,6 +195,7 @@ class ContactUsPage extends StatelessWidget {
                           LabelText(label: "Your Phone No."),
                           SizedBox(height: 10),
                           TextFieldWidget(
+                            enable: true,
                             hint: "Enter Your Phone No.",
                             inputType: TextInputType.phone,
                           ),

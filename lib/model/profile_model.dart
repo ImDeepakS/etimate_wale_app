@@ -1,6 +1,8 @@
 class ProfileDetails {
   String username = "", phoneno = "", email = "", zipcode = "", address = "";
 
+  double lat = 0.0, lang = 0.0;
+
   String rollId = "";
 
   String get user_name {
@@ -49,5 +51,21 @@ class ProfileDetails {
 
   set role_id(String id) {
     this.rollId = id;
+  }
+
+  double get lat_value {
+    return lang;
+  }
+
+  set lat_value(double latValue) {
+    this.lat = latValue;
+  }
+
+  double get lang_value {
+    return lang;
+  }
+
+  set lang_value(double langValue) {
+    this.lat = langValue;
   }
 }

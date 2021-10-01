@@ -1,11 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fix_team_app/model/brand_model.dart';
 import 'package:fix_team_app/view/app/forms/estimate_price.dart';
-import 'package:fix_team_app/view/app/forms/search_file.dart';
 import 'package:fix_team_app/view/app/pages/blog_page.dart';
 import 'package:fix_team_app/view/app/pages/profile_page.dart';
 import 'package:fix_team_app/view/app/pages/store_page.dart';
 import 'package:fix_team_app/view/app/users/dealer_register_page.dart';
+import 'package:fix_team_app/view/app/users/user_register_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/service_tile_widget.dart';
 import 'package:flutter/material.dart';
@@ -153,8 +153,14 @@ class HomeWidget extends StatefulWidget {
 
 class _HomeWidgetState extends State<HomeWidget> {
   String location = 'Null, Press Button';
-  String address = 'search';
+  String address = '';
   String city = 'Get Location';
+
+  @override
+  void initState() {
+    super.initState();
+    checkLocation();
+  }
 
   Future<Position> _getGeoLocationPosition() async {
     bool serviceEnabled;
@@ -196,9 +202,10 @@ class _HomeWidgetState extends State<HomeWidget> {
     // print(placemarks);
     Placemark place = placemarks[0];
     city = '${place.subLocality}, ${place.locality}';
-    address =
-        '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
-    setState(() {});
+    address = '${place.street}, ${place.subLocality}, ${place.locality}';
+    setState(() {
+      storeLocationData(address);
+    });
   }
 
   @override
@@ -290,13 +297,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         },
                                         child: Row(
                                           children: [
-                                            Text(
-                                              city != null
-                                                  ? city
-                                                  : "Get Location",
-                                              style: GoogleFonts.poppins(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 14,
+                                            SizedBox(
+                                              width: width / 1.7,
+                                              child: Text(
+                                                address,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: GoogleFonts.poppins(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 14,
+                                                ),
                                               ),
                                             ),
                                             SizedBox(width: 7),
@@ -468,5 +477,18 @@ class _HomeWidgetState extends State<HomeWidget> {
         ),
       ),
     );
+  }
+
+  checkLocation() async {
+    String? addres = await getAddress();
+
+    print("address is $address");
+    if (addres != null) {
+      setState(() {
+        address = addres;
+      });
+    } else {
+      address = "Get Location";
+    }
   }
 }

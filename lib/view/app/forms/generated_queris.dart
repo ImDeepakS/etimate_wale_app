@@ -1,12 +1,99 @@
-import 'package:fix_team_app/model/dealer_query_model.dart';
-import 'package:fix_team_app/view/app/forms/query_ac_dc.dart';
+import 'dart:convert';
+import 'package:fix_team_app/controller/lists/single_brand_controller.dart';
+import 'package:fix_team_app/view/app/forms/update_query_price.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/prob_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_html/flutter_html.dart';
 
-class GeneratedQueriesList extends StatelessWidget {
+class GeneratedQueriesList extends StatefulWidget {
   const GeneratedQueriesList({Key? key}) : super(key: key);
+
+  @override
+  State<GeneratedQueriesList> createState() => _GeneratedQueriesListState();
+}
+
+class _GeneratedQueriesListState extends State<GeneratedQueriesList> {
+  @override
+  void initState() {
+    super.initState();
+    queriesList(3);
+  }
+
+  List data = [];
+  List brandsData = [];
+  List modelsData = [];
+  List problemsData = [];
+  List mainArr = [];
+  String mobileBrand = '';
+  String mobileModel = '';
+  String mobileProblem = '';
+  String mobilePrice = '';
+
+  String brandName = '';
+  String modelname = '';
+  String problemname = '';
+
+  Map<String, String> headers = {
+    'content-Type': 'application/json;charset=UTF-8',
+    'Charset': 'utf-8'
+  };
+
+  Future queriesList(int userid) async {
+    String apiurl =
+        "https://estimatewale.com/application/restapi/list_queries.php?user_id=$userid";
+    var response = await http.get(Uri.parse(apiurl), headers: headers);
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> modelData = json.decode(response.body);
+
+      setState(() {
+        data = modelData["body"];
+        mobileBrand = data[0]["brand"];
+        mobileModel = data[0]["model"];
+        mobileProblem = data[0]["problem"];
+        mobilePrice = data[0]["price"];
+      });
+
+      String brandUrl =
+          "https://estimatewale.com/application/restapi/single_brand.php?id=$mobileBrand";
+      var brandRes = await http.get(Uri.parse(brandUrl), headers: headers);
+
+      if (brandRes.statusCode == 200) {
+        Map<String, dynamic> brandData = json.decode(brandRes.body);
+        setState(() {
+          brandsData = brandData["body"];
+
+          brandName = brandsData[0]["mobilebrand"];
+        });
+        print("main array is $mainArr");
+
+        String problemUrl =
+            "https://estimatewale.com/application/restapi/single_mobile_problem.php?id=$mobileModel";
+
+        var problemRes =
+            await http.get(Uri.parse(problemUrl), headers: headers);
+
+        if (problemRes.statusCode == 200) {
+          Map<String, dynamic> problemData = json.decode(problemRes.body);
+
+          setState(() {
+            problemsData = problemData["body"];
+
+            problemname = problemsData[0]["singlemobileproblem"];
+
+            mainArr = [brandName, problemname, mobilePrice];
+          });
+          print("problem data is $mainArr");
+        }
+      }
+    } else {
+      jsonDecode("Not found any data");
+      throw Exception("Failed to load brands data");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +142,7 @@ class GeneratedQueriesList extends StatelessWidget {
                       Container(
                         height: height,
                         child: ListView.builder(
-                          itemCount: dealerQueryData.length,
+                          itemCount: data.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 20),
@@ -63,7 +150,7 @@ class GeneratedQueriesList extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    dealerQueryData[index].srNo.toString(),
+                                    data[index]["id"],
                                     style: GoogleFonts.poppins(
                                       color: dimGrey,
                                       fontSize: 18,
@@ -77,21 +164,16 @@ class GeneratedQueriesList extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              QueryAcceptDeclinePage(
-                                            mobile: dealerQueryData[index]
-                                                .mobileName,
-                                            problem:
-                                                dealerQueryData[index].problem,
-                                            distance:
-                                                dealerQueryData[index].distance,
-                                            price:
-                                                dealerQueryData[index].amount,
+                                              UpdateQueryPricepage(
+                                            mobile: data[index]["brand"],
+                                            problem: data[index]["problem"],
+                                            price: data[index]["price"],
                                           ),
                                         ),
                                       );
                                     },
                                     child: Container(
-                                      width: width / 1.21,
+                                      width: width / 1.3,
                                       padding: EdgeInsets.only(
                                         left: 10,
                                         right: 10,
@@ -111,18 +193,11 @@ class GeneratedQueriesList extends StatelessWidget {
                                         children: [
                                           ProbTextWidget(
                                             label: "Mobile :",
-                                            text: dealerQueryData[index]
-                                                .mobileName,
-                                          ),
-                                          ProbTextWidget(
-                                            label: "Distance in KM :",
-                                            text:
-                                                dealerQueryData[index].distance,
+                                            text: data[index]["brand"],
                                           ),
                                           ProbTextWidget(
                                             label: "Mobile Problem :",
-                                            text:
-                                                dealerQueryData[index].problem,
+                                            text: data[index]["problem"],
                                           ),
                                           SizedBox(height: 10),
                                           Container(
@@ -134,17 +209,32 @@ class GeneratedQueriesList extends StatelessWidget {
                                                 topRight: Radius.circular(20),
                                               ),
                                             ),
-                                            child: Center(
-                                              child: Text(
-                                                "\$ " +
-                                                    dealerQueryData[index]
-                                                        .amount,
-                                                style: GoogleFonts.poppins(
-                                                  color: green,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w600,
+                                            child: Html(
+                                              data: data[index]["price"],
+                                              style: {
+                                                "h3": Style(
+                                                  color: Colors.black
+                                                      .withOpacity(0.5),
                                                 ),
-                                              ),
+                                                "hr": Style(
+                                                  backgroundColor: mainColor,
+                                                ),
+                                                "h1": Style(
+                                                  fontSize: FontSize.large,
+                                                  color: Colors.black
+                                                      .withOpacity(0.5),
+                                                ),
+                                                "h2": Style(
+                                                  fontSize: FontSize.large,
+                                                  color: Colors.black
+                                                      .withOpacity(0.5),
+                                                ),
+                                                "li": Style(
+                                                  textDecoration:
+                                                      TextDecoration.none,
+                                                  width: width / 1.5,
+                                                ),
+                                              },
                                             ),
                                           ),
                                         ],

@@ -1,3 +1,4 @@
+import 'package:fix_team_app/view/app/forms/estimate_price.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -87,13 +88,26 @@ class AboutUsPage extends StatelessWidget {
                     SizedBox(
                       width: width / 1.2,
                       child: Text(
-                        "When it comes to smartphones repair, we’re the only one place that does it all. At EstimateWale, you get",
+                        "Mobile phones are an intrinsic part of our life and imaging our life without the same is kind of difficult. You used to use your phone for everything to do your work or attend online meetings. What if your mobile phone breaks or got some other fault? Now! What??? The first thing that comes to your mind that how much will be the repair cost and where to find a reliable mobile service technician. Indeed! When you are doing it for the first time, it is difficult to trust someone as to whether they can justify the repair service or not. WAIT! You Don’t have to bother yourself.",
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w400,
                           fontSize: 14,
                           color: dimGrey,
                         ),
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.justify,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    SizedBox(
+                      width: width / 1.2,
+                      child: Text(
+                        "Estimatewale will help you come across the best mobile repair dealers in your city. You have to fill in the problem details and submit your query to get the estimated price for your mobile problem instantly also you will get the contact details of your nearby mobile repair shops. you can also compare the prices given by repair dealers. We tried to give our best to find the solution for your mobile-related problems",
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                          color: dimGrey,
+                        ),
+                        textAlign: TextAlign.justify,
                       ),
                     ),
                   ],
@@ -593,18 +607,28 @@ class AboutUsPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: mainColor,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      padding: EdgeInsets.all(10),
-                      child: Text(
-                        "Estimate",
-                        style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: white,
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EstimatePricePage(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: mainColor,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          "Estimate",
+                          style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: white,
+                          ),
                         ),
                       ),
                     ),

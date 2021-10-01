@@ -5,6 +5,9 @@ import 'package:fix_team_app/view/widgets/label_widget.dart';
 import 'package:fix_team_app/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UserRegisterPage extends StatefulWidget {
@@ -13,6 +16,8 @@ class UserRegisterPage extends StatefulWidget {
   @override
   _UserRegisterPageState createState() => _UserRegisterPageState();
 }
+
+final storage = new FlutterSecureStorage();
 
 class _UserRegisterPageState extends State<UserRegisterPage> {
   TextEditingController usernameController = TextEditingController();
@@ -23,9 +28,66 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
 
   bool userCreated = false;
 
+  String location = 'Null, Press Button';
+  String address = 'search';
+  String city = 'Get Location';
+  String zipcode = '';
+  String lat = '';
+  String lng = '';
+
   Future<User>? _futureUser;
 
   final _formKey = GlobalKey<FormState>();
+
+  Future<Position> _getGeoLocationPosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      await Geolocator.openLocationSettings();
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+  }
+
+  Future<void> getAddressFromLatLong(Position position) async {
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+    // print(placemarks);
+    Placemark place = placemarks[0];
+    city = '${place.subLocality}, ${place.locality}';
+    zipcode = '${place.postalCode}';
+    lat = '${position.latitude}';
+    lng = '${position.longitude}';
+    address =
+        '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+
+    storeLocationData(address);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +153,7 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                           LabelText(label: "Please Enter Username"),
                           SizedBox(height: 10),
                           TextFieldWidget(
+                            enable: true,
                             controller: usernameController,
                             hint: "Enter username",
                             inputType: TextInputType.name,
@@ -100,6 +163,7 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                           LabelText(label: "Please Enter Email"),
                           SizedBox(height: 10),
                           TextFieldWidget(
+                            enable: true,
                             controller: emailController,
                             hint: "Enter Email",
                             inputType: TextInputType.emailAddress,
@@ -109,6 +173,7 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                           LabelText(label: "Please Enter Phone number"),
                           SizedBox(height: 10),
                           TextFieldWidget(
+                            enable: true,
                             controller: phoneController,
                             hint: "Enter Phone number",
                             inputType: TextInputType.phone,
@@ -133,6 +198,23 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                             hint: "Enter Password",
                             inputType: TextInputType.phone,
                             message: "Password not match",
+                          ),
+                          SizedBox(height: 20),
+                          LabelText(label: "Address"),
+                          SizedBox(height: 10),
+                          InkWell(
+                            onTap: () async {
+                              Position position =
+                                  await _getGeoLocationPosition();
+                              location =
+                                  'Lat: ${position.latitude} , Long: ${position.longitude}';
+                              getAddressFromLatLong(position);
+                            },
+                            child: TextFieldWidget(
+                              enable: false,
+                              hint: address,
+                              inputType: TextInputType.phone,
+                            ),
                           ),
                           SizedBox(height: 80),
                         ],
@@ -164,6 +246,10 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                           emailController.text,
                           phoneController.text,
                           passwordController.text,
+                          zipcode,
+                          address,
+                          lat,
+                          lng,
                         );
                         // ScaffoldMessenger.of(context).showSnackBar(
                         //   SnackBar(
@@ -206,4 +292,13 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
       ),
     );
   }
+}
+
+void storeLocationData(addr) async {
+  print("storing token and data");
+  await storage.write(key: "address", value: addr);
+}
+
+Future<String?> getAddress() async {
+  return await storage.read(key: "address");
 }

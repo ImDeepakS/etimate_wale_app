@@ -96,9 +96,8 @@ class _BlogPageState extends State<BlogPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => BlogDetailPage(
-                          image: imgData.isEmpty
-                              ? "https://estimatewale.com/blog/wp-content/uploads/2021/08/bg51-1024x576-1-825x510.jpg"
-                              : imgData,
+                          image:
+                              "https://estimatewale.com/blog/wp-content/uploads/2021/08/bg51-1024x576-1-825x510.jpg",
                           heading: data[index]["title"],
                           data: data[index]["body"],
                           date: data[index]["created_at"],
@@ -124,10 +123,7 @@ class _BlogPageState extends State<BlogPage> {
                             color: mainColor,
                             image: DecorationImage(
                               image: NetworkImage(
-                                  "https://estimatewale.com/blog/wp-content/uploads/2021/08/${data[index]["post_image"]}"
-                                          .isEmpty
-                                      ? "https://estimatewale.com/blog/wp-content/uploads/2021/08/bg51-1024x576-1-825x510.jpg"
-                                      : "https://estimatewale.com/blog/wp-content/uploads/2021/08/${data[index]["post_image"]}"),
+                                  "https://estimatewale.com/blog/wp-content/uploads/2021/08/bg51-1024x576-1-825x510.jpg"),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -237,9 +233,8 @@ class _BlogPageState extends State<BlogPage> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => BlogDetailPage(
-                              image: imgData.isEmpty
-                                  ? "https://estimatewale.com/blog/wp-content/uploads/2021/08/bg51-1024x576-1-825x510.jpg"
-                                  : imgData,
+                              image:
+                                  "https://estimatewale.com/blog/wp-content/uploads/2021/08/bg51-1024x576-1-825x510.jpg",
                               heading: data[index]["title"],
                               data: data[index]["body"],
                               date: data[index]["created_at"],
@@ -261,17 +256,13 @@ class _BlogPageState extends State<BlogPage> {
                                       height: 70,
                                       width: 70,
                                       decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: NetworkImage(
-                                              "https://estimatewale.com/blog/wp-content/uploads/2021/08/${data[index]["post_image"]}"
-                                                      .isEmpty
-                                                  ? "https://estimatewale.com/blog/wp-content/uploads/2021/08/bg51-1024x576-1-825x510.jpg"
-                                                  : "https://estimatewale.com/blog/wp-content/uploads/2021/08/${data[index]["post_image"]}",
-                                            ),
-                                            fit: BoxFit.cover,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8)),
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                              "https://estimatewale.com/blog/wp-content/uploads/2021/08/bg51-1024x576-1-825x510.jpg"),
+                                          fit: BoxFit.cover,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
                                     ),
                                   ),
                                   Column(

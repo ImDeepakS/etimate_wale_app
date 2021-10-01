@@ -4,6 +4,8 @@ import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
 import 'package:fix_team_app/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
@@ -46,6 +48,61 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
   TextEditingController fbController = TextEditingController();
   TextEditingController instaController = TextEditingController();
   TextEditingController shopyearController = TextEditingController();
+
+  String location = 'Null, Press Button';
+  String address = 'search';
+  String city = 'Get Location';
+  String zipcode = '';
+  String lat = '';
+  String lng = '';
+
+  Future<Position> _getGeoLocationPosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      await Geolocator.openLocationSettings();
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+  }
+
+  Future<void> getAddressFromLatLong(Position position) async {
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+    // print(placemarks);
+    Placemark place = placemarks[0];
+    city = '${place.subLocality}, ${place.locality}';
+    zipcode = '${place.postalCode}';
+    lat = '${position.latitude}';
+    lng = '${position.longitude}';
+    address =
+        '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+    setState(() {});
+  }
 
   String imgPath = "";
   final picker = ImagePicker();
@@ -115,14 +172,18 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                           LabelText(label: "Shop Owner Name"),
                           SizedBox(height: 10),
                           TextFieldWidget(
+                            enable: true,
                             message: "Owner Name can't be empty",
                             controller: usernameController,
+                            hint: "Enter Owner name",
                             inputType: TextInputType.name,
                           ),
                           SizedBox(height: 20),
                           LabelText(label: "Contact Number"),
                           SizedBox(height: 10),
                           TextFieldWidget(
+                            enable: true,
+                            hint: "Enter Contact number",
                             message: "Contact number can't be empty",
                             controller: phoneController,
                             inputType: TextInputType.phone,
@@ -131,6 +192,8 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                           LabelText(label: "Contact Number 1"),
                           SizedBox(height: 10),
                           TextFieldWidget(
+                            hint: "Enter Second Contact Number",
+                            enable: true,
                             message: "Contact number 1 can't be empty",
                             controller: phoneController1,
                             inputType: TextInputType.phone,
@@ -139,6 +202,8 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                           LabelText(label: "Shop Name"),
                           SizedBox(height: 10),
                           TextFieldWidget(
+                            enable: true,
+                            hint: "Enter Shop name",
                             message: "Shop name can't be empty",
                             controller: shopNameController,
                             inputType: TextInputType.name,
@@ -146,15 +211,28 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                           SizedBox(height: 20),
                           LabelText(label: "Address"),
                           SizedBox(height: 10),
-                          TextFieldWidget(
-                            message: "Address can't be empty",
-                            controller: addressController,
-                            inputType: TextInputType.streetAddress,
+                          InkWell(
+                            onTap: () async {
+                              Position position =
+                                  await _getGeoLocationPosition();
+                              location =
+                                  'Lat: ${position.latitude} , Long: ${position.longitude}';
+                              getAddressFromLatLong(position);
+                            },
+                            child: TextFieldWidget(
+                              enable: false,
+                              hint: address,
+                              message: "Address can't be empty",
+                              controller: addressController,
+                              inputType: TextInputType.streetAddress,
+                            ),
                           ),
                           SizedBox(height: 20),
                           LabelText(label: "Landline Number"),
                           SizedBox(height: 10),
                           TextFieldWidget(
+                            enable: true,
+                            hint: "Enter Landline number",
                             message: "Landline number can't be empty",
                             controller: landlineController,
                             inputType: TextInputType.phone,
@@ -163,6 +241,8 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                           LabelText(label: "Email Address"),
                           SizedBox(height: 10),
                           TextFieldWidget(
+                            hint: "Enter Email",
+                            enable: true,
                             message: "Email Address can't be empty",
                             controller: emailController,
                             inputType: TextInputType.emailAddress,
@@ -171,6 +251,8 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                           LabelText(label: "Facebook ID"),
                           SizedBox(height: 10),
                           TextFieldWidget(
+                            enable: true,
+                            hint: "Enter Facebook id",
                             message: "Facebook ID can't be empty",
                             controller: fbController,
                             inputType: TextInputType.emailAddress,
@@ -179,6 +261,8 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                           LabelText(label: "Instagram ID"),
                           SizedBox(height: 10),
                           TextFieldWidget(
+                            enable: true,
+                            hint: "Enter Instagram Id",
                             message: "Instagram ID can't be empty",
                             controller: instaController,
                             inputType: TextInputType.emailAddress,
@@ -187,6 +271,8 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                           LabelText(label: "Shop From Last How Many Years?"),
                           SizedBox(height: 10),
                           TextFieldWidget(
+                            enable: true,
+                            hint: "Enter Shop years",
                             message: "Shop Years can't be empty",
                             controller: shopyearController,
                             inputType: TextInputType.phone,
@@ -323,6 +409,7 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                           LabelText(label: "Password"),
                           SizedBox(height: 10),
                           TextFieldWidget(
+                            enable: true,
                             message: "Password can't be empty",
                             controller: passwordController,
                             inputType: TextInputType.visiblePassword,
@@ -331,6 +418,7 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                           LabelText(label: "Confirm Password"),
                           SizedBox(height: 10),
                           TextFieldWidget(
+                            enable: true,
                             message: "Confirm Password can't be empty",
                             controller: confirmPasswordController,
                             inputType: TextInputType.text,
@@ -356,23 +444,42 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                 child: InkWell(
                   onTap: () {
                     FocusManager.instance.primaryFocus!.unfocus();
-                    registerDealer(
-                      context,
-                      usernameController.text,
-                      emailController.text,
-                      phoneController.text,
-                      passwordController.text,
-                      addressController.text,
-                      phoneController1.text,
-                      shopNameController.text,
-                      landlineController.text,
-                      fbController.text,
-                      instaController.text,
-                      shopyearController.text,
-                      _selectedBrand,
-                      _selectedSpecialist,
-                      _selectedAgree,
-                    );
+                    if (_formKey.currentState!.validate()) {
+                      setState(() {
+                        registerDealer(
+                          context,
+                          usernameController.text,
+                          emailController.text,
+                          phoneController.text,
+                          passwordController.text,
+                          addressController.text,
+                          phoneController1.text,
+                          shopNameController.text,
+                          landlineController.text,
+                          fbController.text,
+                          instaController.text,
+                          shopyearController.text,
+                          _selectedBrand,
+                          _selectedSpecialist,
+                          _selectedAgree,
+                          zipcode,
+                          lat,
+                          lng,
+                        );
+
+                        this.setState(() {
+                          usernameController.clear();
+                          emailController.clear();
+                          phoneController.clear();
+                          phoneController1.clear();
+                          shopNameController.clear();
+                          landlineController.clear();
+                          shopyearController.clear();
+                          fbController.clear();
+                          instaController.clear();
+                        });
+                      });
+                    }
                   },
                   child: Container(
                     height: 50,

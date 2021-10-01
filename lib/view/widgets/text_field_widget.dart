@@ -8,9 +8,11 @@ class TextFieldWidget extends StatelessWidget {
   final String? message;
   final maxline;
   final String? hint;
+  final bool enable;
   final TextInputType? inputType;
   const TextFieldWidget(
       {Key? key,
+      required this.enable,
       this.controller,
       this.message,
       this.inputType,
@@ -51,6 +53,7 @@ class TextFieldWidget extends StatelessWidget {
           isDense: true,
           fillColor: Colors.white,
           border: InputBorder.none,
+          enabled: enable,
           hintStyle: GoogleFonts.poppins(
             color: shadyGrey,
             fontSize: 15,

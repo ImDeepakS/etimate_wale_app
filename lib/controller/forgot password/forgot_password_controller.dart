@@ -24,6 +24,7 @@ Future forgetPassword(email, BuildContext context) async {
               TextButton(
                 child: new Text("OK"),
                 onPressed: () {
+                  Navigator.pop(context);
                   // Navigator.of(context).pushReplacement(
                   //   MaterialPageRoute(
                   //     builder: (context) => LoginPage(),

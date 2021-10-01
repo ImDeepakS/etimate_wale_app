@@ -28,10 +28,12 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
     super.initState();
     phoneBrand();
     // phoneModel();
+    probModel();
   }
 
   List data = [];
   List dataModel = [];
+  List problemModel = [];
 
   Map<String, String> headers = {
     'content-Type': 'application/json;charset=UTF-8',
@@ -70,6 +72,25 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
       });
 
       print("model data is $dataModel");
+    } else {
+      jsonDecode("Not found any data");
+      throw Exception("Failed to load brands data");
+    }
+  }
+
+  Future probModel() async {
+    String apiurl =
+        "https://estimatewale.com/application/restapi/single_problem.php";
+    var response = await http.get(Uri.parse(apiurl), headers: headers);
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> modelData = json.decode(response.body);
+
+      setState(() {
+        problemModel = modelData["body"];
+      });
+
+      print("problem data is $problemModel");
     } else {
       jsonDecode("Not found any data");
       throw Exception("Failed to load brands data");
@@ -135,6 +156,7 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          SizedBox(height: 50),
                           LabelText(label: "Select Mobile Brand"),
                           SizedBox(height: 10),
                           Container(
@@ -255,7 +277,9 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
                               child: ButtonTheme(
                                 alignedDropdown: true,
                                 child: DropdownButton<String>(
-                                  value: null,
+                                  value: problemValue.isEmpty
+                                      ? null
+                                      : problemValue,
                                   iconSize: 30,
                                   icon: (null),
                                   style: TextStyle(
@@ -265,59 +289,16 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
                                   hint: Text('Select City'),
                                   onChanged: (String? newValue) {
                                     setState(() {
-                                      phoneValue = newValue!;
-                                      print("phone value is $phoneValue");
+                                      problemValue = newValue!;
+                                      print("problem value is $problemValue");
                                     });
                                   },
-                                  items: data.map((item) {
+                                  items: problemModel.map((item) {
                                     return new DropdownMenuItem(
-                                      child: new Text(item['mobilebrand']),
-                                      value: item['id'].toString(),
-                                    );
-                                  }).toList(),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 30),
-                          LabelText(label: "Select Distance"),
-                          SizedBox(height: 10),
-                          Container(
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: white,
-                              border: Border.all(width: 1, color: dimGrey),
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: black.withOpacity(0.2),
-                                  blurRadius: 10,
-                                  offset: Offset(0.5, 0.5),
-                                ),
-                              ],
-                            ),
-                            width: width,
-                            child: DropdownButtonHideUnderline(
-                              child: ButtonTheme(
-                                alignedDropdown: true,
-                                child: DropdownButton<String>(
-                                  value: null,
-                                  iconSize: 30,
-                                  icon: (null),
-                                  style: TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: 16,
-                                  ),
-                                  hint: Text('Select City'),
-                                  onChanged: (String? newValue) {
-                                    setState(() {
-                                      phoneValue = newValue!;
-                                      print("phone value is $phoneValue");
-                                    });
-                                  },
-                                  items: data.map((item) {
-                                    return new DropdownMenuItem(
-                                      child: new Text(item['mobilebrand']),
+                                      child: SizedBox(
+                                          width: width / 2,
+                                          child: new Text(
+                                              item['singlemobileproblem'])),
                                       value: item['id'].toString(),
                                     );
                                   }).toList(),

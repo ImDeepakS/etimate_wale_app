@@ -3,7 +3,8 @@ import 'package:fix_team_app/view/app/loginpage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-Future registerUser(BuildContext context, user, email, phone, password) async {
+Future registerUser(BuildContext context, user, email, phone, password, zipcode,
+    address, lat, lng) async {
   try {
     final response = await http.post(
         Uri.parse(
@@ -14,6 +15,10 @@ Future registerUser(BuildContext context, user, email, phone, password) async {
           "email": email,
           "contact": phone,
           "password": password,
+          "zipcode": zipcode,
+          "address": address,
+          "lat": lat,
+          "lng": lng,
         });
     var message = jsonDecode(json.encode(response.body));
 

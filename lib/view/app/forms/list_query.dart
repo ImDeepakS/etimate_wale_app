@@ -2,6 +2,8 @@ import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/prob_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class QueriesListPage extends StatefulWidget {
   const QueriesListPage({Key? key}) : super(key: key);
@@ -12,8 +14,42 @@ class QueriesListPage extends StatefulWidget {
 
 class _QueriesListPageState extends State<QueriesListPage> {
   @override
+  void initState() {
+    super.initState();
+    allQueriesList();
+  }
+
+  List data = [];
+  String mobileBrand = '';
+  String mobileModel = '';
+  String mobileProblem = '';
+
+  Map<String, String> headers = {
+    'content-Type': 'application/json;charset=UTF-8',
+    'Charset': 'utf-8'
+  };
+
+  Future allQueriesList() async {
+    String apiurl =
+        "https://estimatewale.com/application/restapi/user_queries_list.php";
+    var response = await http.get(Uri.parse(apiurl), headers: headers);
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> modelData = json.decode(response.body);
+
+      setState(() {
+        data = modelData["body"];
+      });
+
+      print("all queries data is $data");
+    } else {
+      jsonDecode("Not found any data");
+      throw Exception("Failed to load brands data");
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(

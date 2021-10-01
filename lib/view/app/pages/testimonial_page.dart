@@ -1,6 +1,7 @@
 import 'package:fix_team_app/model/testimonial_model.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
@@ -147,13 +148,9 @@ class _TestimonialPageState extends State<TestimonialPage> {
                                             SizedBox(height: 20),
                                             SizedBox(
                                               width: width / 1.2,
-                                              child: Text(
-                                                data[index]["description"],
-                                                style: GoogleFonts.poppins(
-                                                  fontSize: 14,
-                                                  color: shadyGrey,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
+                                              child: Html(
+                                                data: data[index]
+                                                    ["description"],
                                               ),
                                             ),
                                             SizedBox(

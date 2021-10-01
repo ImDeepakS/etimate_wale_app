@@ -26,7 +26,6 @@ class ProbTextWidget extends StatelessWidget {
         ),
         SizedBox(width: 10),
         SizedBox(
-          width: width / 2.4,
           child: Text(
             text,
             style: GoogleFonts.poppins(

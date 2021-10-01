@@ -1,6 +1,7 @@
 import 'package:fix_team_app/controller/login/login_controller.dart';
 import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:fix_team_app/view/app/pages/forgot_password_page.dart';
+import 'package:fix_team_app/view/app/users/dealer_register_page.dart';
 import 'package:fix_team_app/view/app/users/user_register_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
@@ -83,6 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                           LabelText(label: "Please Enter Username"),
                           SizedBox(height: 10),
                           TextFieldWidget(
+                            enable: true,
                             controller: usernameController,
                             hint: "Enter username",
                             inputType: TextInputType.name,
@@ -113,12 +115,78 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            UserRegisterPage(),
-                                      ),
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) =>
+                                    //         UserRegisterPage(),
+                                    //   ),
+                                    // );
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible: true,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          actions: <Widget>[
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                SizedBox(
+                                                  width: width / 4,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              UserRegisterPage(),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Text(
+                                                      "Sign Up as Customer",
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: mainColor,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: width / 4,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              DealerRegisterPage(),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Text(
+                                                      "Sign Up as Retailer",
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: mainColor,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        );
+                                      },
                                     );
                                   },
                                   child: Text(
