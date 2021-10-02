@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:fix_team_app/view/app/pages/dealers_list.dart';
+import 'package:fix_team_app/view/app/forms/query_details.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
 import 'package:flutter/material.dart';
@@ -27,13 +27,13 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
   void initState() {
     super.initState();
     phoneBrand();
-    // phoneModel();
-    probModel();
   }
 
   List data = [];
   List dataModel = [];
   List problemModel = [];
+
+  String phonename = '', modelname = '', problemname = '';
 
   Map<String, String> headers = {
     'content-Type': 'application/json;charset=UTF-8',
@@ -78,19 +78,21 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
     }
   }
 
-  Future probModel() async {
+  Future probModel(int catbrands, catmodels) async {
     String apiurl =
-        "https://estimatewale.com/application/restapi/single_problem.php";
+        "https://estimatewale.com/application/restapi/demo.php?cat_brands=$catbrands&&cat_models=$catmodels";
     var response = await http.get(Uri.parse(apiurl), headers: headers);
 
     if (response.statusCode == 200) {
-      Map<String, dynamic> modelData = json.decode(response.body);
-
-      setState(() {
-        problemModel = modelData["body"];
-      });
-
-      print("problem data is $problemModel");
+      if (response.body.isNotEmpty) {
+        Map<String, dynamic> modelData = json.decode(response.body);
+        setState(() {
+          problemModel = modelData["body"];
+        });
+        print("problem data is $problemModel");
+      } else {
+        print("problem blank data");
+      }
     } else {
       jsonDecode("Not found any data");
       throw Exception("Failed to load brands data");
@@ -197,6 +199,11 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
                                     return new DropdownMenuItem(
                                       child: new Text(item['mobilebrand']),
                                       value: item['id'].toString(),
+                                      onTap: () {
+                                        setState(() {
+                                          phonename = item['mobilebrand'];
+                                        });
+                                      },
                                     );
                                   }).toList(),
                                 ),
@@ -239,6 +246,10 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
                                         setState(() {
                                           modelValue = newValue!;
                                           print("model value is $modelValue");
+                                          probModel(
+                                            int.parse(phoneValue),
+                                            int.parse(modelValue),
+                                          );
                                         });
                                       } catch (e) {
                                         print("Exception $e");
@@ -249,6 +260,11 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
                                     return new DropdownMenuItem(
                                       child: new Text(item['mobilemodel']),
                                       value: item['id'].toString(),
+                                      onTap: () {
+                                        setState(() {
+                                          modelname = item['mobilemodel'];
+                                        });
+                                      },
                                     );
                                   }).toList(),
                                 ),
@@ -286,12 +302,19 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
                                     color: Colors.black54,
                                     fontSize: 16,
                                   ),
-                                  hint: Text('Select City'),
+                                  hint: Text('Select Problem'),
                                   onChanged: (String? newValue) {
-                                    setState(() {
-                                      problemValue = newValue!;
-                                      print("problem value is $problemValue");
-                                    });
+                                    if (mounted) {
+                                      try {
+                                        setState(() {
+                                          problemValue = newValue!;
+                                          print(
+                                              "problem value is $problemValue");
+                                        });
+                                      } catch (e) {
+                                        print("Exception $e");
+                                      }
+                                    }
                                   },
                                   items: problemModel.map((item) {
                                     return new DropdownMenuItem(
@@ -300,6 +323,12 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
                                           child: new Text(
                                               item['singlemobileproblem'])),
                                       value: item['id'].toString(),
+                                      onTap: () {
+                                        setState(() {
+                                          problemname =
+                                              item['singlemobileproblem'];
+                                        });
+                                      },
                                     );
                                   }).toList(),
                                 ),
@@ -327,9 +356,22 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
                 child: InkWell(
                   onTap: () {
                     FocusManager.instance.primaryFocus!.unfocus();
-                    Navigator.of(context).push(
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (context) => DealersListPage(),
+                    //   ),
+                    // );
+                    Navigator.push(
+                      context,
                       MaterialPageRoute(
-                        builder: (context) => DealersListPage(),
+                        builder: (context) => DetailedQuery(
+                          brand: phonename,
+                          model: modelname,
+                          problem: problemname,
+                          brandid: int.parse(phoneValue),
+                          modelid: int.parse(modelValue),
+                          problemid: int.parse(problemValue),
+                        ),
                       ),
                     );
                   },
