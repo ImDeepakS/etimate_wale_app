@@ -1,39 +1,41 @@
-import 'package:fix_team_app/model/dealer_query_model.dart';
+import 'package:fix_team_app/view/app/forms/dealer_ac_dc_query.dart';
+import 'package:fix_team_app/view/app/forms/update_query_price.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
 import 'package:fix_team_app/view/widgets/prob_text_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_html/style.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class AcceptedQueriesList extends StatefulWidget {
-  const AcceptedQueriesList({Key? key}) : super(key: key);
+class DealerUserQueryPage extends StatefulWidget {
+  const DealerUserQueryPage({Key? key}) : super(key: key);
 
   @override
-  State<AcceptedQueriesList> createState() => _AcceptedQueriesListState();
+  _DealerUserQueryPageState createState() => _DealerUserQueryPageState();
 }
 
-class _AcceptedQueriesListState extends State<AcceptedQueriesList> {
+class _DealerUserQueryPageState extends State<DealerUserQueryPage> {
   @override
   void initState() {
     super.initState();
-    acceptedQueriesList(36);
+    allQueriesList(5);
   }
 
   List data = [];
+  String mobileBrand = '';
+  String mobileModel = '';
+  String mobileProblem = '';
 
   Map<String, String> headers = {
     'content-Type': 'application/json;charset=UTF-8',
     'Charset': 'utf-8'
   };
 
-  Future acceptedQueriesList(int dealer) async {
+  Future allQueriesList(int dealer) async {
     String apiurl =
-        "https://estimatewale.com/application/restapi/accepted_queries.php?dealerid=$dealer";
+        "https://estimatewale.com/application/restapi/wait_to_accept_queries.php?dealerid=$dealer";
     var response = await http.get(Uri.parse(apiurl), headers: headers);
 
     if (response.statusCode == 200) {
@@ -43,7 +45,7 @@ class _AcceptedQueriesListState extends State<AcceptedQueriesList> {
         data = modelData["body"];
       });
 
-      print("queries data is $data");
+      print("all queries data is $data");
     } else {
       jsonDecode("Not found any data");
       throw Exception("Failed to load brands data");
@@ -86,7 +88,7 @@ class _AcceptedQueriesListState extends State<AcceptedQueriesList> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Accepted Queries",
+                        "User Queries",
                         style: GoogleFonts.poppins(
                           color: dimGrey,
                           fontSize: 18,
@@ -112,10 +114,27 @@ class _AcceptedQueriesListState extends State<AcceptedQueriesList> {
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
-                                  SizedBox(width: 10),
+                                  SizedBox(width: 5),
                                   InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              DealerAcceptQuerypage(
+                                            mobile: data[index]["mobilebrand"],
+                                            model: data[index]["mobilemodel"],
+                                            problem: data[index]
+                                                ["singlemobileproblem"],
+                                            price: data[index]["price"] == null
+                                                ? "0"
+                                                : data[index]["price"],
+                                          ),
+                                        ),
+                                      );
+                                    },
                                     child: Container(
-                                      width: width / 1.21,
+                                      width: width / 1.3,
                                       padding: EdgeInsets.only(
                                         left: 10,
                                         right: 10,
@@ -133,35 +152,19 @@ class _AcceptedQueriesListState extends State<AcceptedQueriesList> {
                                       ),
                                       child: Column(
                                         children: [
+                                          SizedBox(height: 5),
                                           ProbTextWidget(
-                                            label: "Brand :",
-                                            text: data[index]["mobilebrand"],
+                                            label: "Mobile :",
+                                            text: "sdflkjdf",
                                           ),
                                           ProbTextWidget(
-                                            label: "Model :",
-                                            text: data[index]["mobilemodel"],
+                                            label: "Mobile :",
+                                            text: "kjdshkjhgkdf",
                                           ),
                                           ProbTextWidget(
-                                            label: "Problem :",
-                                            text: data[index]
-                                                ["singlemobileproblem"],
+                                            label: "Problem",
+                                            text: "idsyutfiusyfi",
                                           ),
-                                          data[index]["email"] == null
-                                              ? ProbTextWidget(
-                                                  label: "Email",
-                                                  text: "No data found")
-                                              : ProbTextWidget(
-                                                  label: "Email :",
-                                                  text: data[index]["email"],
-                                                ),
-                                          data[index]["contact"] == null
-                                              ? ProbTextWidget(
-                                                  label: "Contact",
-                                                  text: "No data found")
-                                              : ProbTextWidget(
-                                                  label: "Contact :",
-                                                  text: data[index]["contact"],
-                                                ),
                                           data[index]["price"] == null
                                               ? ProbTextWidget(
                                                   label: "Price",

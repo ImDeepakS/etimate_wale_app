@@ -1,3 +1,4 @@
+import 'package:fix_team_app/controller/insert/inser_query_controller.dart';
 import 'package:fix_team_app/view/app/forms/list_query.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/prob_text_widget.dart';
@@ -5,22 +6,30 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DealerProfilePage extends StatefulWidget {
-  final String dealerName;
   final String price;
   final String address;
   final String shopName;
   final String contactNumber;
   final String shopImage;
-  final String distance;
+  final String brand;
+  final String model;
+  final String problem;
+  final String brandid;
+  final String modelid;
+  final String problemid;
   const DealerProfilePage({
     Key? key,
-    required this.dealerName,
     required this.price,
     required this.address,
     required this.shopName,
     required this.contactNumber,
     required this.shopImage,
-    required this.distance,
+    required this.brand,
+    required this.model,
+    required this.problem,
+    required this.brandid,
+    required this.modelid,
+    required this.problemid,
   }) : super(key: key);
 
   @override
@@ -92,21 +101,6 @@ class _DealerProfilePageState extends State<DealerProfilePage> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  widget.dealerName,
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.grey.shade200,
-                                    shadows: [
-                                      Shadow(
-                                        offset: Offset(1, 1),
-                                        blurRadius: 3,
-                                        color: black.withOpacity(0.5),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                                 SizedBox(height: 5),
                                 Text(
                                   widget.contactNumber,
@@ -182,15 +176,15 @@ class _DealerProfilePageState extends State<DealerProfilePage> {
                                   children: [
                                     ProbTextWidget(
                                       label: "Mobile :",
-                                      text: "IPhone 6",
+                                      text: widget.brand,
                                     ),
                                     ProbTextWidget(
-                                      label: "Distance in KM :",
-                                      text: "5 KM",
+                                      label: "Model :",
+                                      text: widget.model,
                                     ),
                                     ProbTextWidget(
-                                      label: "Mobile Problem :",
-                                      text: "LCD Broken",
+                                      label: "Problem :",
+                                      text: widget.problem,
                                     ),
                                     SizedBox(height: 10),
                                     Container(
@@ -232,10 +226,14 @@ class _DealerProfilePageState extends State<DealerProfilePage> {
               padding: const EdgeInsets.only(bottom: 10),
               child: InkWell(
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => QueriesListPage(),
-                    ),
+                  insertQuery(
+                    context,
+                    widget.brandid,
+                    widget.modelid,
+                    widget.problemid,
+                    "4",
+                    "3",
+                    "0",
                   );
                 },
                 child: Container(

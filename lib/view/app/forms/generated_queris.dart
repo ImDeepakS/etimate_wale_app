@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:fix_team_app/controller/lists/single_brand_controller.dart';
 import 'package:fix_team_app/view/app/forms/update_query_price.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/prob_text_widget.dart';
@@ -16,30 +15,37 @@ class GeneratedQueriesList extends StatefulWidget {
 }
 
 class _GeneratedQueriesListState extends State<GeneratedQueriesList> {
+  ScrollController scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
-    queriesList(3);
+    fetchTen();
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        fetchTen();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 
   List data = [];
-  List brandsData = [];
-  List modelsData = [];
-  List problemsData = [];
-  List mainArr = [];
-  String mobileBrand = '';
-  String mobileModel = '';
-  String mobileProblem = '';
-  String mobilePrice = '';
-
-  String brandName = '';
-  String modelname = '';
-  String problemname = '';
 
   Map<String, String> headers = {
     'content-Type': 'application/json;charset=UTF-8',
     'Charset': 'utf-8'
   };
+
+  fetchTen() {
+    for (var i = 0; i < 10; i++) {
+      queriesList(36);
+    }
+  }
 
   Future queriesList(int userid) async {
     String apiurl =
@@ -47,48 +53,13 @@ class _GeneratedQueriesListState extends State<GeneratedQueriesList> {
     var response = await http.get(Uri.parse(apiurl), headers: headers);
 
     if (response.statusCode == 200) {
-      Map<String, dynamic> modelData = json.decode(response.body);
+      Map<String, dynamic> estimateQueryData = json.decode(response.body);
 
       setState(() {
-        data = modelData["body"];
-        mobileBrand = data[0]["brand"];
-        mobileModel = data[0]["model"];
-        mobileProblem = data[0]["problem"];
-        mobilePrice = data[0]["price"];
+        data = estimateQueryData["body"];
       });
 
-      String brandUrl =
-          "https://estimatewale.com/application/restapi/single_brand.php?id=$mobileBrand";
-      var brandRes = await http.get(Uri.parse(brandUrl), headers: headers);
-
-      if (brandRes.statusCode == 200) {
-        Map<String, dynamic> brandData = json.decode(brandRes.body);
-        setState(() {
-          brandsData = brandData["body"];
-
-          brandName = brandsData[0]["mobilebrand"];
-        });
-        print("main array is $mainArr");
-
-        String problemUrl =
-            "https://estimatewale.com/application/restapi/single_mobile_problem.php?id=$mobileModel";
-
-        var problemRes =
-            await http.get(Uri.parse(problemUrl), headers: headers);
-
-        if (problemRes.statusCode == 200) {
-          Map<String, dynamic> problemData = json.decode(problemRes.body);
-
-          setState(() {
-            problemsData = problemData["body"];
-
-            problemname = problemsData[0]["singlemobileproblem"];
-
-            mainArr = [brandName, problemname, mobilePrice];
-          });
-          print("problem data is $mainArr");
-        }
-      }
+      print("data is $data");
     } else {
       jsonDecode("Not found any data");
       throw Exception("Failed to load brands data");
@@ -131,7 +102,7 @@ class _GeneratedQueriesListState extends State<GeneratedQueriesList> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Your Queries",
+                        "Your Estimate Price List",
                         style: GoogleFonts.poppins(
                           color: dimGrey,
                           fontSize: 18,
@@ -142,6 +113,7 @@ class _GeneratedQueriesListState extends State<GeneratedQueriesList> {
                       Container(
                         height: height,
                         child: ListView.builder(
+                          controller: scrollController,
                           itemCount: data.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
@@ -153,11 +125,11 @@ class _GeneratedQueriesListState extends State<GeneratedQueriesList> {
                                     data[index]["id"],
                                     style: GoogleFonts.poppins(
                                       color: dimGrey,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                   ),
-                                  SizedBox(width: 10),
+                                  SizedBox(width: 5),
                                   InkWell(
                                     onTap: () {
                                       Navigator.push(
@@ -165,9 +137,14 @@ class _GeneratedQueriesListState extends State<GeneratedQueriesList> {
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               UpdateQueryPricepage(
-                                            mobile: data[index]["brand"],
-                                            problem: data[index]["problem"],
+                                            mobile: data[index]["mobilebrand"],
+                                            model: data[index]["mobilemodel"],
+                                            problem: data[index]
+                                                ["singlemobileproblem"],
                                             price: data[index]["price"],
+                                            mobileid: data[index]["brand"],
+                                            modelid: data[index]["model"],
+                                            problemid: data[index]["problem"],
                                           ),
                                         ),
                                       );
@@ -191,13 +168,19 @@ class _GeneratedQueriesListState extends State<GeneratedQueriesList> {
                                       ),
                                       child: Column(
                                         children: [
+                                          SizedBox(height: 5),
                                           ProbTextWidget(
                                             label: "Mobile :",
-                                            text: data[index]["brand"],
+                                            text: data[index]["mobilebrand"],
                                           ),
                                           ProbTextWidget(
-                                            label: "Mobile Problem :",
-                                            text: data[index]["problem"],
+                                            label: "Mobile :",
+                                            text: data[index]["mobilemodel"],
+                                          ),
+                                          ProbTextWidget(
+                                            label: "Problem",
+                                            text: data[index]
+                                                ["singlemobileproblem"],
                                           ),
                                           SizedBox(height: 10),
                                           Container(

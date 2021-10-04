@@ -1,12 +1,63 @@
+import 'package:fix_team_app/controller/contact/contact_controller.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
 import 'package:fix_team_app/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ContactUsPage extends StatelessWidget {
+class ContactUsPage extends StatefulWidget {
   const ContactUsPage({Key? key}) : super(key: key);
+
+  @override
+  State<ContactUsPage> createState() => _ContactUsPageState();
+}
+
+class _ContactUsPageState extends State<ContactUsPage> {
+  bool isHTML = false;
+
+  final subjectController = TextEditingController(text: 'The subject');
+
+  final bodyController = TextEditingController(
+    text: 'Mail body.',
+  );
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController messageController = TextEditingController();
+  TextEditingController contactController = TextEditingController();
+
+  Future<void> send() async {
+    final Email email = Email(
+      body: bodyController.text,
+      subject: subjectController.text,
+      recipients: [
+        emailController.text,
+        messageController.text,
+        nameController.text,
+        contactController.text,
+      ],
+      isHTML: isHTML,
+    );
+
+    String platformResponse;
+
+    try {
+      await FlutterEmailSender.send(email);
+      platformResponse = 'success';
+    } catch (error) {
+      platformResponse = error.toString();
+    }
+
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(platformResponse),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -182,6 +233,7 @@ class ContactUsPage extends StatelessWidget {
                             enable: true,
                             hint: "Enter Your Name",
                             inputType: TextInputType.name,
+                            controller: nameController,
                           ),
                           SizedBox(height: 20),
                           LabelText(label: "Your Email Id"),
@@ -190,6 +242,7 @@ class ContactUsPage extends StatelessWidget {
                             enable: true,
                             hint: "Enter Your Email Id",
                             inputType: TextInputType.emailAddress,
+                            controller: emailController,
                           ),
                           SizedBox(height: 20),
                           LabelText(label: "Your Phone No."),
@@ -198,9 +251,10 @@ class ContactUsPage extends StatelessWidget {
                             enable: true,
                             hint: "Enter Your Phone No.",
                             inputType: TextInputType.phone,
+                            controller: contactController,
                           ),
                           SizedBox(height: 20),
-                          LabelText(label: "Your Comment"),
+                          LabelText(label: "Your Message"),
                           SizedBox(height: 10),
                           Container(
                             padding: EdgeInsets.only(
@@ -229,8 +283,9 @@ class ContactUsPage extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                               ),
                               maxLines: 5,
+                              controller: messageController,
                               decoration: new InputDecoration.collapsed(
-                                hintText: "Enter Your Comment Here",
+                                hintText: "Enter Your Message Here",
                                 fillColor: Colors.white,
                                 border: InputBorder.none,
                                 hintStyle: GoogleFonts.poppins(
@@ -268,32 +323,13 @@ class ContactUsPage extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     FocusManager.instance.primaryFocus!.unfocus();
-                    // if (usernameController.text == "" &&
-                    //     passwordController.text == "") {
-                    //   showDialog(
-                    //     context: context,
-                    //     builder: (BuildContext context) {
-                    //       return AlertDialog(
-                    //         title: new Text("Please fill all the details"),
-                    //         actions: <Widget>[
-                    //           TextButton(
-                    //             child: new Text("OK"),
-                    //             onPressed: () {
-                    //               Navigator.of(context).pop();
-                    //             },
-                    //           ),
-                    //         ],
-                    //       );
-                    //     },
-                    //   );
-                    // } else {
-                    //   login(
-                    //     context,
-                    //     usernameController.text,
-                    //     passwordController.text,
-                    //   );
-                    // }
-                    Navigator.pop(context);
+                    contact(
+                      emailController.text,
+                      nameController.text,
+                      messageController.text,
+                      contactController.text,
+                      context,
+                    );
                   },
                   child: Container(
                     height: 50,

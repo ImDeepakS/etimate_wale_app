@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:fix_team_app/model/profile_model.dart';
-import 'package:fix_team_app/view/app/pages/my_account_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;

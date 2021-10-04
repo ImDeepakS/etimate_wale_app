@@ -201,11 +201,11 @@ class _DetailedQueryState extends State<DetailedQuery> {
                                               text: widget.brand,
                                             ),
                                             ProbTextWidget(
-                                              label: "Mobile Model :",
+                                              label: "Model :",
                                               text: widget.model,
                                             ),
                                             ProbTextWidget(
-                                              label: "Mobile Problem :",
+                                              label: "Problem :",
                                               text: widget.problem,
                                             ),
                                             Container(
@@ -336,7 +336,14 @@ class _DetailedQueryState extends State<DetailedQuery> {
                     FocusManager.instance.primaryFocus!.unfocus();
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => DealersListPage(),
+                        builder: (context) => DealersListPage(
+                          brandid: widget.brandid.toString(),
+                          modelid: widget.modelid.toString(),
+                          problemid: widget.problemid.toString(),
+                          brand: widget.brand,
+                          model: widget.model,
+                          problem: widget.problem,
+                        ),
                       ),
                     );
                   },

@@ -115,79 +115,79 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //         UserRegisterPage(),
-                                    //   ),
-                                    // );
-                                    showDialog(
-                                      context: context,
-                                      barrierDismissible: true,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          actions: <Widget>[
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                SizedBox(
-                                                  width: width / 4,
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      Navigator.pop(context);
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              UserRegisterPage(),
-                                                        ),
-                                                      );
-                                                    },
-                                                    child: Text(
-                                                      "Sign Up as Customer",
-                                                      style:
-                                                          GoogleFonts.poppins(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: mainColor,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: width / 4,
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      Navigator.pop(context);
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              DealerRegisterPage(),
-                                                        ),
-                                                      );
-                                                    },
-                                                    child: Text(
-                                                      "Sign Up as Retailer",
-                                                      style:
-                                                          GoogleFonts.poppins(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: mainColor,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        );
-                                      },
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            UserRegisterPage(),
+                                      ),
                                     );
+                                    // showDialog(
+                                    //   context: context,
+                                    //   barrierDismissible: true,
+                                    //   builder: (BuildContext context) {
+                                    //     return AlertDialog(
+                                    //       actions: <Widget>[
+                                    //         Row(
+                                    //           mainAxisAlignment:
+                                    //               MainAxisAlignment.spaceAround,
+                                    //           children: [
+                                    //             SizedBox(
+                                    //               width: width / 4,
+                                    //               child: InkWell(
+                                    //                 onTap: () {
+                                    //                   Navigator.pop(context);
+                                    //                   Navigator.push(
+                                    //                     context,
+                                    //                     MaterialPageRoute(
+                                    //                       builder: (context) =>
+                                    //                           UserRegisterPage(),
+                                    //                     ),
+                                    //                   );
+                                    //                 },
+                                    //                 child: Text(
+                                    //                   "Sign Up as Customer",
+                                    //                   style:
+                                    //                       GoogleFonts.poppins(
+                                    //                     fontSize: 14,
+                                    //                     fontWeight:
+                                    //                         FontWeight.w600,
+                                    //                     color: mainColor,
+                                    //                   ),
+                                    //                 ),
+                                    //               ),
+                                    //             ),
+                                    //             SizedBox(
+                                    //               width: width / 4,
+                                    //               child: InkWell(
+                                    //                 onTap: () {
+                                    //                   Navigator.pop(context);
+                                    //                   Navigator.push(
+                                    //                     context,
+                                    //                     MaterialPageRoute(
+                                    //                       builder: (context) =>
+                                    //                           DealerRegisterPage(),
+                                    //                     ),
+                                    //                   );
+                                    //                 },
+                                    //                 child: Text(
+                                    //                   "Sign Up as Retailer",
+                                    //                   style:
+                                    //                       GoogleFonts.poppins(
+                                    //                     fontSize: 14,
+                                    //                     fontWeight:
+                                    //                         FontWeight.w600,
+                                    //                     color: mainColor,
+                                    //                   ),
+                                    //                 ),
+                                    //               ),
+                                    //             ),
+                                    //           ],
+                                    //         ),
+                                    //       ],
+                                    //     );
+                                    //   },
+                                    // );
                                   },
                                   child: Text(
                                     "Sign Up",
@@ -201,32 +201,33 @@ class _LoginPageState extends State<LoginPage> {
                               ],
                             ),
                           ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ForgotPasswordPage(),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              width: width,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Forgot Your Password",
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w600,
-                                      color: mainColor1,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                          // InkWell(
+                          //   onTap: () {
+                          //     Navigator.push(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //         builder: (context) => ForgotPasswordPage(),
+                          //       ),
+                          //     );
+                          //   },
+                          //   child: Container(
+                          //     width: width,
+                          //     child: Row(
+                          //       mainAxisAlignment: MainAxisAlignment.center,
+                          //       children: [
+                          //         Text(
+                          //           "Forgot Your Password",
+                          //           style: GoogleFonts.poppins(
+                          //             fontSize: 13,
+                          //             fontWeight: FontWeight.w600,
+                          //             color: mainColor1,
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
+
                           SizedBox(height: 30),
                           Column(
                             children: [

@@ -1,5 +1,6 @@
 import 'package:fix_team_app/controller/user/user_queries_controller.dart';
 import 'package:fix_team_app/view/app/forms/accepted_queries.dart';
+import 'package:fix_team_app/view/app/forms/dealer_user_queries.dart';
 import 'package:fix_team_app/view/app/forms/declined_queries.dart';
 import 'package:fix_team_app/view/app/forms/estimate_price.dart';
 import 'package:fix_team_app/view/app/forms/generated_queris.dart';
@@ -235,7 +236,7 @@ class MyAccountPage extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              QueriesListPage(),
+                                              DealerUserQueryPage(),
                                         ),
                                       );
                                     },
@@ -259,39 +260,11 @@ class MyAccountPage extends StatelessWidget {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) =>
-                                      //         GeneratedQueriesList(),
-                                      //   ),
-                                      // );
-                                      userQueries(context, rollId);
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.only(
-                                          top: 15, bottom: 15, left: 15),
-                                      child: Text(
-                                        "List Queries",
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                          color: dimGrey,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Divider(
-                                    height: 1,
-                                    color: black,
-                                  ),
-                                  InkWell(
-                                    onTap: () {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              AcceptedQueriesList(),
+                                              QueriesListPage(),
                                         ),
                                       );
                                     },
@@ -299,7 +272,7 @@ class MyAccountPage extends StatelessWidget {
                                       padding: EdgeInsets.only(
                                           top: 15, bottom: 15, left: 15),
                                       child: Text(
-                                        "Accepted Queries",
+                                        "List Queries",
                                         style: GoogleFonts.poppins(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w500,
@@ -326,7 +299,7 @@ class MyAccountPage extends StatelessWidget {
                                       padding: EdgeInsets.only(
                                           top: 15, bottom: 15, left: 15),
                                       child: Text(
-                                        "Rejected Queris",
+                                        "Queris in queue",
                                         style: GoogleFonts.poppins(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w500,

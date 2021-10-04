@@ -1,4 +1,3 @@
-import 'package:fix_team_app/controller/update/estimate_price_update_controller.dart';
 import 'package:fix_team_app/view/app/forms/accepted_queries.dart';
 import 'package:fix_team_app/view/app/forms/declined_queries.dart';
 import 'package:fix_team_app/view/app/forms/generated_queris.dart';
@@ -9,32 +8,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class UpdateQueryPricepage extends StatefulWidget {
-  final String mobile, model, problem, price, mobileid, modelid, problemid;
-  const UpdateQueryPricepage({
+class DealerAcceptQuerypage extends StatelessWidget {
+  final String mobile, model, problem, price;
+  const DealerAcceptQuerypage({
     Key? key,
     required this.mobile,
     required this.model,
     required this.problem,
     required this.price,
-    required this.mobileid,
-    required this.modelid,
-    required this.problemid,
   }) : super(key: key);
 
-  @override
-  State<UpdateQueryPricepage> createState() => _UpdateQueryPricepageState();
-}
-
-class _UpdateQueryPricepageState extends State<UpdateQueryPricepage> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-
-    final _formKey = GlobalKey<FormState>();
-
-    TextEditingController updatePriceController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -80,15 +67,15 @@ class _UpdateQueryPricepageState extends State<UpdateQueryPricepage> {
                       SizedBox(height: 10),
                       ProbTextWidget(
                         label: "Mobile :",
-                        text: widget.mobile,
+                        text: mobile,
                       ),
                       ProbTextWidget(
                         label: "Model :",
-                        text: widget.model,
+                        text: model,
                       ),
                       ProbTextWidget(
                         label: "Problem :",
-                        text: widget.problem,
+                        text: problem,
                       ),
                       SizedBox(height: 10),
                       Container(
@@ -101,7 +88,7 @@ class _UpdateQueryPricepageState extends State<UpdateQueryPricepage> {
                           ),
                         ),
                         child: Html(
-                          data: widget.price,
+                          data: price.isEmpty ? null : price,
                           style: {
                             "h3": Style(
                               color: Colors.black.withOpacity(0.5),
@@ -128,17 +115,6 @@ class _UpdateQueryPricepageState extends State<UpdateQueryPricepage> {
                   ),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.all(20),
-                child: Form(
-                  key: _formKey,
-                  child: TextFieldWidget(
-                    enable: true,
-                    hint: "Enter updated price here",
-                    controller: updatePriceController,
-                  ),
-                ),
-              ),
             ],
           ),
           Align(
@@ -156,25 +132,19 @@ class _UpdateQueryPricepageState extends State<UpdateQueryPricepage> {
                     InkWell(
                       onTap: () {
                         FocusManager.instance.primaryFocus!.unfocus();
-                        if (_formKey.currentState!.validate()) {
-                          setState(() {
-                            updatePrice(
-                              context,
-                              updatePriceController.text,
-                              widget.mobileid.toString(),
-                              widget.modelid.toString(),
-                              widget.problemid.toString(),
-                              3.toString(),
-                            );
-                          });
-                        }
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => GeneratedQueriesList(),
+                          ),
+                        );
                       },
                       child: Container(
                         height: 50,
                         width: 140,
                         child: Center(
                           child: Text(
-                            "Update",
+                            "Accept",
                             style: GoogleFonts.poppins(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
@@ -184,7 +154,7 @@ class _UpdateQueryPricepageState extends State<UpdateQueryPricepage> {
                           ),
                         ),
                         decoration: BoxDecoration(
-                          color: mainColor1,
+                          color: green,
                           borderRadius: BorderRadius.circular(30),
                         ),
                       ),
