@@ -9,13 +9,20 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
 class DeclinedQueriesList extends StatefulWidget {
-  const DeclinedQueriesList({Key? key}) : super(key: key);
+  final String userid;
+  const DeclinedQueriesList({Key? key, required this.userid}) : super(key: key);
 
   @override
   State<DeclinedQueriesList> createState() => _DeclinedQueriesListState();
 }
 
 class _DeclinedQueriesListState extends State<DeclinedQueriesList> {
+  @override
+  void initState() {
+    super.initState();
+    queriesInQueue(int.parse(widget.userid));
+  }
+
   List data = [];
 
   Map<String, String> headers = {
@@ -23,7 +30,7 @@ class _DeclinedQueriesListState extends State<DeclinedQueriesList> {
     'Charset': 'utf-8'
   };
 
-  Future allQueriesList(int userid) async {
+  Future queriesInQueue(int userid) async {
     String apiurl =
         "https://estimatewale.com/application/restapi/user_queries_in_queue.php?userid=$userid";
     var response = await http.get(Uri.parse(apiurl), headers: headers);
@@ -160,9 +167,7 @@ class _DeclinedQueriesListState extends State<DeclinedQueriesList> {
                                                   ),
                                                   child: Center(
                                                     child: Text(
-                                                      "\$ " +
-                                                          dealerQueryData[index]
-                                                              .amount,
+                                                      "",
                                                       style:
                                                           GoogleFonts.poppins(
                                                         color: green,

@@ -6,13 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class QueryAcceptDeclinePage extends StatelessWidget {
-  final String mobile, distance, problem, price;
+  final String mobile, distance, problem, price, userid;
   const QueryAcceptDeclinePage({
     Key? key,
     required this.mobile,
     required this.distance,
     required this.problem,
     required this.price,
+    required this.userid,
   }) : super(key: key);
 
   @override
@@ -119,7 +120,9 @@ class QueryAcceptDeclinePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => AcceptedQueriesList(),
+                            builder: (context) => AcceptedQueriesList(
+                              userID: userid,
+                            ),
                           ),
                         );
                       },
@@ -148,7 +151,9 @@ class QueryAcceptDeclinePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DeclinedQueriesList(),
+                            builder: (context) => DeclinedQueriesList(
+                              userid: userid,
+                            ),
                           ),
                         );
                       },

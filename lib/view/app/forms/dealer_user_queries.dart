@@ -10,7 +10,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class DealerUserQueryPage extends StatefulWidget {
-  const DealerUserQueryPage({Key? key}) : super(key: key);
+  final String userid;
+  const DealerUserQueryPage({Key? key, required this.userid}) : super(key: key);
 
   @override
   _DealerUserQueryPageState createState() => _DealerUserQueryPageState();
@@ -20,7 +21,7 @@ class _DealerUserQueryPageState extends State<DealerUserQueryPage> {
   @override
   void initState() {
     super.initState();
-    allQueriesList(5);
+    allQueriesList(int.parse(widget.userid));
   }
 
   List data = [];
@@ -38,18 +39,20 @@ class _DealerUserQueryPageState extends State<DealerUserQueryPage> {
         "https://estimatewale.com/application/restapi/wait_to_accept_queries.php?dealerid=$dealer";
     var response = await http.get(Uri.parse(apiurl), headers: headers);
 
-    if (response.statusCode == 200) {
-      Map<String, dynamic> modelData = json.decode(response.body);
+    try {
+      if (response.statusCode == 200) {
+        Map<String, dynamic> modelData = json.decode(response.body);
 
-      setState(() {
-        data = modelData["body"];
-      });
+        setState(() {
+          data = modelData["body"];
+        });
 
-      print("all queries data is $data");
-    } else {
-      jsonDecode("Not found any data");
-      throw Exception("Failed to load brands data");
-    }
+        print("all queries data is $data");
+      } else {
+        jsonDecode("Not found any data");
+        // throw Exception("Failed to load brands data");
+      }
+    } catch (e) {}
   }
 
   @override
@@ -129,6 +132,11 @@ class _DealerUserQueryPageState extends State<DealerUserQueryPage> {
                                             price: data[index]["price"] == null
                                                 ? "0"
                                                 : data[index]["price"],
+                                            userid: data[index]["userid"],
+                                            dealerid: data[index]["dealerid"],
+                                            brandid: data[index]["brandid"],
+                                            modelid: data[index]["modelid"],
+                                            problemid: data[index]["Problemid"],
                                           ),
                                         ),
                                       );
@@ -155,15 +163,16 @@ class _DealerUserQueryPageState extends State<DealerUserQueryPage> {
                                           SizedBox(height: 5),
                                           ProbTextWidget(
                                             label: "Mobile :",
-                                            text: "sdflkjdf",
+                                            text: data[index]["mobilebrand"],
                                           ),
                                           ProbTextWidget(
                                             label: "Mobile :",
-                                            text: "kjdshkjhgkdf",
+                                            text: data[index]["mobilemodel"],
                                           ),
                                           ProbTextWidget(
                                             label: "Problem",
-                                            text: "idsyutfiusyfi",
+                                            text: data[index]
+                                                ["singlemobileproblem"],
                                           ),
                                           data[index]["price"] == null
                                               ? ProbTextWidget(

@@ -11,7 +11,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class AcceptedQueriesList extends StatefulWidget {
-  const AcceptedQueriesList({Key? key}) : super(key: key);
+  final String userID;
+  const AcceptedQueriesList({Key? key, required this.userID}) : super(key: key);
 
   @override
   State<AcceptedQueriesList> createState() => _AcceptedQueriesListState();
@@ -21,7 +22,7 @@ class _AcceptedQueriesListState extends State<AcceptedQueriesList> {
   @override
   void initState() {
     super.initState();
-    acceptedQueriesList(36);
+    acceptedQueriesList(int.parse(widget.userID));
   }
 
   List data = [];
@@ -101,111 +102,116 @@ class _AcceptedQueriesListState extends State<AcceptedQueriesList> {
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 20),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    data[index]["id"],
-                                    style: GoogleFonts.poppins(
-                                      color: dimGrey,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                              child: InkWell(
+                                child: Container(
+                                  width: width / 1.21,
+                                  padding: EdgeInsets.only(
+                                    left: 10,
+                                    right: 10,
                                   ),
-                                  SizedBox(width: 10),
-                                  InkWell(
-                                    child: Container(
-                                      width: width / 1.21,
-                                      padding: EdgeInsets.only(
-                                        left: 10,
-                                        right: 10,
+                                  decoration: BoxDecoration(
+                                    color: mainColor1,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: black.withOpacity(0.2),
+                                        blurRadius: 1,
+                                        offset: Offset(0.5, 0.5),
                                       ),
-                                      decoration: BoxDecoration(
-                                        color: mainColor1,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: black.withOpacity(0.2),
-                                            blurRadius: 1,
-                                            offset: Offset(0.5, 0.5),
-                                          ),
-                                        ],
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          ProbTextWidget(
-                                            label: "Brand :",
-                                            text: data[index]["mobilebrand"],
-                                          ),
-                                          ProbTextWidget(
-                                            label: "Model :",
-                                            text: data[index]["mobilemodel"],
-                                          ),
-                                          ProbTextWidget(
-                                            label: "Problem :",
-                                            text: data[index]
-                                                ["singlemobileproblem"],
-                                          ),
-                                          data[index]["email"] == null
-                                              ? ProbTextWidget(
-                                                  label: "Email",
-                                                  text: "No data found")
-                                              : ProbTextWidget(
-                                                  label: "Email :",
-                                                  text: data[index]["email"],
-                                                ),
-                                          data[index]["contact"] == null
-                                              ? ProbTextWidget(
-                                                  label: "Contact",
-                                                  text: "No data found")
-                                              : ProbTextWidget(
-                                                  label: "Contact :",
-                                                  text: data[index]["contact"],
-                                                ),
-                                          data[index]["price"] == null
-                                              ? ProbTextWidget(
-                                                  label: "Price",
-                                                  text: "No data found")
-                                              : Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    SizedBox(height: 10),
-                                                    LabelText(label: "Price :"),
-                                                    Html(
-                                                      data: data[index]
-                                                          ["price"],
-                                                      style: {
-                                                        "ul": Style(
-                                                          listStyleType:
-                                                              ListStyleType
-                                                                  .SQUARE,
-                                                          textDecoration:
-                                                              TextDecoration
-                                                                  .none,
-                                                        ),
-                                                        "h1": Style(
-                                                          fontSize:
-                                                              FontSize.larger,
-                                                          color: black
-                                                              .withOpacity(0.4),
-                                                        ),
-                                                        "li": Style(
-                                                          color: black
-                                                              .withOpacity(0.4),
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      },
-                                                    ),
-                                                  ],
-                                                ),
-                                          SizedBox(height: 10),
-                                        ],
-                                      ),
-                                    ),
+                                    ],
                                   ),
-                                ],
+                                  child: Column(
+                                    children: [
+                                      ProbTextWidget(
+                                        label: "Brand :",
+                                        text: data[index]["mobilebrand"],
+                                      ),
+                                      ProbTextWidget(
+                                        label: "Model :",
+                                        text: data[index]["mobilemodel"],
+                                      ),
+                                      ProbTextWidget(
+                                        label: "Problem :",
+                                        text: data[index]
+                                            ["singlemobileproblem"],
+                                      ),
+                                      data[index]["email"] == null
+                                          ? ProbTextWidget(
+                                              label: "Email",
+                                              text: "No data found")
+                                          : ProbTextWidget(
+                                              label: "Email :",
+                                              text: data[index]["email"],
+                                            ),
+                                      data[index]["contact"] == null
+                                          ? ProbTextWidget(
+                                              label: "Contact",
+                                              text: "No data found")
+                                          : ProbTextWidget(
+                                              label: "Contact :",
+                                              text: data[index]["contact"],
+                                            ),
+                                      SizedBox(height: 10),
+                                      Container(
+                                        width: width,
+                                        decoration: BoxDecoration(
+                                          color: mainColor,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            data[index]["price"] == null
+                                                ? ProbTextWidget(
+                                                    label: "Price",
+                                                    text: "No data found")
+                                                : Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      SizedBox(height: 10),
+                                                      Html(
+                                                        data: data[index]
+                                                            ["price"],
+                                                        style: {
+                                                          "ul": Style(
+                                                            listStyleType:
+                                                                ListStyleType
+                                                                    .SQUARE,
+                                                            textDecoration:
+                                                                TextDecoration
+                                                                    .none,
+                                                          ),
+                                                          "h1": Style(
+                                                            fontSize:
+                                                                FontSize.larger,
+                                                            color: black
+                                                                .withOpacity(
+                                                                    0.4),
+                                                          ),
+                                                          "li": Style(
+                                                            color: black
+                                                                .withOpacity(
+                                                                    0.4),
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                          "hr": Style(
+                                                            display:
+                                                                Display.NONE,
+                                                          ),
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(height: 10),
+                                    ],
+                                  ),
+                                ),
                               ),
                             );
                           },

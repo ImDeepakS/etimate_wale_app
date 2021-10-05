@@ -10,7 +10,14 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UpdateQueryPricepage extends StatefulWidget {
-  final String mobile, model, problem, price, mobileid, modelid, problemid;
+  final String mobile,
+      model,
+      problem,
+      price,
+      mobileid,
+      modelid,
+      problemid,
+      userid;
   const UpdateQueryPricepage({
     Key? key,
     required this.mobile,
@@ -20,6 +27,7 @@ class UpdateQueryPricepage extends StatefulWidget {
     required this.mobileid,
     required this.modelid,
     required this.problemid,
+    required this.userid,
   }) : super(key: key);
 
   @override
@@ -164,7 +172,7 @@ class _UpdateQueryPricepageState extends State<UpdateQueryPricepage> {
                               widget.mobileid.toString(),
                               widget.modelid.toString(),
                               widget.problemid.toString(),
-                              3.toString(),
+                              widget.userid,
                             );
                           });
                         }

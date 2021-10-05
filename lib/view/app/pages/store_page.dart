@@ -97,6 +97,9 @@ class _StorePageState extends State<StorePage> {
                         storeEmail: data[index]["email"],
                         storeExp: data[index]["shopyear"],
                         storeUser: data[index]["username"],
+                        videourl: data[index]["videolink"] == null
+                            ? "no data"
+                            : data[index]["videolink"],
                       ),
                     ),
                   );
@@ -109,17 +112,21 @@ class _StorePageState extends State<StorePage> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              height: height / 4.8,
-                              width: width / 3.5,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                    data[index]["image"] == null
-                                        ? "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg"
-                                        : "https://estimatewale.com/assets/images/dealers/${data[index]["image"]}",
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: Container(
+                                height: 90,
+                                width: width / 3.5,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                      data[index]["image"] == null
+                                          ? "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg"
+                                          : "https://estimatewale.com/assets/images/dealers/${data[index]["image"]}",
+                                    ),
+                                    fit: BoxFit.fill,
                                   ),
-                                  fit: BoxFit.fill,
                                 ),
                               ),
                             ),
@@ -179,52 +186,35 @@ class _StorePageState extends State<StorePage> {
                                   ),
                                 ),
                                 SizedBox(height: 12),
-                                Container(
-                                  height: height / 26,
-                                  width: width / 1.6,
-                                  decoration: BoxDecoration(
-                                    color: mainColor1,
-                                    borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(4),
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.only(left: 15),
-                                    // child: Row(
-                                    //   children: [
-                                    //     Text(
-                                    //       "Distance: " +
-                                    //           dummyData[index]
-                                    //               .distance
-                                    //               .toString(),
-                                    //       style: GoogleFonts.poppins(
-                                    //         fontSize: 12,
-                                    //         fontWeight: FontWeight.w500,
-                                    //         color: Colors.green,
-                                    //       ),
-                                    //     ),
-                                    //     Padding(
-                                    //       padding:
-                                    //           const EdgeInsets.only(left: 80),
-                                    //       child: Text(
-                                    //         "\$" +
-                                    //             dummyData[index]
-                                    //                 .price
-                                    //                 .toString(),
-                                    //         style: GoogleFonts.poppins(
-                                    //           fontSize: 12,
-                                    //           fontWeight: FontWeight.w500,
-                                    //           color: Color(0xfff7e841),
-                                    //         ),
-                                    //       ),
-                                    //     ),
-                                    //   ],
-                                    // ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Container(
+                          height: height / 26,
+                          width: width,
+                          decoration: BoxDecoration(
+                            color: mainColor1,
+                            borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(4),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  "View more",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: mainColor,
                                   ),
                                 ),
                               ],
                             ),
-                          ],
+                          ),
                         ),
                       ],
                     ),

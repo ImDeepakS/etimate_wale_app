@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class QueriesListPage extends StatefulWidget {
-  const QueriesListPage({Key? key}) : super(key: key);
+  final String userid;
+  const QueriesListPage({Key? key, required this.userid}) : super(key: key);
 
   @override
   _QueriesListPageState createState() => _QueriesListPageState();
@@ -16,7 +17,7 @@ class _QueriesListPageState extends State<QueriesListPage> {
   @override
   void initState() {
     super.initState();
-    allQueriesList(26);
+    allQueriesList(int.parse(widget.userid));
   }
 
   List data = [];

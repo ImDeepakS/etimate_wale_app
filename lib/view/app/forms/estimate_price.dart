@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:fix_team_app/controller/login/login_controller.dart';
+import 'package:fix_team_app/controller/login/profile_controller.dart';
 import 'package:fix_team_app/view/app/forms/query_details.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
@@ -18,6 +20,7 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
   String locationValue = '';
   String problemValue = '';
   String modelValue = '';
+  String username = '';
 
   String phoneValueStore = '';
 
@@ -27,11 +30,13 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
   void initState() {
     super.initState();
     phoneBrand();
+    checkLogin();
   }
 
   List data = [];
   List dataModel = [];
   List problemModel = [];
+  List userID = [];
 
   String phonename = '', modelname = '', problemname = '';
 
@@ -69,6 +74,25 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
 
       setState(() {
         dataModel = modelData["body"];
+      });
+
+      print("model data is $dataModel");
+    } else {
+      jsonDecode("Not found any data");
+      throw Exception("Failed to load brands data");
+    }
+  }
+
+  Future getID(username) async {
+    String apiurl =
+        "https://estimatewale.com/application/restapi/get_id.php?username=$username";
+    var response = await http.get(Uri.parse(apiurl), headers: headers);
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> modelData = json.decode(response.body);
+
+      setState(() {
+        userID = modelData["body"];
       });
 
       print("model data is $dataModel");
@@ -371,9 +395,12 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
                           brandid: int.parse(phoneValue),
                           modelid: int.parse(modelValue),
                           problemid: int.parse(problemValue),
+                          userid: userID[0]["id"],
                         ),
                       ),
                     );
+
+                    print("get id is ${userID[0]["id"]}");
                   },
                   child: Container(
                     height: 50,
@@ -399,5 +426,19 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
         ],
       ),
     );
+  }
+
+  checkLogin() async {
+    String? tokne = await getToken();
+    print("tokne");
+    print(tokne);
+    if (tokne != null) {
+      setState(() {
+        username = tokne;
+        getID(username);
+      });
+    } else {
+      username = "Please Login or SignUp";
+    }
   }
 }

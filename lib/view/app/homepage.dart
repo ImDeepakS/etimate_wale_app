@@ -325,25 +325,16 @@ class _HomeWidgetState extends State<HomeWidget> {
                           ),
                         ],
                       ),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.only(bottom: 10),
-                        child: Row(
-                          children: [
-                            ServiceTile(
-                              width: width,
-                              height: height,
-                              header: "Repair phone at your doorstep",
-                              footer: "Screen, Battery, Mic, Speaker, etc.",
-                            ),
-                            ServiceTile(
-                              width: width,
-                              height: height,
-                              header: "Find phone repair centre near you",
-                              footer: "Easy compare, list of dealers, etc.",
-                            ),
-                          ],
-                        ),
+                      Row(
+                        children: [
+                          ServiceTile(
+                            width: width / 1.02,
+                            height: height,
+                            header: "Click Here Estimate Price",
+                            footer:
+                                "Estimate repair price of your phone without hustling.",
+                          ),
+                        ],
                       ),
                     ],
                   ),

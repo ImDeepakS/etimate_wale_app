@@ -13,7 +13,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_html/flutter_html.dart';
 
 class DetailedQuery extends StatefulWidget {
-  final String brand, model, problem;
+  final String brand, model, problem, userid;
   final int brandid, modelid, problemid;
   const DetailedQuery({
     Key? key,
@@ -23,6 +23,7 @@ class DetailedQuery extends StatefulWidget {
     required this.brandid,
     required this.modelid,
     required this.problemid,
+    required this.userid,
   }) : super(key: key);
 
   @override
@@ -196,6 +197,7 @@ class _DetailedQueryState extends State<DetailedQuery> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
+                                            SizedBox(height: 20),
                                             ProbTextWidget(
                                               label: "Mobile :",
                                               text: widget.brand,
@@ -208,21 +210,23 @@ class _DetailedQueryState extends State<DetailedQuery> {
                                               label: "Problem :",
                                               text: widget.problem,
                                             ),
+                                            SizedBox(height: 20),
                                             Container(
                                               padding: EdgeInsets.only(
                                                 top: 10,
                                                 right: 10,
-                                                bottom: 10,
+                                                left: 10,
                                               ),
-                                              decoration: BoxDecoration(),
+                                              decoration: BoxDecoration(
+                                                  color: mainColor),
                                               child: Column(
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    "Description",
+                                                    "Description :",
                                                     style: GoogleFonts.poppins(
-                                                      color: shadyGrey,
+                                                      color: mainColor1,
                                                       fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.w600,
@@ -251,38 +255,35 @@ class _DetailedQueryState extends State<DetailedQuery> {
                                                 ],
                                               ),
                                             ),
-                                            SizedBox(height: 10),
                                             Container(
                                               width: width,
                                               decoration: BoxDecoration(
-                                                color: mainColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
+                                                color: mainColor1,
                                               ),
                                               child: Html(
                                                 data: data[index]["price"],
                                                 style: {
                                                   "h3": Style(
-                                                    color: Colors.black
-                                                        .withOpacity(0.5),
+                                                    color: green,
                                                   ),
                                                   "hr": Style(
                                                     backgroundColor: mainColor,
                                                   ),
                                                   "h1": Style(
                                                     fontSize: FontSize.large,
-                                                    color: Colors.black
-                                                        .withOpacity(0.5),
+                                                    color: green,
                                                   ),
                                                   "h2": Style(
                                                     fontSize: FontSize.large,
-                                                    color: Colors.black
-                                                        .withOpacity(0.5),
+                                                    color: green,
                                                   ),
                                                   "li": Style(
                                                     textDecoration:
                                                         TextDecoration.none,
                                                     width: width / 1.5,
+                                                  ),
+                                                  "hr": Style(
+                                                    display: Display.NONE,
                                                   ),
                                                 },
                                               ),
@@ -304,7 +305,7 @@ class _DetailedQueryState extends State<DetailedQuery> {
                                                 inputType: TextInputType.phone,
                                               ),
                                             ),
-                                            SizedBox(height: 10),
+                                            SizedBox(height: 120),
                                           ],
                                         ),
                                       ),
@@ -343,6 +344,7 @@ class _DetailedQueryState extends State<DetailedQuery> {
                           brand: widget.brand,
                           model: widget.model,
                           problem: widget.problem,
+                          userid: widget.userid,
                         ),
                       ),
                     );

@@ -22,12 +22,15 @@ Future userProfile(BuildContext context, username) async {
     // profileDetails.zip_code = obj["zipcode"];
     profileDetails.address_txt = obj["address"];
     profileDetails.role_id = obj["role_id"];
+    profileDetails.user_id = obj["id"];
 
     if (profileDetails.user_name != null ||
         profileDetails.phone_no != null ||
         profileDetails.e_mail != null ||
-        profileDetails.address_txt != null) {
+        profileDetails.address_txt != null ||
+        profileDetails.user_id != null) {
       print("role id is " + profileDetails.role_id);
+      print("user id is" + profileDetails.user_id);
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -38,6 +41,7 @@ Future userProfile(BuildContext context, username) async {
             email: profileDetails.e_mail,
             zipcode: profileDetails.zip_code,
             rollId: profileDetails.role_id,
+            userid: profileDetails.user_id,
           ),
         ),
       );

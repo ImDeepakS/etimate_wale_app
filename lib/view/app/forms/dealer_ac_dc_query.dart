@@ -1,21 +1,31 @@
-import 'package:fix_team_app/view/app/forms/accepted_queries.dart';
-import 'package:fix_team_app/view/app/forms/declined_queries.dart';
-import 'package:fix_team_app/view/app/forms/generated_queris.dart';
+import 'package:fix_team_app/controller/update/update_status_query_controller.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/prob_text_widget.dart';
-import 'package:fix_team_app/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DealerAcceptQuerypage extends StatelessWidget {
-  final String mobile, model, problem, price;
+  final String mobile,
+      model,
+      problem,
+      price,
+      brandid,
+      modelid,
+      problemid,
+      userid,
+      dealerid;
   const DealerAcceptQuerypage({
     Key? key,
     required this.mobile,
     required this.model,
     required this.problem,
     required this.price,
+    required this.brandid,
+    required this.modelid,
+    required this.problemid,
+    required this.userid,
+    required this.dealerid,
   }) : super(key: key);
 
   @override
@@ -132,19 +142,25 @@ class DealerAcceptQuerypage extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         FocusManager.instance.primaryFocus!.unfocus();
-                        Navigator.push(
+                        updateQueryStatus(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => GeneratedQueriesList(),
-                          ),
+                          brandid,
+                          modelid,
+                          problemid,
+                          userid,
+                          dealerid,
+                          "1",
                         );
                       },
                       child: Container(
                         height: 50,
-                        width: 140,
+                        padding: EdgeInsets.only(
+                          left: 10,
+                          right: 10,
+                        ),
                         child: Center(
                           child: Text(
-                            "Accept",
+                            "Accept Query",
                             style: GoogleFonts.poppins(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,

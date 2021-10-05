@@ -1,5 +1,10 @@
 class ProfileDetails {
-  String username = "", phoneno = "", email = "", zipcode = "", address = "";
+  String username = "",
+      phoneno = "",
+      email = "",
+      zipcode = "",
+      address = "",
+      userid = "";
 
   double lat = 0.0, lang = 0.0;
 
@@ -35,6 +40,14 @@ class ProfileDetails {
 
   set zip_code(String code) {
     this.zipcode = code;
+  }
+
+  String get user_id {
+    return userid;
+  }
+
+  set user_id(String id) {
+    this.userid = id;
   }
 
   String get address_txt {

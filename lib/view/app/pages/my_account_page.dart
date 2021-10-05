@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyAccountPage extends StatelessWidget {
-  final String username, address, phone, email, zipcode, rollId;
+  final String username, address, phone, email, zipcode, rollId, userid;
   const MyAccountPage({
     Key? key,
     required this.username,
@@ -19,6 +19,7 @@ class MyAccountPage extends StatelessWidget {
     required this.email,
     required this.zipcode,
     required this.rollId,
+    required this.userid,
   }) : super(key: key);
 
   @override
@@ -182,7 +183,9 @@ class MyAccountPage extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              GeneratedQueriesList(),
+                                              GeneratedQueriesList(
+                                            userid: userid,
+                                          ),
                                         ),
                                       );
                                     },
@@ -209,7 +212,9 @@ class MyAccountPage extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              AcceptedQueriesList(),
+                                              AcceptedQueriesList(
+                                            userID: userid,
+                                          ),
                                         ),
                                       );
                                     },
@@ -236,7 +241,9 @@ class MyAccountPage extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              DealerUserQueryPage(),
+                                              DealerUserQueryPage(
+                                            userid: userid,
+                                          ),
                                         ),
                                       );
                                     },
@@ -263,8 +270,9 @@ class MyAccountPage extends StatelessWidget {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) =>
-                                              QueriesListPage(),
+                                          builder: (context) => QueriesListPage(
+                                            userid: userid,
+                                          ),
                                         ),
                                       );
                                     },
@@ -291,7 +299,9 @@ class MyAccountPage extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              DeclinedQueriesList(),
+                                              DeclinedQueriesList(
+                                            userid: userid,
+                                          ),
                                         ),
                                       );
                                     },

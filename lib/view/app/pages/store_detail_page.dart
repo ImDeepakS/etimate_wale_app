@@ -3,16 +3,17 @@ import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:video_player/video_player.dart';
 
-class StoreDetailsPage extends StatelessWidget {
+class StoreDetailsPage extends StatefulWidget {
   final String storeImage,
       storeName,
       storeAddress,
       storeUser,
       storeContact,
       storeEmail,
-      storeExp;
+      storeExp,
+      videourl;
   const StoreDetailsPage({
     Key? key,
     required this.storeImage,
@@ -22,8 +23,14 @@ class StoreDetailsPage extends StatelessWidget {
     required this.storeExp,
     required this.storeUser,
     required this.storeAddress,
+    required this.videourl,
   }) : super(key: key);
 
+  @override
+  State<StoreDetailsPage> createState() => _StoreDetailsPageState();
+}
+
+class _StoreDetailsPageState extends State<StoreDetailsPage> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -62,7 +69,7 @@ class StoreDetailsPage extends StatelessWidget {
                 height: height / 4,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(storeImage),
+                    image: NetworkImage(widget.storeImage),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -81,7 +88,7 @@ class StoreDetailsPage extends StatelessWidget {
                   ],
                 ),
                 child: Text(
-                  storeName,
+                  widget.storeName,
                   style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w600,
                     color: white,
@@ -103,7 +110,7 @@ class StoreDetailsPage extends StatelessWidget {
                       children: [
                         LabelText(label: "Username : "),
                         Text(
-                          storeUser,
+                          widget.storeUser,
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
                           ),
@@ -117,7 +124,7 @@ class StoreDetailsPage extends StatelessWidget {
                         SizedBox(
                           width: width / 1.38,
                           child: Text(
-                            storeAddress,
+                            widget.storeAddress,
                             style: GoogleFonts.poppins(
                               fontWeight: FontWeight.w500,
                             ),
@@ -130,7 +137,7 @@ class StoreDetailsPage extends StatelessWidget {
                       children: [
                         LabelText(label: "Contact : "),
                         Text(
-                          storeContact,
+                          widget.storeContact,
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
                           ),
@@ -142,7 +149,7 @@ class StoreDetailsPage extends StatelessWidget {
                       children: [
                         LabelText(label: "Email : "),
                         Text(
-                          storeEmail,
+                          widget.storeEmail,
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
                           ),
@@ -154,7 +161,7 @@ class StoreDetailsPage extends StatelessWidget {
                       children: [
                         LabelText(label: "Shop Experience : "),
                         Text(
-                          storeExp,
+                          widget.storeExp,
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
                           ),
@@ -172,7 +179,7 @@ class StoreDetailsPage extends StatelessWidget {
                     padding: EdgeInsets.all(10),
                     alignment: Alignment.topLeft,
                     child: Text(
-                      "Reviews",
+                      "Video",
                       style: GoogleFonts.poppins(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -195,83 +202,7 @@ class StoreDetailsPage extends StatelessWidget {
                         ],
                       ),
                       child: Column(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 60,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: mainColor,
-                                  border: Border.all(
-                                    color: mainColor1,
-                                    width: 3,
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: black.withOpacity(0.2),
-                                      blurRadius: 5,
-                                      offset: Offset(0.5, 0.5),
-                                    ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: Icon(
-                                    Icons.person,
-                                    color: white,
-                                    size: 28,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 14),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Yash",
-                                      style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    SizedBox(height: 10),
-                                    RatingBar.builder(
-                                      initialRating: 3,
-                                      itemSize: 25,
-                                      minRating: 1,
-                                      direction: Axis.horizontal,
-                                      allowHalfRating: true,
-                                      itemCount: 5,
-                                      unratedColor: Colors.amber.withAlpha(50),
-                                      itemPadding:
-                                          EdgeInsets.symmetric(horizontal: 4.0),
-                                      itemBuilder: (context, _) => Icon(
-                                        Icons.star,
-                                        color: Colors.amber,
-                                      ),
-                                      onRatingUpdate: (rating) {
-                                        print("rating" + rating.toString());
-                                      },
-                                    ),
-                                    SizedBox(height: 5),
-                                    SizedBox(
-                                      width: width / 1.5,
-                                      child: Text(
-                                        "Service is Very Good. I Appreciate the Service.",
-                                        style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                        children: [],
                       ),
                     ),
                   ),

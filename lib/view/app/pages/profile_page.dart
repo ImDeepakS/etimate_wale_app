@@ -363,7 +363,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => AboutUsPage(),
+                                builder: (context) => AboutUsPage(
+                                  userid: profileDetails.user_id,
+                                ),
                               ),
                             );
                           },
@@ -440,7 +442,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 SizedBox(
                   width: width / 1.2,
                   child: Text(
-                    "Copyright @ 2021 FixTeam All rights reserved v1.1",
+                    "Copyright @ 2021 Estimatewale All rights reserved v1.1",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
                       color: dimGrey,

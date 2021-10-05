@@ -17,6 +17,8 @@ class DealerProfilePage extends StatefulWidget {
   final String brandid;
   final String modelid;
   final String problemid;
+  final String dealerid;
+  final String userid;
   const DealerProfilePage({
     Key? key,
     required this.price,
@@ -30,6 +32,8 @@ class DealerProfilePage extends StatefulWidget {
     required this.brandid,
     required this.modelid,
     required this.problemid,
+    required this.dealerid,
+    required this.userid,
   }) : super(key: key);
 
   @override
@@ -231,8 +235,8 @@ class _DealerProfilePageState extends State<DealerProfilePage> {
                     widget.brandid,
                     widget.modelid,
                     widget.problemid,
-                    "4",
-                    "3",
+                    widget.userid,
+                    widget.dealerid,
                     "0",
                   );
                 },
