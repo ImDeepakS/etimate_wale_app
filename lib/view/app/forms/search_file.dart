@@ -13,7 +13,7 @@ class SearchLocationFile extends StatefulWidget {
 class _SearchLocationFileState extends State<SearchLocationFile> {
   late GoogleMapController mapController;
 
-  final LatLng _center = const LatLng(45.521563, -122.677433);
+  final LatLng _center = const LatLng(30, 74);
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -43,6 +43,11 @@ class _SearchLocationFileState extends State<SearchLocationFile> {
       body: GoogleMap(
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(target: _center, zoom: 11.0),
+        compassEnabled: true,
+        indoorViewEnabled: true,
+        myLocationEnabled: true,
+        mapToolbarEnabled: true,
+        myLocationButtonEnabled: true,
       ),
     );
   }

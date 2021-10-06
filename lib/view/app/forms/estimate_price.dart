@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:fix_team_app/controller/login/login_controller.dart';
-import 'package:fix_team_app/controller/login/profile_controller.dart';
 import 'package:fix_team_app/view/app/forms/query_details.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';

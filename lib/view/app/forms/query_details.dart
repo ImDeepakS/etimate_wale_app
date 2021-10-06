@@ -211,84 +211,89 @@ class _DetailedQueryState extends State<DetailedQuery> {
                                               text: widget.problem,
                                             ),
                                             SizedBox(height: 20),
-                                            Container(
-                                              padding: EdgeInsets.only(
-                                                top: 10,
-                                                right: 10,
-                                                left: 10,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                  color: mainColor),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "Description :",
-                                                    style: GoogleFonts.poppins(
-                                                      color: mainColor1,
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w600,
+                                            Padding(
+                                              padding: const EdgeInsets.all(10),
+                                              child: Container(
+                                                padding: EdgeInsets.only(
+                                                  top: 10,
+                                                  right: 10,
+                                                  left: 10,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: mainColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      "Description :",
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                        color: mainColor1,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  SizedBox(width: 10),
-                                                  SizedBox(
-                                                    child: Html(
-                                                      data: data[0]
-                                                          ["description"],
+                                                    SizedBox(width: 10),
+                                                    SizedBox(
+                                                      child: Html(
+                                                        data: data[0]
+                                                            ["description"],
+                                                        style: {
+                                                          "p": Style(
+                                                            color: black
+                                                                .withOpacity(
+                                                                    0.4),
+                                                            fontSize:
+                                                                FontSize(14),
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            letterSpacing: 0.5,
+                                                            lineHeight:
+                                                                LineHeight(1.5),
+                                                          ),
+                                                        },
+                                                      ),
+                                                    ),
+                                                    Html(
+                                                      data: data[index]
+                                                          ["price"],
                                                       style: {
-                                                        "p": Style(
-                                                          color: black
-                                                              .withOpacity(0.4),
+                                                        "h3": Style(
+                                                          color: green,
+                                                        ),
+                                                        "hr": Style(
+                                                          backgroundColor:
+                                                              mainColor,
+                                                          display: Display.NONE,
+                                                        ),
+                                                        "h1": Style(
                                                           fontSize:
-                                                              FontSize(14),
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          letterSpacing: 0.5,
-                                                          lineHeight:
-                                                              LineHeight(1.5),
+                                                              FontSize.large,
+                                                          color: green,
+                                                        ),
+                                                        "h2": Style(
+                                                          fontSize:
+                                                              FontSize.large,
+                                                          color: green,
+                                                        ),
+                                                        "li": Style(
+                                                          textDecoration:
+                                                              TextDecoration
+                                                                  .none,
+                                                          width: width / 1.5,
                                                         ),
                                                       },
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                            Container(
-                                              width: width,
-                                              decoration: BoxDecoration(
-                                                color: mainColor1,
-                                              ),
-                                              child: Html(
-                                                data: data[index]["price"],
-                                                style: {
-                                                  "h3": Style(
-                                                    color: green,
-                                                  ),
-                                                  "hr": Style(
-                                                    backgroundColor: mainColor,
-                                                  ),
-                                                  "h1": Style(
-                                                    fontSize: FontSize.large,
-                                                    color: green,
-                                                  ),
-                                                  "h2": Style(
-                                                    fontSize: FontSize.large,
-                                                    color: green,
-                                                  ),
-                                                  "li": Style(
-                                                    textDecoration:
-                                                        TextDecoration.none,
-                                                    width: width / 1.5,
-                                                  ),
-                                                  "hr": Style(
-                                                    display: Display.NONE,
-                                                  ),
-                                                },
-                                              ),
-                                            ),
-                                            SizedBox(height: 20),
+                                            SizedBox(height: 10),
                                             LabelText(label: "Select Location"),
                                             SizedBox(height: 10),
                                             InkWell(
@@ -298,6 +303,8 @@ class _DetailedQueryState extends State<DetailedQuery> {
                                                 location =
                                                     'Lat: ${position.latitude} , Long: ${position.longitude}';
                                                 getAddressFromLatLong(position);
+
+                                                print("lat lng is $location");
                                               },
                                               child: TextFieldWidget(
                                                 enable: false,
@@ -305,7 +312,7 @@ class _DetailedQueryState extends State<DetailedQuery> {
                                                 inputType: TextInputType.phone,
                                               ),
                                             ),
-                                            SizedBox(height: 120),
+                                            SizedBox(height: 350),
                                           ],
                                         ),
                                       ),

@@ -1,7 +1,7 @@
-import 'package:fix_team_app/model/dealer_model.dart';
 import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:fix_team_app/view/app/pages/store_detail_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
+import 'package:fix_team_app/view/helpers/demo.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
@@ -86,22 +86,37 @@ class _StorePageState extends State<StorePage> {
               child: InkWell(
                 onTap: () {
                   Navigator.of(context).push(
+                    // MaterialPageRoute(
+                    //   builder: (context) => StoreDetailsPage(
+                    //     storeAddress: data[index]["address"],
+                    //     storeImage: data[index]["image"] == null
+                    //         ? "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg"
+                    //         : "https://estimatewale.com/assets/images/dealers/${data[index]["image"]}",
+                    //     storeName: data[index]["shopname"],
+                    //     storeContact: data[index]["contact"],
+                    //     storeEmail: data[index]["email"],
+                    //     storeExp: data[index]["shopyear"],
+                    //     storeUser: data[index]["username"],
+                    //     videourl: data[index]["videolink"] == null
+                    //         ? "no data"
+                    //         : data[index]["videolink"],
+                    //   ),
+                    // ),
                     MaterialPageRoute(
-                      builder: (context) => StoreDetailsPage(
-                        storeAddress: data[index]["address"],
-                        storeImage: data[index]["image"] == null
-                            ? "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg"
-                            : "https://estimatewale.com/assets/images/dealers/${data[index]["image"]}",
-                        storeName: data[index]["shopname"],
-                        storeContact: data[index]["contact"],
-                        storeEmail: data[index]["email"],
-                        storeExp: data[index]["shopyear"],
-                        storeUser: data[index]["username"],
-                        videourl: data[index]["videolink"] == null
-                            ? "no data"
-                            : data[index]["videolink"],
-                      ),
-                    ),
+                        builder: (context) => VideoDetailScreen(
+                              storeAddress: data[index]["address"],
+                              storeImage: data[index]["image"] == null
+                                  ? "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg"
+                                  : "https://estimatewale.com/assets/images/dealers/${data[index]["image"]}",
+                              storeName: data[index]["shopname"],
+                              storeContact: data[index]["contact"],
+                              storeEmail: data[index]["email"],
+                              storeExp: data[index]["shopyear"],
+                              storeUser: data[index]["username"],
+                              videourl: data[index]["videolink"] == null
+                                  ? "no data"
+                                  : data[index]["videolink"],
+                            )),
                   );
                 },
                 child: Card(

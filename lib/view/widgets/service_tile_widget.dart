@@ -9,13 +9,11 @@ class ServiceTile extends StatelessWidget {
     required this.width,
     required this.height,
     required this.header,
-    required this.footer,
   }) : super(key: key);
 
   final double width;
   final double height;
   final String header;
-  final String footer;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +36,7 @@ class ServiceTile extends StatelessWidget {
           width: width / 1.1,
           height: height / 4,
           decoration: BoxDecoration(
-            color: white,
+            color: mainColor,
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
@@ -48,68 +46,16 @@ class ServiceTile extends StatelessWidget {
               ),
             ],
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      header,
-                      style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w500,
-                        color: mainColor,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Container(
-                      height: 0.5,
-                      width: width / 9,
-                      color: dimGrey,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 8,
-                      top: 8,
-                    ),
-                    child: SizedBox(
-                      width: width / 1.5,
-                      child: Text(
-                        footer,
-                        style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500,
-                          color: mainColor1,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+          child: Padding(
+            padding: const EdgeInsets.only(top: 30, left: 40),
+            child: Text(
+              header,
+              style: GoogleFonts.poppins(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                color: white,
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 15,
-                ),
-                child: Container(
-                  height: height / 6,
-                  width: width / 6,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: mainColor,
-                    image: DecorationImage(
-                      image: AssetImage(
-                        "assets/phone.png",
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),
