@@ -1,7 +1,4 @@
 import 'package:fix_team_app/controller/login/login_controller.dart';
-import 'package:fix_team_app/view/app/homepage.dart';
-import 'package:fix_team_app/view/app/pages/forgot_password_page.dart';
-import 'package:fix_team_app/view/app/users/dealer_register_page.dart';
 import 'package:fix_team_app/view/app/users/user_register_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';

@@ -5,6 +5,7 @@ import 'package:fix_team_app/view/app/forms/estimate_price.dart';
 import 'package:fix_team_app/view/app/loginpage.dart';
 import 'package:fix_team_app/view/app/pages/about_page.dart';
 import 'package:fix_team_app/view/app/pages/contact_page.dart';
+import 'package:fix_team_app/view/app/pages/privacy_policy_page.dart';
 import 'package:fix_team_app/view/app/pages/term_page.dart';
 import 'package:fix_team_app/view/app/pages/testimonial_page.dart';
 import 'package:fix_team_app/view/app/users/dealer_register_page.dart';
@@ -289,49 +290,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           height: 1,
                           color: black,
                         ),
-                        Theme(
-                          data: Theme.of(context)
-                              .copyWith(dividerColor: Colors.transparent),
-                          child: ExpansionTile(
-                            title: Text(
-                              "Services",
-                              style: GoogleFonts.poppins(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: dimGrey,
-                              ),
-                            ),
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => EstimatePricePage(),
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.only(
-                                    left: 15,
-                                    bottom: 15,
-                                  ),
-                                  child: Text(
-                                    "Repair Your phone",
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 14,
-                                      color: shadyGrey,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Divider(
-                          height: 1,
-                          color: black,
-                        ),
                         InkWell(
                           onTap: () {
                             Navigator.push(
@@ -400,6 +358,32 @@ class _ProfilePageState extends State<ProfilePage> {
                                 EdgeInsets.only(top: 15, bottom: 15, left: 15),
                             child: Text(
                               "Terms & Conditions!",
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: dimGrey,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Divider(
+                          height: 1,
+                          color: black,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PrivacyPolicyPage(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding:
+                                EdgeInsets.only(top: 15, bottom: 15, left: 15),
+                            child: Text(
+                              "Privacy policy",
                               style: GoogleFonts.poppins(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,

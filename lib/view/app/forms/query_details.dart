@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:fix_team_app/view/app/pages/dealers_list.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
@@ -11,6 +12,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_html/flutter_html.dart';
+import 'package:google_places_for_flutter/google_places_for_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class DetailedQuery extends StatefulWidget {
   final String brand, model, problem, userid;
@@ -31,6 +34,8 @@ class DetailedQuery extends StatefulWidget {
 }
 
 class _DetailedQueryState extends State<DetailedQuery> {
+  Completer<GoogleMapController> _controller = Completer();
+
   @override
   void initState() {
     super.initState();
@@ -43,6 +48,8 @@ class _DetailedQueryState extends State<DetailedQuery> {
   String zipcode = '';
   String lat = '';
   String lng = '';
+
+  String distancevalue = 'Please Select Distance in KM';
 
   Future<Position> _getGeoLocationPosition() async {
     bool serviceEnabled;
@@ -93,6 +100,8 @@ class _DetailedQueryState extends State<DetailedQuery> {
   }
 
   List data = [];
+
+  List distanceModel = ['5 KM', '10 KM', '15 KM', '20 KM'];
 
   Map<String, String> headers = {
     'content-Type': 'application/json;charset=UTF-8',
@@ -296,23 +305,122 @@ class _DetailedQueryState extends State<DetailedQuery> {
                                             SizedBox(height: 10),
                                             LabelText(label: "Select Location"),
                                             SizedBox(height: 10),
-                                            InkWell(
-                                              onTap: () async {
-                                                Position position =
-                                                    await _getGeoLocationPosition();
-                                                location =
-                                                    'Lat: ${position.latitude} , Long: ${position.longitude}';
-                                                getAddressFromLatLong(position);
+                                            Container(
+                                              child: SearchGooglePlacesWidget(
+                                                location: LatLng(45.2, 74.2),
 
-                                                print("lat lng is $location");
-                                              },
-                                              child: TextFieldWidget(
-                                                enable: false,
-                                                hint: address,
-                                                inputType: TextInputType.phone,
+                                                apiKey:
+                                                    'AIzaSyAUdIorUk08nLu7lVb4FHwk9hbDqFQSMGk',
+                                                // The language of the autocompletion
+                                                language: 'en',
+                                                // The position used to give better recommendations. In this case we are using the user position
+                                                radius: 30000,
+                                                onSelected:
+                                                    (Place place) async {
+                                                  final geolocation =
+                                                      await place.geolocation;
+
+                                                  // Will animate the GoogleMap camera, taking us to the selected position with an appropriate zoom
+                                                  final GoogleMapController
+                                                      controller =
+                                                      await _controller.future;
+                                                  controller.animateCamera(
+                                                      CameraUpdate.newLatLng(
+                                                          geolocation
+                                                              ?.coordinates));
+                                                  controller.animateCamera(
+                                                      CameraUpdate
+                                                          .newLatLngBounds(
+                                                              geolocation
+                                                                  ?.bounds,
+                                                              0));
+                                                },
+                                                onSearch: (Place place) {},
                                               ),
                                             ),
-                                            SizedBox(height: 350),
+                                            SizedBox(height: 10),
+                                            LabelText(label: "Select Distance"),
+                                            SizedBox(height: 10),
+                                            // InkWell(
+                                            //   onTap: () async {
+                                            //     Position position =
+                                            //         await _getGeoLocationPosition();
+                                            //     location =
+                                            //         'Lat: ${position.latitude} , Long: ${position.longitude}';
+                                            //     getAddressFromLatLong(position);
+
+                                            //     print("lat lng is $location");
+                                            //   },
+                                            //   child: TextFieldWidget(
+                                            //     enable: false,
+                                            //     hint: address,
+                                            //     inputType: TextInputType.phone,
+                                            //   ),
+                                            // ),
+                                            Container(
+                                              height: 40,
+                                              decoration: BoxDecoration(
+                                                color: white,
+                                                border: Border.all(
+                                                    width: 1, color: dimGrey),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color:
+                                                        black.withOpacity(0.2),
+                                                    blurRadius: 10,
+                                                    offset: Offset(0.5, 0.5),
+                                                  ),
+                                                ],
+                                              ),
+                                              width: width,
+                                              child:
+                                                  DropdownButtonHideUnderline(
+                                                child: ButtonTheme(
+                                                    alignedDropdown: true,
+                                                    child: DropdownButton(
+                                                      hint: distancevalue ==
+                                                              null
+                                                          ? Text(
+                                                              'Please Select Distance in KM')
+                                                          : Text(
+                                                              distancevalue,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .blue),
+                                                            ),
+                                                      isExpanded: true,
+                                                      iconSize: 30.0,
+                                                      style: TextStyle(
+                                                          color: Colors.blue),
+                                                      items: [
+                                                        '5 KM',
+                                                        '10 KM',
+                                                        '15 KM',
+                                                        "20 KM"
+                                                      ].map(
+                                                        (val) {
+                                                          return DropdownMenuItem<
+                                                              String>(
+                                                            value: val,
+                                                            child: Text(val),
+                                                          );
+                                                        },
+                                                      ).toList(),
+                                                      onChanged: (String? val) {
+                                                        setState(
+                                                          () {
+                                                            distancevalue =
+                                                                val!;
+                                                          },
+                                                        );
+                                                      },
+                                                    )),
+                                              ),
+                                            ),
+
+                                            SizedBox(height: 500),
                                           ],
                                         ),
                                       ),
