@@ -3,7 +3,6 @@ import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
 import 'package:fix_team_app/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
@@ -26,31 +25,31 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     text: 'Mail body.',
   );
 
-  Future<void> send() async {
-    final Email email = Email(
-      body: bodyController.text,
-      subject: subjectController.text,
-      recipients: [emailController.text],
-      isHTML: isHTML,
-    );
+  // Future<void> send() async {
+  //   final Email email = Email(
+  //     body: bodyController.text,
+  //     subject: subjectController.text,
+  //     recipients: [emailController.text],
+  //     isHTML: isHTML,
+  //   );
 
-    String platformResponse;
+  //   String platformResponse;
 
-    try {
-      await FlutterEmailSender.send(email);
-      platformResponse = 'success';
-    } catch (error) {
-      platformResponse = error.toString();
-    }
+  //   try {
+  //     await FlutterEmailSender.send(email);
+  //     platformResponse = 'success';
+  //   } catch (error) {
+  //     platformResponse = error.toString();
+  //   }
 
-    if (!mounted) return;
+  //   if (!mounted) return;
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(platformResponse),
-      ),
-    );
-  }
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //     SnackBar(
+  //       content: Text(platformResponse),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {

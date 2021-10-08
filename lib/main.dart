@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:fix_team_app/view/app/splash_screen.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: Colors.white));
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
