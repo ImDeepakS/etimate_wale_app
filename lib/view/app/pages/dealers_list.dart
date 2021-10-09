@@ -1,6 +1,5 @@
-import 'package:fix_team_app/model/dealer_model.dart';
-import 'package:fix_team_app/view/app/pages/dealer_profile.dart';
-import 'package:fix_team_app/view/helpers/colors.dart';
+import 'package:Estimatewale/view/app/pages/dealer_profile.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -8,6 +7,8 @@ import 'package:flutter_html/style.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class DealersListPage extends StatefulWidget {
   final String brandid, modelid, problemid, brand, model, problem, userid;
@@ -27,11 +28,10 @@ class DealersListPage extends StatefulWidget {
 }
 
 class _DealersListPageState extends State<DealersListPage> {
-  @override
-  void initState() {
-    super.initState();
-    dealersList(widget.brandid, widget.modelid, widget.problemid);
-  }
+  RefreshController refreshController = RefreshController();
+
+  int currentPage = 1;
+  int totalPages = 20;
 
   List data = [];
 
@@ -40,9 +40,30 @@ class _DealersListPageState extends State<DealersListPage> {
     'Charset': 'utf-8'
   };
 
-  Future dealersList(brand, model, problem) async {
+  String brand = '';
+  String model = '';
+  String problem = '';
+
+  @override
+  void initState() {
+    super.initState();
+    brand = widget.brandid;
+    model = widget.modelid;
+    problem = widget.problemid;
+    dealersList();
+  }
+
+  Future dealersList({bool isRefresh = false}) async {
+    if (isRefresh) {
+      currentPage = 1;
+    } else {
+      if (currentPage >= totalPages && totalPages < 1) {
+        refreshController.loadNoData();
+        return true;
+      }
+    }
     String apiurl =
-        "https://estimatewale.com/application/restapi/nearby_repair_dealers.php?brand=$brand&&model=$model&&problem=$problem";
+        "https://estimatewale.com/application/restapi/nearby_dealers.php?brand=$brand&&model=$model&&problem=$problem&&page=$currentPage";
     var response = await http.get(Uri.parse(apiurl), headers: headers);
 
     if (response.statusCode == 200) {
@@ -50,6 +71,9 @@ class _DealersListPageState extends State<DealersListPage> {
 
       setState(() {
         data = dealersData["body"];
+        currentPage++;
+        totalPages = data.length;
+        print("total dealer is $totalPages");
       });
 
       print("dealers data is $data");
@@ -80,8 +104,27 @@ class _DealersListPageState extends State<DealersListPage> {
         decoration: BoxDecoration(
           color: white,
         ),
-        child: FutureBuilder(builder: (context, snapshot) {
-          return ListView.builder(
+        child: SmartRefresher(
+          controller: refreshController,
+          enablePullUp: true,
+          enablePullDown: true,
+          onRefresh: () async {
+            final result = await dealersList(isRefresh: true);
+            if (result != null) {
+              refreshController.refreshCompleted();
+            } else {
+              refreshController.refreshFailed();
+            }
+          },
+          onLoading: () async {
+            final result = await dealersList();
+            if (result != null) {
+              refreshController.loadComplete();
+            } else {
+              refreshController.loadFailed();
+            }
+          },
+          child: ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {
               return Padding(
@@ -226,8 +269,8 @@ class _DealersListPageState extends State<DealersListPage> {
                 ),
               );
             },
-          );
-        }),
+          ),
+        ),
       ),
     );
   }

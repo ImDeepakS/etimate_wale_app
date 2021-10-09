@@ -1,8 +1,9 @@
-import 'package:fix_team_app/controller/login/login_controller.dart';
-import 'package:fix_team_app/view/app/users/user_register_page.dart';
-import 'package:fix_team_app/view/helpers/colors.dart';
-import 'package:fix_team_app/view/widgets/label_widget.dart';
-import 'package:fix_team_app/view/widgets/text_field_widget.dart';
+import 'package:Estimatewale/controller/login/auth_service.dart';
+import 'package:Estimatewale/controller/login/login_controller.dart';
+import 'package:Estimatewale/view/app/users/user_register_page.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
+import 'package:Estimatewale/view/widgets/label_widget.dart';
+import 'package:Estimatewale/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -339,7 +340,7 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     ),
                                     InkWell(
-                                      onTap: () => _handleSignIn(),
+                                      onTap: () => signup(context),
                                       child: Container(
                                         height: 40,
                                         width: 40,

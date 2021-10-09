@@ -1,8 +1,7 @@
-import 'package:fix_team_app/view/app/forms/dealer_ac_dc_query.dart';
-import 'package:fix_team_app/view/app/forms/update_query_price.dart';
-import 'package:fix_team_app/view/helpers/colors.dart';
-import 'package:fix_team_app/view/widgets/label_widget.dart';
-import 'package:fix_team_app/view/widgets/prob_text_widget.dart';
+import 'package:Estimatewale/view/app/forms/dealer_ac_dc_query.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
+import 'package:Estimatewale/view/widgets/label_widget.dart';
+import 'package:Estimatewale/view/widgets/prob_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';

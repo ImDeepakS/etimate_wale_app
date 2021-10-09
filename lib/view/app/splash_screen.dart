@@ -1,11 +1,10 @@
 import 'dart:async';
-
-import 'package:fix_team_app/controller/login/login_controller.dart';
-import 'package:fix_team_app/controller/login/profile_controller.dart';
-import 'package:fix_team_app/view/app/homepage.dart';
-import 'package:fix_team_app/view/app/loginpage.dart';
-import 'package:fix_team_app/view/helpers/colors.dart';
-import 'package:fix_team_app/view/helpers/fade_route.dart';
+import 'package:Estimatewale/controller/login/login_controller.dart';
+import 'package:Estimatewale/controller/login/profile_controller.dart';
+import 'package:Estimatewale/view/app/homepage.dart';
+import 'package:Estimatewale/view/app/loginpage.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
+import 'package:Estimatewale/view/helpers/fade_route.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
