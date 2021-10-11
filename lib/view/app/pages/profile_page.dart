@@ -1,3 +1,4 @@
+import 'package:Estimatewale/controller/login/auth_service.dart';
 import 'package:Estimatewale/controller/login/login_controller.dart';
 import 'package:Estimatewale/controller/login/profile_controller.dart';
 import 'package:Estimatewale/model/profile_model.dart';
@@ -89,6 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   child: InkWell(
                                     onTap: () {
                                       storage.delete(key: "token");
+                                      signOutFromGoogle();
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(

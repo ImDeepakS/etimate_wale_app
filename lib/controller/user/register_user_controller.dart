@@ -26,7 +26,7 @@ Future registerUser(BuildContext context, user, email, phone, password, zipcode,
       try {
         showDialog(
           context: context,
-          builder: (BuildContext context) {
+          builder: (context) {
             return AlertDialog(
               title: new Text(message),
               actions: <Widget>[
@@ -45,7 +45,7 @@ Future registerUser(BuildContext context, user, email, phone, password, zipcode,
           },
         );
       } on Exception catch (e) {
-        // TODO
+        throw e;
       }
     } else {
       showDialog(

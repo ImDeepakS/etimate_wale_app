@@ -36,6 +36,17 @@ class _VideoDetailScreenState extends State<VideoDetailScreen> {
 
   late YoutubePlayerController _playerController;
 
+  @override
+  void initState() {
+    super.initState();
+    if (widget.videourl == null) {
+      url = "https://youtu.be/ePbL7jLAV1c";
+    } else if (widget.videourl != null) {
+      url = widget.videourl;
+    }
+    runYoutubePlayer();
+  }
+
   void runYoutubePlayer() {
     _playerController = YoutubePlayerController(
       initialVideoId: YoutubePlayer.convertUrlToId(url)!,
@@ -45,17 +56,6 @@ class _VideoDetailScreenState extends State<VideoDetailScreen> {
         autoPlay: true,
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    runYoutubePlayer();
-    if (widget.videourl == null) {
-      url = "https://youtu.be/ePbL7jLAV1c";
-    } else if (widget.videourl != null) {
-      url = widget.videourl;
-    }
   }
 
   @override

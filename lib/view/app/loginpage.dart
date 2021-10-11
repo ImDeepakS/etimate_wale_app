@@ -1,10 +1,12 @@
 import 'package:Estimatewale/controller/login/auth_service.dart';
 import 'package:Estimatewale/controller/login/login_controller.dart';
+import 'package:Estimatewale/view/app/homepage.dart';
 import 'package:Estimatewale/view/app/users/user_register_page.dart';
 import 'package:Estimatewale/view/helpers/colors.dart';
 import 'package:Estimatewale/view/widgets/label_widget.dart';
 import 'package:Estimatewale/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:convert' show json;
@@ -31,6 +33,10 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   GoogleSignInAccount? _currentUser;
   String _contactText = '';
+
+  bool _isLoggedIn = false;
+
+  Map _userObj = {};
 
   void initState() {
     super.initState();
@@ -329,13 +335,40 @@ class _LoginPageState extends State<LoginPage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Container(
-                                      height: 42,
-                                      width: 42,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image:
-                                              AssetImage("assets/fb_icon.png"),
+                                    InkWell(
+                                      onTap: () {
+                                        signInWithFacebook(context);
+                                        // FacebookAuth.instance.login(
+                                        //   permissions: [
+                                        //     "public_profile",
+                                        //     "email"
+                                        //   ],
+                                        // ).then((value) {
+                                        //   FacebookAuth.instance
+                                        //       .getUserData()
+                                        //       .then((userData) {
+                                        //     setState(() {
+                                        //       _isLoggedIn = true;
+                                        //       _userObj = userData;
+                                        //       Navigator.push(
+                                        //         context,
+                                        //         MaterialPageRoute(
+                                        //           builder: (context) =>
+                                        //               HomePage(),
+                                        //         ),
+                                        //       );
+                                        //     });
+                                        //   });
+                                        // });
+                                      },
+                                      child: Container(
+                                        height: 42,
+                                        width: 42,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: AssetImage(
+                                                "assets/fb_icon.png"),
+                                          ),
                                         ),
                                       ),
                                     ),

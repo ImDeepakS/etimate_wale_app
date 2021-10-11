@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
   ];
 
   void _onItemTapped(int index) {
-    if (index == 0 || index == 1 || index == 4) {
+    if (index == 0 || index == 4) {
       setState(() {
         _selectedIndex = index;
       });
@@ -48,6 +48,13 @@ class _HomePageState extends State<HomePage> {
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => EstimatePricePage(),
+        ),
+      );
+    } else if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => StorePage(),
         ),
       );
     }
@@ -153,7 +160,7 @@ class HomeWidget extends StatefulWidget {
 
 class _HomeWidgetState extends State<HomeWidget> {
   String location = 'Null, Press Button';
-  String address = '';
+  String address = 'Get Current Location';
   String city = 'Get Location';
 
   @override
