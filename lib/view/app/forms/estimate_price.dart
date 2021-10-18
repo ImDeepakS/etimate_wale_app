@@ -435,6 +435,7 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
       setState(() {
         username = tokne;
         getID(username);
+        print("tokne username is $username");
       });
     } else {
       username = "Please Login or SignUp";

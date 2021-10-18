@@ -9,6 +9,7 @@ import 'package:fix_team_app/view/app/pages/privacy_policy_page.dart';
 import 'package:fix_team_app/view/app/pages/term_page.dart';
 import 'package:fix_team_app/view/app/pages/testimonial_page.dart';
 import 'package:fix_team_app/view/app/users/dealer_register_page.dart';
+import 'package:fix_team_app/view/app/users/login_type.dart';
 import 'package:fix_team_app/view/app/users/user_register_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
@@ -93,7 +94,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => LoginPage(),
+                                          builder: (context) => LoginTypePage(),
                                         ),
                                       );
                                     },

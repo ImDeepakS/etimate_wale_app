@@ -1,46 +1,42 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fix_team_app/controller/login/login_controller.dart';
+import 'package:fix_team_app/controller/login/profile_controller.dart';
+import 'package:fix_team_app/controller/user/register_user_controller.dart';
 import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthClass {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes: [
-      'email',
-      'https://www.googleapis.com/auth/contacts.readonly',
-    ],
-  );
+final FirebaseAuth auth = FirebaseAuth.instance;
 
-  final storage = new FlutterSecureStorage();
-  Future<void> googleSignIn(BuildContext context) async {
-    try {
-      GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
-      GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount!.authentication;
-      AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication.accessToken,
-        idToken: googleSignInAuthentication.idToken,
+Future<void> signup(BuildContext context) async {
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+  final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+  if (googleSignInAccount != null) {
+    final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+    final AuthCredential authCredential = GoogleAuthProvider.credential(
+      idToken: googleSignInAuthentication.idToken,
+      accessToken: googleSignInAuthentication.accessToken,
+    );
+
+    UserCredential result = await auth.signInWithCredential(authCredential);
+    User? user = result.user;
+
+    if (result != null) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => HomePage()));
+      storeTokenAndData(googleSignInAccount.displayName.toString(), null);
+      registerUser(
+        context,
+        googleSignInAccount.displayName,
+        googleSignInAccount.email,
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
       );
-      if (googleSignInAccount != null) {
-        UserCredential userCredential =
-            await _auth.signInWithCredential(credential);
-        storeTokenAndData(userCredential, userCredential);
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (builder) => HomePage()),
-            (route) => false);
-
-        final snackBar =
-            SnackBar(content: Text(userCredential.user.displayName));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      }
-    } catch (e) {
-      print("here---->");
-      final snackBar = SnackBar(content: Text(e.toString()));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 }

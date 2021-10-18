@@ -1,4 +1,7 @@
+import 'package:fix_team_app/controller/login/auth_service.dart';
 import 'package:fix_team_app/controller/login/login_controller.dart';
+import 'package:fix_team_app/view/app/homepage.dart';
+import 'package:fix_team_app/view/app/users/phone_login.dart';
 import 'package:fix_team_app/view/app/users/user_register_page.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/widgets/label_widget.dart';
@@ -39,6 +42,12 @@ class _LoginPageState extends State<LoginPage> {
       });
       if (_currentUser != null) {
         _handleGetContact(_currentUser!);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(),
+          ),
+        );
       }
     });
     _googleSignIn.signInSilently();
@@ -308,6 +317,39 @@ class _LoginPageState extends State<LoginPage> {
                           //     ),
                           //   ),
                           // ),
+                          Container(
+                            width: width,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Want to login using mobile no?",
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w500,
+                                    color: shadyGrey,
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => PhoneLoginPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: Text(
+                                    "Click here!",
+                                    style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w600,
+                                      color: mainColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
 
                           SizedBox(height: 30),
                           Column(
@@ -339,14 +381,15 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     ),
                                     InkWell(
-                                      onTap: () => _handleSignIn(),
+                                      onTap: () => signup(context),
                                       child: Container(
                                         height: 40,
                                         width: 40,
                                         decoration: BoxDecoration(
                                           image: DecorationImage(
                                             image: AssetImage(
-                                                "assets/google_icon.png"),
+                                              "assets/google_icon.png",
+                                            ),
                                           ),
                                         ),
                                       ),

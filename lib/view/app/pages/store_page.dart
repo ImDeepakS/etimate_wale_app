@@ -103,20 +103,21 @@ class _StorePageState extends State<StorePage> {
                     //   ),
                     // ),
                     MaterialPageRoute(
-                        builder: (context) => VideoDetailScreen(
-                              storeAddress: data[index]["address"],
-                              storeImage: data[index]["image"] == null
-                                  ? "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg"
-                                  : "https://estimatewale.com/assets/images/dealers/${data[index]["image"]}",
-                              storeName: data[index]["shopname"],
-                              storeContact: data[index]["contact"],
-                              storeEmail: data[index]["email"],
-                              storeExp: data[index]["shopyear"],
-                              storeUser: data[index]["username"],
-                              videourl: data[index]["videolink"] == null
-                                  ? "no data"
-                                  : data[index]["videolink"],
-                            )),
+                      builder: (context) => VideoDetailScreen(
+                        storeAddress: data[index]["address"],
+                        storeImage: data[index]["image"] == null
+                            ? "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg"
+                            : "https://estimatewale.com/assets/images/dealers/${data[index]["image"]}",
+                        storeName: data[index]["shopname"],
+                        storeContact: data[index]["contact"],
+                        storeEmail: data[index]["email"],
+                        storeExp: data[index]["shopyear"],
+                        storeUser: data[index]["username"],
+                        videourl: data[index]["videolink"] == null
+                            ? "https://youtu.be/ePbL7jLAV1c"
+                            : data[index]["videolink"],
+                      ),
+                    ),
                   );
                 },
                 child: Card(

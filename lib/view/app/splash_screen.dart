@@ -4,6 +4,8 @@ import 'package:fix_team_app/controller/login/login_controller.dart';
 import 'package:fix_team_app/controller/login/profile_controller.dart';
 import 'package:fix_team_app/view/app/homepage.dart';
 import 'package:fix_team_app/view/app/loginpage.dart';
+import 'package:fix_team_app/view/app/users/login_type.dart';
+import 'package:fix_team_app/view/app/users/phone_login.dart';
 import 'package:fix_team_app/view/helpers/colors.dart';
 import 'package:fix_team_app/view/helpers/fade_route.dart';
 import 'package:flutter/material.dart';
@@ -149,7 +151,8 @@ class _SplashScreenState extends State<SplashScreen> {
         userProfile(context, tokne);
       });
     } else {
-      currentPage = LoginPage();
+      // currentPage = LoginPage();
+      currentPage = LoginTypePage();
     }
   }
 }
