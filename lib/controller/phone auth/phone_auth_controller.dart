@@ -1,8 +1,6 @@
+import 'package:Estimatewale/view/app/homepage.dart';
+import 'package:Estimatewale/view/app/users/otp_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fix_team_app/controller/login/login_controller.dart';
-import 'package:fix_team_app/controller/user/register_user_controller.dart';
-import 'package:fix_team_app/view/app/homepage.dart';
-import 'package:fix_team_app/view/app/users/otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 

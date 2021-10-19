@@ -1,6 +1,5 @@
-import 'package:fix_team_app/view/app/pages/store_page.dart';
-import 'package:fix_team_app/view/helpers/colors.dart';
-import 'package:fix_team_app/view/widgets/label_widget.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
+import 'package:Estimatewale/view/widgets/label_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';

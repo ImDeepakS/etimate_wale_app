@@ -1,8 +1,7 @@
-import 'package:fix_team_app/controller/login/auth_service.dart';
-import 'package:fix_team_app/view/app/loginpage.dart';
-import 'package:fix_team_app/view/app/users/phone_login.dart';
-import 'package:fix_team_app/view/app/users/user_register_page.dart';
-import 'package:fix_team_app/view/helpers/colors.dart';
+import 'package:Estimatewale/controller/login/auth_ser.dart';
+import 'package:Estimatewale/view/app/loginpage.dart';
+import 'package:Estimatewale/view/app/users/phone_login.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -140,37 +139,40 @@ class _LoginTypePageState extends State<LoginTypePage> {
                                 ),
                               ),
                               SizedBox(height: 10),
-                              Container(
-                                width: 90,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      height: 42,
-                                      width: 42,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image:
-                                              AssetImage("assets/fb_icon.png"),
-                                        ),
-                                      ),
-                                    ),
-                                    InkWell(
-                                      onTap: () => signup(context),
-                                      child: Container(
-                                        height: 40,
-                                        width: 40,
+                              InkWell(
+                                onTap: () => signInWithFacebook(context),
+                                child: Container(
+                                  width: 90,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        height: 42,
+                                        width: 42,
                                         decoration: BoxDecoration(
                                           image: DecorationImage(
                                             image: AssetImage(
-                                              "assets/google_icon.png",
+                                                "assets/fb_icon.png"),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () => signup(context),
+                                        child: Container(
+                                          height: 40,
+                                          width: 40,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                "assets/google_icon.png",
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],

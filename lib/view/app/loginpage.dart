@@ -1,15 +1,16 @@
-import 'package:fix_team_app/controller/login/auth_service.dart';
-import 'package:fix_team_app/controller/login/login_controller.dart';
-import 'package:fix_team_app/view/app/homepage.dart';
-import 'package:fix_team_app/view/app/users/phone_login.dart';
-import 'package:fix_team_app/view/app/users/user_register_page.dart';
-import 'package:fix_team_app/view/helpers/colors.dart';
-import 'package:fix_team_app/view/widgets/label_widget.dart';
-import 'package:fix_team_app/view/widgets/text_field_widget.dart';
+import 'dart:convert';
+
+import 'package:Estimatewale/controller/login/auth_ser.dart';
+import 'package:Estimatewale/controller/login/login_controller.dart';
+import 'package:Estimatewale/view/app/homepage.dart';
+import 'package:Estimatewale/view/app/users/phone_login.dart';
+import 'package:Estimatewale/view/app/users/user_register_page.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
+import 'package:Estimatewale/view/widgets/label_widget.dart';
+import 'package:Estimatewale/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'dart:convert' show json;
 import 'package:http/http.dart' as http;
 
 GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -33,6 +34,10 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   GoogleSignInAccount? _currentUser;
   String _contactText = '';
+
+  bool _isLoggedIn = false;
+
+  Map _userObj = {};
 
   void initState() {
     super.initState();
@@ -370,13 +375,40 @@ class _LoginPageState extends State<LoginPage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Container(
-                                      height: 42,
-                                      width: 42,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image:
-                                              AssetImage("assets/fb_icon.png"),
+                                    InkWell(
+                                      onTap: () {
+                                        signInWithFacebook(context);
+                                        // FacebookAuth.instance.login(
+                                        //   permissions: [
+                                        //     "public_profile",
+                                        //     "email"
+                                        //   ],
+                                        // ).then((value) {
+                                        //   FacebookAuth.instance
+                                        //       .getUserData()
+                                        //       .then((userData) {
+                                        //     setState(() {
+                                        //       _isLoggedIn = true;
+                                        //       _userObj = userData;
+                                        //       Navigator.push(
+                                        //         context,
+                                        //         MaterialPageRoute(
+                                        //           builder: (context) =>
+                                        //               HomePage(),
+                                        //         ),
+                                        //       );
+                                        //     });
+                                        //   });
+                                        // });
+                                      },
+                                      child: Container(
+                                        height: 42,
+                                        width: 42,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: AssetImage(
+                                                "assets/fb_icon.png"),
+                                          ),
                                         ),
                                       ),
                                     ),

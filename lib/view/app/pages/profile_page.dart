@@ -1,17 +1,16 @@
-import 'package:fix_team_app/controller/login/login_controller.dart';
-import 'package:fix_team_app/controller/login/profile_controller.dart';
-import 'package:fix_team_app/model/profile_model.dart';
-import 'package:fix_team_app/view/app/forms/estimate_price.dart';
-import 'package:fix_team_app/view/app/loginpage.dart';
-import 'package:fix_team_app/view/app/pages/about_page.dart';
-import 'package:fix_team_app/view/app/pages/contact_page.dart';
-import 'package:fix_team_app/view/app/pages/privacy_policy_page.dart';
-import 'package:fix_team_app/view/app/pages/term_page.dart';
-import 'package:fix_team_app/view/app/pages/testimonial_page.dart';
-import 'package:fix_team_app/view/app/users/dealer_register_page.dart';
-import 'package:fix_team_app/view/app/users/login_type.dart';
-import 'package:fix_team_app/view/app/users/user_register_page.dart';
-import 'package:fix_team_app/view/helpers/colors.dart';
+import 'package:Estimatewale/controller/login/auth_ser.dart';
+import 'package:Estimatewale/controller/login/login_controller.dart';
+import 'package:Estimatewale/controller/login/profile_contr.dart';
+import 'package:Estimatewale/model/profile_model.dart';
+import 'package:Estimatewale/view/app/pages/about_page.dart';
+import 'package:Estimatewale/view/app/pages/contact_page.dart';
+import 'package:Estimatewale/view/app/pages/privacy_policy_page.dart';
+import 'package:Estimatewale/view/app/pages/term_page.dart';
+import 'package:Estimatewale/view/app/pages/testimonial_page.dart';
+import 'package:Estimatewale/view/app/users/dealer_register_page.dart';
+import 'package:Estimatewale/view/app/users/login_type.dart';
+import 'package:Estimatewale/view/app/users/user_register_page.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -91,6 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   child: InkWell(
                                     onTap: () {
                                       storage.delete(key: "token");
+                                      signOutFromGoogle();
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(

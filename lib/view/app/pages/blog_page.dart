@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:fix_team_app/view/app/homepage.dart';
-import 'package:fix_team_app/view/app/pages/blog_details_page.dart';
-import 'package:fix_team_app/view/helpers/colors.dart';
+import 'package:Estimatewale/view/app/homepage.dart';
+import 'package:Estimatewale/view/app/pages/blog_details_page.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;

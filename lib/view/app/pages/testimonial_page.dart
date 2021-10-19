@@ -1,5 +1,4 @@
-import 'package:fix_team_app/model/testimonial_model.dart';
-import 'package:fix_team_app/view/helpers/colors.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';

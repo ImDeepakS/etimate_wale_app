@@ -1,6 +1,6 @@
-import 'package:fix_team_app/controller/update/update_status_query_controller.dart';
-import 'package:fix_team_app/view/helpers/colors.dart';
-import 'package:fix_team_app/view/widgets/prob_text_widget.dart';
+import 'package:Estimatewale/controller/update/update_status_query_controller.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
+import 'package:Estimatewale/view/widgets/prob_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';

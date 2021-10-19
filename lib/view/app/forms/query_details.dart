@@ -1,10 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:fix_team_app/view/app/pages/dealers_list.dart';
-import 'package:fix_team_app/view/helpers/colors.dart';
-import 'package:fix_team_app/view/widgets/label_widget.dart';
-import 'package:fix_team_app/view/widgets/prob_text_widget.dart';
-import 'package:fix_team_app/view/widgets/text_field_widget.dart';
+import 'package:Estimatewale/view/app/pages/dealers_list.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
+import 'package:Estimatewale/view/widgets/label_widget.dart';
+import 'package:Estimatewale/view/widgets/prob_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/shims/dart_ui_real.dart';
 import 'package:geocoding/geocoding.dart';

@@ -1,18 +1,17 @@
+import 'package:Estimatewale/model/brand_model.dart';
+import 'package:Estimatewale/view/app/forms/estimate_price.dart';
+import 'package:Estimatewale/view/app/pages/blog_page.dart';
+import 'package:Estimatewale/view/app/pages/profile_page.dart';
+import 'package:Estimatewale/view/app/pages/store_page.dart';
+import 'package:Estimatewale/view/app/users/dealer_register_page.dart';
+import 'package:Estimatewale/view/app/users/user_register_page.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
+import 'package:Estimatewale/view/widgets/service_tile_widget.dart';
+import 'package:Estimatewale/view/widgets/slider_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fix_team_app/model/brand_model.dart';
-import 'package:fix_team_app/view/app/forms/estimate_price.dart';
-import 'package:fix_team_app/view/app/forms/search_file.dart';
-import 'package:fix_team_app/view/app/pages/blog_page.dart';
-import 'package:fix_team_app/view/app/pages/profile_page.dart';
-import 'package:fix_team_app/view/app/pages/store_page.dart';
-import 'package:fix_team_app/view/app/users/dealer_register_page.dart';
-import 'package:fix_team_app/view/app/users/user_register_page.dart';
-import 'package:fix_team_app/view/helpers/colors.dart';
-import 'package:fix_team_app/view/widgets/service_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:fix_team_app/view/widgets/slider_widget.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -35,7 +34,7 @@ class _HomePageState extends State<HomePage> {
   ];
 
   void _onItemTapped(int index) {
-    if (index == 0 || index == 1 || index == 4) {
+    if (index == 0 || index == 4) {
       setState(() {
         _selectedIndex = index;
       });
@@ -49,6 +48,13 @@ class _HomePageState extends State<HomePage> {
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => EstimatePricePage(),
+        ),
+      );
+    } else if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => StorePage(),
         ),
       );
     }
@@ -154,7 +160,7 @@ class HomeWidget extends StatefulWidget {
 
 class _HomeWidgetState extends State<HomeWidget> {
   String location = 'Null, Press Button';
-  String address = '';
+  String address = 'Get Current Location';
   String city = 'Get Location';
 
   @override

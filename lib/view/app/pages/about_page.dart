@@ -1,5 +1,5 @@
-import 'package:fix_team_app/view/app/forms/estimate_price.dart';
-import 'package:fix_team_app/view/helpers/colors.dart';
+import 'package:Estimatewale/view/app/forms/estimate_price.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

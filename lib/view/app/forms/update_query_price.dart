@@ -1,10 +1,7 @@
-import 'package:fix_team_app/controller/update/estimate_price_update_controller.dart';
-import 'package:fix_team_app/view/app/forms/accepted_queries.dart';
-import 'package:fix_team_app/view/app/forms/declined_queries.dart';
-import 'package:fix_team_app/view/app/forms/generated_queris.dart';
-import 'package:fix_team_app/view/helpers/colors.dart';
-import 'package:fix_team_app/view/widgets/prob_text_widget.dart';
-import 'package:fix_team_app/view/widgets/text_field_widget.dart';
+import 'package:Estimatewale/controller/update/estimate_price_update_controller.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
+import 'package:Estimatewale/view/widgets/prob_text_widget.dart';
+import 'package:Estimatewale/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';

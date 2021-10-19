@@ -1,7 +1,5 @@
-// ignore_for_file: unnecessary_null_comparison
-
-import 'package:fix_team_app/view/helpers/colors.dart';
-import 'package:fix_team_app/view/widgets/label_widget.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
+import 'package:Estimatewale/view/widgets/label_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -39,9 +37,10 @@ class _VideoDetailScreenState extends State<VideoDetailScreen> {
   @override
   void initState() {
     super.initState();
-
+    // ignore: unnecessary_null_comparison
     if (widget.videourl == null) {
       url = "https://youtu.be/ePbL7jLAV1c";
+      // ignore: unnecessary_null_comparison
     } else if (widget.videourl != null) {
       url = widget.videourl;
     }

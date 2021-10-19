@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:fix_team_app/view/app/forms/accepted_queries.dart';
+import 'package:Estimatewale/view/app/forms/accepted_queries.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
