@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:Estimatewale/view/app/forms/accepted_queries.dart';
 import 'package:Estimatewale/view/app/forms/dealer_user_queries.dart';
 import 'package:Estimatewale/view/app/forms/declined_queries.dart';
@@ -7,8 +9,9 @@ import 'package:Estimatewale/view/app/forms/list_query.dart';
 import 'package:Estimatewale/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
-class MyAccountPage extends StatelessWidget {
+class MyAccountPage extends StatefulWidget {
   final String username, address, phone, email, zipcode, rollId, userid;
   const MyAccountPage({
     Key? key,
@@ -22,10 +25,39 @@ class MyAccountPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<MyAccountPage> createState() => _MyAccountPageState();
+}
+
+class _MyAccountPageState extends State<MyAccountPage> {
+  String user_id = '';
+
+  @override
+  void initState() {
+    super.initState();
+    user_id = widget.userid;
+  }
+
+  Future insertTmpData() async {
+    try {
+      final response = await http.post(
+        Uri.parse(
+          "https://estimatewale.com/application/restapi/dealer_list_insert_query.php?user_id=$user_id",
+        ),
+      );
+      var message = jsonDecode(json.encode(response.body));
+
+      if (response.statusCode == 200) {
+        print("message received $message");
+      } else {}
+    } on Exception catch (e) {
+      print("Exception is: " + e.toString());
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mainColor,
@@ -80,7 +112,9 @@ class MyAccountPage extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              username.isNotEmpty ? username : "Username",
+                              widget.username.isNotEmpty
+                                  ? widget.username
+                                  : "Username",
                               style: GoogleFonts.poppins(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w700,
@@ -98,7 +132,9 @@ class MyAccountPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  email.isNotEmpty ? email : "Email Id",
+                                  widget.email.isNotEmpty
+                                      ? widget.email
+                                      : "Email Id",
                                   style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
@@ -114,7 +150,9 @@ class MyAccountPage extends StatelessWidget {
                                 ),
                                 SizedBox(height: 5),
                                 Text(
-                                  phone.isNotEmpty ? phone : "Phone No.",
+                                  widget.phone.isNotEmpty
+                                      ? widget.phone
+                                      : "Phone No.",
                                   style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
@@ -130,7 +168,9 @@ class MyAccountPage extends StatelessWidget {
                                 ),
                                 SizedBox(height: 5),
                                 Text(
-                                  address.isNotEmpty ? address : "Address",
+                                  widget.address.isNotEmpty
+                                      ? widget.address
+                                      : "Address",
                                   style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
@@ -172,18 +212,19 @@ class MyAccountPage extends StatelessWidget {
                           right: 10,
                           bottom: 10,
                         ),
-                        child: rollId == "3"
+                        child: widget.rollId == "3"
                             ? Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   InkWell(
                                     onTap: () {
+                                      insertTmpData();
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               GeneratedQueriesList(
-                                            userid: userid,
+                                            userid: widget.userid,
                                           ),
                                         ),
                                       );
@@ -212,7 +253,7 @@ class MyAccountPage extends StatelessWidget {
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               AcceptedQueriesList(
-                                            userID: userid,
+                                            userID: widget.userid,
                                           ),
                                         ),
                                       );
@@ -241,7 +282,7 @@ class MyAccountPage extends StatelessWidget {
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               DealerUserQueryPage(
-                                            userid: userid,
+                                            userid: widget.userid,
                                           ),
                                         ),
                                       );
@@ -270,7 +311,7 @@ class MyAccountPage extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => QueriesListPage(
-                                            userid: userid,
+                                            userid: widget.userid,
                                           ),
                                         ),
                                       );
@@ -299,7 +340,7 @@ class MyAccountPage extends StatelessWidget {
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               DeclinedQueriesList(
-                                            userid: userid,
+                                            userid: widget.userid,
                                           ),
                                         ),
                                       );

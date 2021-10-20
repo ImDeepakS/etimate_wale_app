@@ -19,7 +19,7 @@ class GeneratedQueriesList extends StatefulWidget {
 }
 
 class _GeneratedQueriesListState extends State<GeneratedQueriesList> {
-  RefreshController refreshController = RefreshController();
+  RefreshController refreshController = RefreshController(initialRefresh: true);
   @override
   void initState() {
     super.initState();
@@ -46,6 +46,23 @@ class _GeneratedQueriesListState extends State<GeneratedQueriesList> {
 
   int totalPages = 10;
   int currentPage = 1;
+
+  Future deleteTmpData() async {
+    try {
+      final response = await http.post(
+        Uri.parse(
+          "https://estimatewale.com/application/restapi/empty_tmptable.php",
+        ),
+      );
+      var message = jsonDecode(json.encode(response.body));
+
+      if (response.statusCode == 200) {
+        print("message received delete $message");
+      } else {}
+    } on Exception catch (e) {
+      print("Exception is: " + e.toString());
+    }
+  }
 
   Future queriesList({bool isRefresh = false}) async {
     if (isRefresh) {
@@ -95,6 +112,7 @@ class _GeneratedQueriesListState extends State<GeneratedQueriesList> {
         ),
         leading: InkWell(
           onTap: () {
+            deleteTmpData();
             Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back),
