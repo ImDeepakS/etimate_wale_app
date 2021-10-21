@@ -11,7 +11,16 @@ import 'dart:convert';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class DealersListPage extends StatefulWidget {
-  final String brandid, modelid, problemid, brand, model, problem, userid;
+  final String brandid,
+      modelid,
+      problemid,
+      brand,
+      model,
+      problem,
+      userid,
+      lat,
+      lng,
+      distance;
   const DealersListPage({
     Key? key,
     required this.brandid,
@@ -21,6 +30,9 @@ class DealersListPage extends StatefulWidget {
     required this.model,
     required this.problem,
     required this.userid,
+    required this.lat,
+    required this.lng,
+    required this.distance,
   }) : super(key: key);
 
   @override
@@ -36,6 +48,7 @@ class _DealersListPageState extends State<DealersListPage> {
   int totalPages = 20;
 
   List data = [];
+  List datainsert = [];
 
   Map<String, String> headers = {
     'content-Type': 'application/json;charset=UTF-8',
@@ -52,7 +65,39 @@ class _DealersListPageState extends State<DealersListPage> {
     brand = widget.brandid;
     model = widget.modelid;
     problem = widget.problemid;
-    dealersList();
+    queriesList();
+  }
+
+  Future deleteTmpData() async {
+    try {
+      final response = await http.post(
+        Uri.parse(
+          "https://estimatewale.com/application/restapi/empty_tmptable.php",
+        ),
+      );
+      var message = jsonDecode(json.encode(response.body));
+
+      if (response.statusCode == 200) {
+        print("message received delete $message");
+      } else {}
+    } on Exception catch (e) {
+      print("Exception is: " + e.toString());
+    }
+  }
+
+  Future queriesList() async {
+    String apiurl =
+        "https://estimatewale.com/application/restapi/insert_temp_user_data.php?lat=${widget.lat}&&lng=${widget.lng}&&distance=${widget.distance}";
+    var response = await http.get(Uri.parse(apiurl), headers: headers);
+
+    if (response.statusCode == 200) {
+      dealersList();
+
+      print("data is $data");
+    } else {
+      jsonDecode("Not found any data");
+      throw Exception("Failed to load brands data");
+    }
   }
 
   Future dealersList({bool isRefresh = false}) async {
@@ -100,6 +145,13 @@ class _DealersListPageState extends State<DealersListPage> {
             color: white,
             fontWeight: FontWeight.w600,
           ),
+        ),
+        leading: InkWell(
+          onTap: () {
+            deleteTmpData();
+            Navigator.pop(context);
+          },
+          child: Icon(Icons.arrow_back),
         ),
       ),
       body: Container(
@@ -252,15 +304,15 @@ class _DealersListPageState extends State<DealersListPage> {
                                     data: data[index]["price"],
                                     style: {
                                       "h2": Style(
-                                        fontSize: FontSize.small,
-                                        color: black.withOpacity(0.5),
+                                        fontSize: FontSize.large,
+                                        color: mainColor,
                                       ),
                                       "h1": Style(
                                         fontSize: FontSize.large,
                                         color: black.withOpacity(0.5),
                                       ),
                                       "li": Style(
-                                        fontSize: FontSize.small,
+                                        fontSize: FontSize.medium,
                                         color: black.withOpacity(0.4),
                                         fontWeight: FontWeight.bold,
                                       ),

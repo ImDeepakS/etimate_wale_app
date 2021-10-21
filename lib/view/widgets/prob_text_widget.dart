@@ -30,7 +30,7 @@ class ProbTextWidget extends StatelessWidget {
           child: Text(
             text,
             style: GoogleFonts.poppins(
-              color: black.withOpacity(0.4),
+              color: mainColor,
               fontSize: 14,
               fontWeight: FontWeight.w600,
             ),

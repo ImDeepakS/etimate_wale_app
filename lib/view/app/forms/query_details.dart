@@ -96,6 +96,8 @@ class _DetailedQueryState extends State<DetailedQuery> {
     address =
         '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
     setState(() {});
+
+    print("lat value $lat $lng");
   }
 
   List data = [];
@@ -319,6 +321,13 @@ class _DetailedQueryState extends State<DetailedQuery> {
                                                   final geolocation =
                                                       await place.geolocation;
 
+                                                  Position position =
+                                                      await _getGeoLocationPosition();
+                                                  location =
+                                                      'Lat: ${position.latitude} , Long: ${position.longitude}';
+                                                  getAddressFromLatLong(
+                                                      position);
+
                                                   // Will animate the GoogleMap camera, taking us to the selected position with an appropriate zoom
                                                   final GoogleMapController
                                                       controller =
@@ -338,7 +347,8 @@ class _DetailedQueryState extends State<DetailedQuery> {
                                               ),
                                             ),
                                             SizedBox(height: 10),
-                                            LabelText(label: "Select Distance"),
+                                            LabelText(
+                                                label: "Select Distance in KM"),
                                             SizedBox(height: 10),
                                             // InkWell(
                                             //   onTap: () async {
@@ -394,10 +404,10 @@ class _DetailedQueryState extends State<DetailedQuery> {
                                                       style: TextStyle(
                                                           color: Colors.blue),
                                                       items: [
-                                                        '5 KM',
-                                                        '10 KM',
-                                                        '15 KM',
-                                                        "20 KM"
+                                                        '5',
+                                                        '10',
+                                                        '15',
+                                                        "20"
                                                       ].map(
                                                         (val) {
                                                           return DropdownMenuItem<
@@ -459,6 +469,9 @@ class _DetailedQueryState extends State<DetailedQuery> {
                           model: widget.model,
                           problem: widget.problem,
                           userid: widget.userid,
+                          lat: lat,
+                          lng: lng,
+                          distance: distancevalue,
                         ),
                       ),
                     );

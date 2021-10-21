@@ -30,7 +30,7 @@ class VideoDetailScreen extends StatefulWidget {
 }
 
 class _VideoDetailScreenState extends State<VideoDetailScreen> {
-  String url = '';
+  String url = 'https://youtu.be/ePbL7jLAV1c';
 
   late YoutubePlayerController _playerController;
 
@@ -39,10 +39,14 @@ class _VideoDetailScreenState extends State<VideoDetailScreen> {
     super.initState();
     // ignore: unnecessary_null_comparison
     if (widget.videourl == null) {
-      url = "https://youtu.be/ePbL7jLAV1c";
+      setState(() {
+        url = "https://youtu.be/ePbL7jLAV1c";
+      });
       // ignore: unnecessary_null_comparison
     } else if (widget.videourl != null) {
-      url = widget.videourl;
+      setState(() {
+        url = widget.videourl;
+      });
     }
     runYoutubePlayer();
   }

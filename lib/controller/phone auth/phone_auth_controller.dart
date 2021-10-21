@@ -1,5 +1,6 @@
 import 'package:Estimatewale/view/app/homepage.dart';
 import 'package:Estimatewale/view/app/users/otp_screen.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -37,9 +38,7 @@ class AuthClass {
     };
 
     PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout =
-        (String verificationID) {
-      showSnackBar(context, "Time out");
-    };
+        (String verificationID) {};
     try {
       await _auth.verifyPhoneNumber(
           timeout: Duration(seconds: 60),
@@ -62,12 +61,25 @@ class AuthClass {
       UserCredential userCredential =
           await _auth.signInWithCredential(credential);
       if (userCredential.additionalUserInfo!.isNewUser != null) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomePage(),
-          ),
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: mainColor,
+                strokeWidth: 5,
+              ),
+            );
+          },
         );
+        Future.delayed(Duration(seconds: 2), () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(),
+            ),
+          );
+        });
       } else {
         print("error");
       }

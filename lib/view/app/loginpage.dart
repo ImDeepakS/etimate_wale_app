@@ -136,7 +136,6 @@ class _LoginPageState extends State<LoginPage> {
             fontWeight: FontWeight.w600,
           ),
         ),
-        automaticallyImplyLeading: false,
       ),
       body: Stack(
         children: [
@@ -456,14 +455,22 @@ class _LoginPageState extends State<LoginPage> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
+                          Future.delayed(Duration(seconds: 2), () {
+                            Navigator.of(context).pop(true);
+                          });
                           return AlertDialog(
-                            title: new Text("Please fill all the details"),
-                            actions: <Widget>[
-                              TextButton(
-                                child: new Text("OK"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
+                            actions: [
+                              Container(
+                                height: 70,
+                                child: Center(
+                                  child: Text(
+                                    "Please fill all details",
+                                    style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w600,
+                                      color: mainColor,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
                           );

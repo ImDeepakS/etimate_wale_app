@@ -9,7 +9,8 @@ import 'dart:convert';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class StorePage extends StatefulWidget {
-  const StorePage({Key? key}) : super(key: key);
+  final String? city;
+  const StorePage({Key? key, this.city}) : super(key: key);
 
   @override
   _StorePageState createState() => _StorePageState();
@@ -26,9 +27,12 @@ class _StorePageState extends State<StorePage> {
   void initState() {
     super.initState();
     stores();
+    print("city name received ${widget.city}");
   }
 
   List data = [];
+
+  int y = 0;
 
   String imageData = '';
   String videoData = '';
@@ -51,7 +55,7 @@ class _StorePageState extends State<StorePage> {
     }
 
     String apiurl =
-        "https://estimatewale.com/application/restapi/storedata.php?page=$currentPage";
+        "https://estimatewale.com/application/restapi/storedata.php?page=$currentPage&&cities=%22${widget.city}%22";
     var response = await http.get(Uri.parse(apiurl), headers: headers);
 
     try {
@@ -65,6 +69,7 @@ class _StorePageState extends State<StorePage> {
           print("store data is ${data.length}");
           currentPage++;
           totalPages = data.length;
+          print("current page $currentPage $totalPages");
         });
       } else {
         jsonDecode("Not found any data");
@@ -137,42 +142,28 @@ class _StorePageState extends State<StorePage> {
               child: ListView.builder(
                 itemCount: data.length,
                 itemBuilder: (context, index) {
+                  y = data[0]["number_of_result"];
                   return Padding(
                     padding: const EdgeInsets.all(12),
                     child: InkWell(
                       onTap: () {
                         Navigator.of(context).push(
-                          // MaterialPageRoute(
-                          //   builder: (context) => StoreDetailsPage(
-                          //     storeAddress: data[index]["address"],
-                          //     storeImage: data[index]["image"] == null
-                          //         ? "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg"
-                          //         : "https://estimatewale.com/assets/images/dealers/${data[index]["image"]}",
-                          //     storeName: data[index]["shopname"],
-                          //     storeContact: data[index]["contact"],
-                          //     storeEmail: data[index]["email"],
-                          //     storeExp: data[index]["shopyear"],
-                          //     storeUser: data[index]["username"],
-                          //     videourl: data[index]["videolink"] == null
-                          //         ? "no data"
-                          //         : data[index]["videolink"],
-                          //   ),
-                          // ),
                           MaterialPageRoute(
-                              builder: (context) => VideoDetailScreen(
-                                    storeAddress: data[index]["address"],
-                                    storeImage: data[index]["image"] == null
-                                        ? "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg"
-                                        : "https://estimatewale.com/assets/images/dealers/${data[index]["image"]}",
-                                    storeName: data[index]["shopname"],
-                                    storeContact: data[index]["contact"],
-                                    storeEmail: data[index]["email"],
-                                    storeExp: data[index]["shopyear"],
-                                    storeUser: data[index]["username"],
-                                    videourl: data[index]["videolink"] != null
-                                        ? data[index]["videolink"]
-                                        : "https://youtu.be/ePbL7jLAV1c",
-                                  )),
+                            builder: (context) => VideoDetailScreen(
+                              storeAddress: data[index]["address"],
+                              storeImage: data[index]["image"] == null
+                                  ? "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg"
+                                  : "https://estimatewale.com/assets/images/dealers/${data[index]["image"]}",
+                              storeName: data[index]["shopname"],
+                              storeContact: data[index]["contact"],
+                              storeEmail: data[index]["email"],
+                              storeExp: data[index]["shopyear"],
+                              storeUser: data[index]["username"],
+                              videourl: data[index]["videolink"] == null
+                                  ? "https://www.youtube.com/watch?v=ePbL7jLAV1c"
+                                  : data[index]["videolink"],
+                            ),
+                          ),
                         );
                       },
                       child: Card(

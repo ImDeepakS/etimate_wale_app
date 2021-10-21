@@ -319,25 +319,45 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
+                          Future.delayed(Duration(seconds: 2), () {
+                            Navigator.of(context).pop(true);
+                          });
                           return AlertDialog(
-                            title: new Text("Please fill mobile number"),
-                            actions: <Widget>[
-                              TextButton(
-                                child: new Text("OK"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
+                            actions: [
+                              Container(
+                                height: 70,
+                                child: Center(
+                                  child: Text(
+                                    "Please fill mobile number",
+                                    style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w600,
+                                      color: mainColor,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
                           );
                         },
                       );
                     } else {
-                      String countryCode = '+91';
-                      phoneNumber = '$countryCode${phoneController.text}';
-                      authClass.verifyPhoneNumber(
-                          phoneNumber, phoneController.text, context, setData);
-                      showAlertDialog(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Center(
+                            child: CircularProgressIndicator(
+                              color: mainColor,
+                              strokeWidth: 5,
+                            ),
+                          );
+                        },
+                      );
+                      Future.delayed(Duration(seconds: 2), () {
+                        String countryCode = '+91';
+                        phoneNumber = '$countryCode${phoneController.text}';
+                        authClass.verifyPhoneNumber(phoneNumber,
+                            phoneController.text, context, setData);
+                      });
                     }
                     if (counter < 10) {
                       ScaffoldMessenger.of(context).showSnackBar(

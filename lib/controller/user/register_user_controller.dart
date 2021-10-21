@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:Estimatewale/view/app/loginpage.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -26,24 +27,23 @@ Future registerUser(BuildContext context, user, email, phone, password, zipcode,
       try {
         showDialog(
           context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: new Text(message),
-              actions: <Widget>[
-                TextButton(
-                  child: new Text("OK"),
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => LoginPage(),
-                      ),
-                    );
-                  },
-                ),
-              ],
+          builder: (BuildContext context) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: mainColor,
+                strokeWidth: 5,
+              ),
             );
           },
         );
+        Future.delayed(Duration(seconds: 2), () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LoginPage(),
+            ),
+          );
+        });
       } on Exception catch (e) {
         throw e;
       }
@@ -51,14 +51,13 @@ Future registerUser(BuildContext context, user, email, phone, password, zipcode,
       showDialog(
         context: context,
         builder: (BuildContext context) {
+          Future.delayed(Duration(seconds: 2), () {
+            Navigator.of(context).pop(true);
+          });
           return AlertDialog(
-            title: new Text(message),
-            actions: <Widget>[
-              TextButton(
-                child: new Text("OK"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
+            actions: [
+              Center(
+                child: Text(message),
               ),
             ],
           );

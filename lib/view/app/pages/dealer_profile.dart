@@ -2,6 +2,7 @@ import 'package:Estimatewale/controller/insert/inser_query_controller.dart';
 import 'package:Estimatewale/view/helpers/colors.dart';
 import 'package:Estimatewale/view/widgets/prob_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DealerProfilePage extends StatefulWidget {
@@ -199,15 +200,16 @@ class _DealerProfilePageState extends State<DealerProfilePage> {
                                           topRight: Radius.circular(20),
                                         ),
                                       ),
-                                      child: Center(
-                                        child: Text(
-                                          "\$ 500",
-                                          style: GoogleFonts.poppins(
-                                            color: green,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
+                                      child: Html(
+                                        data: widget.price,
+                                        style: {
+                                          "hr": Style(
+                                            display: Display.NONE,
                                           ),
-                                        ),
+                                          "h2": Style(
+                                            color: green,
+                                          ),
+                                        },
                                       ),
                                     ),
                                   ],
@@ -248,7 +250,7 @@ class _DealerProfilePageState extends State<DealerProfilePage> {
                   ),
                   child: Center(
                     child: Text(
-                      "Accept",
+                      "Submit",
                       style: GoogleFonts.poppins(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,

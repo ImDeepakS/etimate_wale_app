@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:Estimatewale/view/app/homepage.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -18,45 +19,35 @@ Future login(BuildContext context, username, password) async {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text(message),
-          actions: <Widget>[
-            TextButton(
-              child: new Text("OK"),
-              onPressed: () {
-                if (message == "Login Successful") {
-                  print("message");
-
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomePage(),
-                    ),
-                  );
-
-                  storeTokenAndData(username, password);
-                } else {
-                  print("error message");
-                  Navigator.pop(context);
-                }
-              },
-            ),
-          ],
+        return Center(
+          child: CircularProgressIndicator(
+            color: mainColor,
+            strokeWidth: 5,
+          ),
         );
       },
     );
+    Future.delayed(Duration(seconds: 2), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePage(),
+        ),
+      );
+
+      storeTokenAndData(username, password);
+    });
   } else {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        Future.delayed(Duration(seconds: 2), () {
+          Navigator.of(context).pop(true);
+        });
         return AlertDialog(
-          title: new Text(message),
-          actions: <Widget>[
-            TextButton(
-              child: new Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+          actions: [
+            Center(
+              child: Text(message),
             ),
           ],
         );

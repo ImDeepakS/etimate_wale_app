@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:Estimatewale/view/app/homepage.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
 Future registerViaPhone(BuildContext context, user, email, phone, password,
@@ -26,18 +28,22 @@ Future registerViaPhone(BuildContext context, user, email, phone, password,
       showDialog(
         context: context,
         builder: (BuildContext context) {
+          Future.delayed(Duration(seconds: 2), () {
+            Navigator.of(context).pop(true);
+          });
           return AlertDialog(
-            title: new Text(message),
-            actions: <Widget>[
-              TextButton(
-                child: new Text("OK"),
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => HomePage(),
+            actions: [
+              Container(
+                height: 70,
+                child: Center(
+                  child: Text(
+                    message,
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w600,
+                      color: mainColor,
                     ),
-                  );
-                },
+                  ),
+                ),
               ),
             ],
           );
@@ -47,14 +53,13 @@ Future registerViaPhone(BuildContext context, user, email, phone, password,
       showDialog(
         context: context,
         builder: (BuildContext context) {
+          Future.delayed(Duration(seconds: 2), () {
+            Navigator.of(context).pop(true);
+          });
           return AlertDialog(
-            title: new Text(message),
-            actions: <Widget>[
-              TextButton(
-                child: new Text("OK"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
+            actions: [
+              Center(
+                child: Text(message),
               ),
             ],
           );

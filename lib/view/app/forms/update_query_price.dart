@@ -136,7 +136,6 @@ class _UpdateQueryPricepageState extends State<UpdateQueryPricepage> {
               Container(
                 padding: EdgeInsets.all(20),
                 child: Form(
-                  key: _formKey,
                   child: TextFieldWidget(
                     enable: true,
                     hint: "Enter updated price here",
@@ -160,7 +159,6 @@ class _UpdateQueryPricepageState extends State<UpdateQueryPricepage> {
                   children: [
                     InkWell(
                       onTap: () {
-                        FocusManager.instance.primaryFocus!.unfocus();
                         if (_formKey.currentState!.validate()) {
                           setState(() {
                             updatePrice(
