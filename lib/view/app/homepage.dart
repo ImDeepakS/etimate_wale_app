@@ -3,6 +3,7 @@ import 'package:Estimatewale/view/app/forms/estimate_price.dart';
 import 'package:Estimatewale/view/app/pages/blog_page.dart';
 import 'package:Estimatewale/view/app/pages/profile_page.dart';
 import 'package:Estimatewale/view/app/pages/store_page.dart';
+import 'package:Estimatewale/view/app/pages/video_page.dart';
 import 'package:Estimatewale/view/app/users/dealer_register_page.dart';
 import 'package:Estimatewale/view/app/users/user_register_page.dart';
 import 'package:Estimatewale/view/helpers/colors.dart';
@@ -84,7 +85,7 @@ class _HomePageState extends State<HomePage> {
     StorePage(),
     DealerRegisterPage(),
     EstimatePricePage(),
-    ProfilePage(),
+    VideoPage(),
   ];
 
   void _onItemTapped(int index) async {
@@ -187,9 +188,9 @@ class _HomePageState extends State<HomePage> {
                   label: "Estimate",
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.person_outline),
-                  activeIcon: Icon(Icons.person),
-                  label: "Profile",
+                  icon: Icon(Icons.video_collection_outlined),
+                  activeIcon: Icon(Icons.video_collection),
+                  label: "Videos",
                 ),
               ],
             ),
@@ -378,6 +379,24 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     ],
                                   ),
                                 ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ProfilePage(),
+                                  ),
+                                );
+                              },
+                              child: Icon(
+                                Icons.person,
+                                color: mainColor,
+                                size: 34,
                               ),
                             ),
                           ),

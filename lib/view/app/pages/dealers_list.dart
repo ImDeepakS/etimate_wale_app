@@ -104,7 +104,7 @@ class _DealersListPageState extends State<DealersListPage> {
     if (isRefresh) {
       currentPage = 1;
     } else {
-      if (currentPage >= totalPages && totalPages < 1) {
+      if (currentPage >= data.length && currentPage >= 3) {
         refreshController.loadNoData();
         return true;
       }

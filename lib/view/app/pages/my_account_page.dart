@@ -48,6 +48,14 @@ class _MyAccountPageState extends State<MyAccountPage> {
 
       if (response.statusCode == 200) {
         print("message received $message");
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => GeneratedQueriesList(
+              userid: widget.userid,
+            ),
+          ),
+        );
       } else {}
     } on Exception catch (e) {
       print("Exception is: " + e.toString());
@@ -219,15 +227,6 @@ class _MyAccountPageState extends State<MyAccountPage> {
                                   InkWell(
                                     onTap: () {
                                       insertTmpData();
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              GeneratedQueriesList(
-                                            userid: widget.userid,
-                                          ),
-                                        ),
-                                      );
                                     },
                                     child: Container(
                                       padding: EdgeInsets.only(

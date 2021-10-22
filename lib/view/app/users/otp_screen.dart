@@ -50,7 +50,6 @@ class _OTPScreenState extends State<OTPScreen> {
             fontWeight: FontWeight.w600,
           ),
         ),
-        automaticallyImplyLeading: false,
       ),
       body: Stack(
         children: [
@@ -73,7 +72,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     padding: const EdgeInsets.only(
                       left: 10,
                       right: 10,
-                      top: 30,
+                      top: 10,
                     ),
                     child: Text(
                       "Login as ",
@@ -91,9 +90,9 @@ class _OTPScreenState extends State<OTPScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 30),
+                          SizedBox(height: 20),
                           Text(
-                            widget.phone,
+                            "+91 - ${widget.phone}",
                             style: GoogleFonts.poppins(
                               color: mainColor,
                               fontWeight: FontWeight.w500,

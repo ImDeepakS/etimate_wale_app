@@ -83,10 +83,11 @@ class _StoreDetailsPageState extends State<StoreDetailsPage> {
               ),
             ),
             leading: InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Icon(Icons.arrow_back)),
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Icon(Icons.arrow_back),
+            ),
           ),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,

@@ -27,37 +27,6 @@ class _ContactUsPageState extends State<ContactUsPage> {
   TextEditingController messageController = TextEditingController();
   TextEditingController contactController = TextEditingController();
 
-  // Future<void> send() async {
-  //   final Email email = Email(
-  //     body: bodyController.text,
-  //     subject: subjectController.text,
-  //     recipients: [
-  //       emailController.text,
-  //       messageController.text,
-  //       nameController.text,
-  //       contactController.text,
-  //     ],
-  //     isHTML: isHTML,
-  //   );
-
-  //   String platformResponse;
-
-  //   try {
-  //     await FlutterEmailSender.send(email);
-  //     platformResponse = 'success';
-  //   } catch (error) {
-  //     platformResponse = error.toString();
-  //   }
-
-  //   if (!mounted) return;
-
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     SnackBar(
-  //       content: Text(platformResponse),
-  //     ),
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;

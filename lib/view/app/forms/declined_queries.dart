@@ -101,86 +101,60 @@ class _DeclinedQueriesListState extends State<DeclinedQueriesList> {
                                 itemBuilder: (BuildContext context, int index) {
                                   return Padding(
                                     padding: const EdgeInsets.only(bottom: 20),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          data[index]["id"],
-                                          style: GoogleFonts.poppins(
-                                            color: dimGrey,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
+                                    child: Container(
+                                      padding: EdgeInsets.only(
+                                        left: 10,
+                                        right: 10,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: mainColor1,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: black.withOpacity(0.2),
+                                            blurRadius: 1,
+                                            offset: Offset(0.5, 0.5),
                                           ),
-                                        ),
-                                        SizedBox(width: 10),
-                                        InkWell(
-                                          child: Container(
-                                            width: width / 1.21,
-                                            padding: EdgeInsets.only(
-                                              left: 10,
-                                              right: 10,
-                                            ),
+                                        ],
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          ProbTextWidget(
+                                            label: "Mobile :",
+                                            text: data[index]["mobilebrand"],
+                                          ),
+                                          ProbTextWidget(
+                                            label: "Model :",
+                                            text: data[index]["mobilemodel"],
+                                          ),
+                                          ProbTextWidget(
+                                            label: "Problem :",
+                                            text: data[index]
+                                                ["singlemobileproblem"],
+                                          ),
+                                          SizedBox(height: 10),
+                                          Container(
+                                            width: width,
                                             decoration: BoxDecoration(
-                                              color: mainColor1,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: black.withOpacity(0.2),
-                                                  blurRadius: 1,
-                                                  offset: Offset(0.5, 0.5),
-                                                ),
-                                              ],
+                                              color: mainColor,
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(20),
+                                                topRight: Radius.circular(20),
+                                              ),
                                             ),
-                                            child: Column(
-                                              children: [
-                                                ProbTextWidget(
-                                                  label: "Mobile :",
-                                                  text: data[index]
-                                                      ["mobilebrand"],
+                                            child: Center(
+                                              child: Text(
+                                                "",
+                                                style: GoogleFonts.poppins(
+                                                  color: green,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
                                                 ),
-                                                ProbTextWidget(
-                                                  label: "Model :",
-                                                  text: data[index]
-                                                      ["mobilemodel"],
-                                                ),
-                                                ProbTextWidget(
-                                                  label: "Problem :",
-                                                  text: data[index]
-                                                      ["singlemobileproblem"],
-                                                ),
-                                                SizedBox(height: 10),
-                                                Container(
-                                                  width: width,
-                                                  decoration: BoxDecoration(
-                                                    color: mainColor,
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                      topLeft:
-                                                          Radius.circular(20),
-                                                      topRight:
-                                                          Radius.circular(20),
-                                                    ),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "",
-                                                      style:
-                                                          GoogleFonts.poppins(
-                                                        color: green,
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   );
                                 },

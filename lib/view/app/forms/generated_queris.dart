@@ -35,6 +35,7 @@ class _GeneratedQueriesListState extends State<GeneratedQueriesList> {
   @override
   void dispose() {
     super.dispose();
+    queriesList();
   }
 
   List data = [];

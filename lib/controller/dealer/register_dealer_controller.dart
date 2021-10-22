@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:Estimatewale/view/app/loginpage.dart';
+import 'package:Estimatewale/view/helpers/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
 Future registerDealer(
@@ -50,26 +52,42 @@ Future registerDealer(
     var message = jsonDecode(json.encode(response.body));
 
     if (response.statusCode == 200) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: new Text(message),
-            actions: <Widget>[
-              TextButton(
-                child: new Text("OK"),
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => LoginPage(),
-                    ),
-                  );
-                },
+      try {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: mainColor,
+                strokeWidth: 5,
               ),
-            ],
+            );
+          },
+        );
+        Future.delayed(Duration(seconds: 2), () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text(
+                    message,
+                    style: GoogleFonts.poppins(
+                      color: mainColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                );
+              });
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LoginPage(),
+            ),
           );
-        },
-      );
+        });
+      } on Exception catch (e) {
+        throw e;
+      }
     } else {
       showDialog(
         context: context,

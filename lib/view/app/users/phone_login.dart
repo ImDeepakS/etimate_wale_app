@@ -42,7 +42,6 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
             fontWeight: FontWeight.w600,
           ),
         ),
-        automaticallyImplyLeading: false,
       ),
       body: Stack(
         children: [
@@ -86,89 +85,6 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                           SizedBox(height: 30),
                           LabelText(label: "Please Enter Mobile Number"),
                           SizedBox(height: 10),
-                          // Container(
-                          //   padding: EdgeInsets.only(
-                          //     top: 5,
-                          //     bottom: 5,
-                          //     left: 10,
-                          //     right: 10,
-                          //   ),
-                          //   decoration: BoxDecoration(
-                          //     color: white,
-                          //     borderRadius: BorderRadius.circular(10),
-                          //     boxShadow: [
-                          //       BoxShadow(
-                          //         color: black.withOpacity(0.3),
-                          //         blurRadius: 5,
-                          //         offset: Offset(0.5, 0.5),
-                          //       ),
-                          //     ],
-                          //   ),
-                          //   child: TextFormField(
-                          //     controller: phoneController,
-                          //     keyboardType: TextInputType.number,
-                          //     style: GoogleFonts.poppins(
-                          //       color: shadyGrey,
-                          //       fontSize: 15,
-                          //       fontWeight: FontWeight.w500,
-                          //     ),
-                          //     decoration: new InputDecoration(
-                          //       hintText: "Enter Mobile No.",
-                          //       isDense: true,
-                          //       fillColor: Colors.white,
-                          //       border: InputBorder.none,
-                          //       hintStyle: GoogleFonts.poppins(
-                          //         color: shadyGrey,
-                          //         fontSize: 15,
-                          //         fontWeight: FontWeight.w500,
-                          //       ),
-                          //     ),
-                          //     inputFormatters: [
-                          //       LengthLimitingTextInputFormatter(10),
-                          //     ],
-                          //     validator: (String? value) {
-                          //       if (value != null && value.isEmpty) {
-                          //         return "message";
-                          //       }
-                          //       return null;
-                          //     },
-                          //     onChanged: (value) {
-                          //       if (value.length > 10) {
-                          //         if (value.length < 10) {
-                          //           ScaffoldMessenger.of(context).showSnackBar(
-                          //             SnackBar(
-                          //               content: Text(
-                          //                   "Please Enter Correct Phone Number"),
-                          //             ),
-                          //           );
-                          //         }
-                          //       }
-                          //       setState(() {
-                          //         counter = value.length;
-                          //       });
-                          //     },
-                          //   ),
-                          // ),
-                          // Padding(
-                          //   padding: const EdgeInsets.only(
-                          //     left: 40,
-                          //     top: 5,
-                          //   ),
-                          //   child: RichText(
-                          //     text: TextSpan(children: [
-                          //       TextSpan(
-                          //         text: counter.toString(),
-                          //         style: TextStyle(
-                          //           color: counter < 10 ? Colors.red : green,
-                          //         ),
-                          //       ),
-                          //       TextSpan(
-                          //         text: "/10",
-                          //         style: TextStyle(color: black),
-                          //       ),
-                          //     ]),
-                          //   ),
-                          // ),
                           Container(
                             height: 50,
                             decoration: BoxDecoration(

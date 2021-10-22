@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'package:Estimatewale/controller/login/auth_ser.dart';
 import 'package:Estimatewale/controller/login/login_controller.dart';
 import 'package:Estimatewale/view/app/homepage.dart';
+import 'package:Estimatewale/view/app/pages/forgot_password_page.dart';
+import 'package:Estimatewale/view/app/users/dealer_register_page.dart';
+import 'package:Estimatewale/view/app/users/login_type.dart';
 import 'package:Estimatewale/view/app/users/phone_login.dart';
 import 'package:Estimatewale/view/app/users/user_register_page.dart';
 import 'package:Estimatewale/view/helpers/colors.dart';
@@ -136,6 +139,17 @@ class _LoginPageState extends State<LoginPage> {
             fontWeight: FontWeight.w600,
           ),
         ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LoginTypePage(),
+              ),
+            );
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
       ),
       body: Stack(
         children: [
@@ -209,79 +223,72 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            UserRegisterPage(),
-                                      ),
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible: true,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          actions: <Widget>[
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                SizedBox(
+                                                  width: width / 4,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              UserRegisterPage(),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Text(
+                                                      "Sign Up as Customer",
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: mainColor,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: width / 4,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              DealerRegisterPage(),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Text(
+                                                      "Sign Up as Retailer",
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: mainColor,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        );
+                                      },
                                     );
-                                    // showDialog(
-                                    //   context: context,
-                                    //   barrierDismissible: true,
-                                    //   builder: (BuildContext context) {
-                                    //     return AlertDialog(
-                                    //       actions: <Widget>[
-                                    //         Row(
-                                    //           mainAxisAlignment:
-                                    //               MainAxisAlignment.spaceAround,
-                                    //           children: [
-                                    //             SizedBox(
-                                    //               width: width / 4,
-                                    //               child: InkWell(
-                                    //                 onTap: () {
-                                    //                   Navigator.pop(context);
-                                    //                   Navigator.push(
-                                    //                     context,
-                                    //                     MaterialPageRoute(
-                                    //                       builder: (context) =>
-                                    //                           UserRegisterPage(),
-                                    //                     ),
-                                    //                   );
-                                    //                 },
-                                    //                 child: Text(
-                                    //                   "Sign Up as Customer",
-                                    //                   style:
-                                    //                       GoogleFonts.poppins(
-                                    //                     fontSize: 14,
-                                    //                     fontWeight:
-                                    //                         FontWeight.w600,
-                                    //                     color: mainColor,
-                                    //                   ),
-                                    //                 ),
-                                    //               ),
-                                    //             ),
-                                    //             SizedBox(
-                                    //               width: width / 4,
-                                    //               child: InkWell(
-                                    //                 onTap: () {
-                                    //                   Navigator.pop(context);
-                                    //                   Navigator.push(
-                                    //                     context,
-                                    //                     MaterialPageRoute(
-                                    //                       builder: (context) =>
-                                    //                           DealerRegisterPage(),
-                                    //                     ),
-                                    //                   );
-                                    //                 },
-                                    //                 child: Text(
-                                    //                   "Sign Up as Retailer",
-                                    //                   style:
-                                    //                       GoogleFonts.poppins(
-                                    //                     fontSize: 14,
-                                    //                     fontWeight:
-                                    //                         FontWeight.w600,
-                                    //                     color: mainColor,
-                                    //                   ),
-                                    //                 ),
-                                    //               ),
-                                    //             ),
-                                    //           ],
-                                    //         ),
-                                    //       ],
-                                    //     );
-                                    //   },
-                                    // );
                                   },
                                   child: Text(
                                     "Sign Up",
@@ -295,32 +302,33 @@ class _LoginPageState extends State<LoginPage> {
                               ],
                             ),
                           ),
-                          // InkWell(
-                          //   onTap: () {
-                          //     Navigator.push(
-                          //       context,
-                          //       MaterialPageRoute(
-                          //         builder: (context) => ForgotPasswordPage(),
-                          //       ),
-                          //     );
-                          //   },
-                          //   child: Container(
-                          //     width: width,
-                          //     child: Row(
-                          //       mainAxisAlignment: MainAxisAlignment.center,
-                          //       children: [
-                          //         Text(
-                          //           "Forgot Your Password",
-                          //           style: GoogleFonts.poppins(
-                          //             fontSize: 13,
-                          //             fontWeight: FontWeight.w600,
-                          //             color: mainColor1,
-                          //           ),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ),
-                          // ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ForgotPasswordPage(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: width,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Forgot Your Password",
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600,
+                                      color: mainColor1,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 15),
                           Container(
                             width: width,
                             child: Row(
@@ -354,7 +362,6 @@ class _LoginPageState extends State<LoginPage> {
                               ],
                             ),
                           ),
-
                           SizedBox(height: 30),
                           Column(
                             children: [
@@ -377,28 +384,6 @@ class _LoginPageState extends State<LoginPage> {
                                     InkWell(
                                       onTap: () {
                                         signInWithFacebook(context);
-                                        // FacebookAuth.instance.login(
-                                        //   permissions: [
-                                        //     "public_profile",
-                                        //     "email"
-                                        //   ],
-                                        // ).then((value) {
-                                        //   FacebookAuth.instance
-                                        //       .getUserData()
-                                        //       .then((userData) {
-                                        //     setState(() {
-                                        //       _isLoggedIn = true;
-                                        //       _userObj = userData;
-                                        //       Navigator.push(
-                                        //         context,
-                                        //         MaterialPageRoute(
-                                        //           builder: (context) =>
-                                        //               HomePage(),
-                                        //         ),
-                                        //       );
-                                        //     });
-                                        //   });
-                                        // });
                                       },
                                       child: Container(
                                         height: 42,

@@ -84,137 +84,159 @@ class _AcceptedQueriesListState extends State<AcceptedQueriesList> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Accepted Queries",
-                        style: GoogleFonts.poppins(
-                          color: dimGrey,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      data.isEmpty
+                          ? Text("")
+                          : Text(
+                              "Accepted Queries",
+                              style: GoogleFonts.poppins(
+                                color: dimGrey,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                       SizedBox(height: 20),
-                      Container(
-                        height: height / 1.25,
-                        child: ListView.builder(
-                          itemCount: data.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 20),
-                              child: InkWell(
-                                child: Container(
-                                  width: width / 1.21,
-                                  padding: EdgeInsets.only(
-                                    left: 10,
-                                    right: 10,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: mainColor1,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: black.withOpacity(0.2),
-                                        blurRadius: 1,
-                                        offset: Offset(0.5, 0.5),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      ProbTextWidget(
-                                        label: "Brand :",
-                                        text: data[index]["mobilebrand"],
-                                      ),
-                                      ProbTextWidget(
-                                        label: "Model :",
-                                        text: data[index]["mobilemodel"],
-                                      ),
-                                      ProbTextWidget(
-                                        label: "Problem :",
-                                        text: data[index]
-                                            ["singlemobileproblem"],
-                                      ),
-                                      data[index]["email"] == null
-                                          ? ProbTextWidget(
-                                              label: "Email",
-                                              text: "No data found")
-                                          : ProbTextWidget(
-                                              label: "Email :",
-                                              text: data[index]["email"],
-                                            ),
-                                      data[index]["contact"] == null
-                                          ? ProbTextWidget(
-                                              label: "Contact",
-                                              text: "No data found")
-                                          : ProbTextWidget(
-                                              label: "Contact :",
-                                              text: data[index]["contact"],
-                                            ),
-                                      SizedBox(height: 10),
-                                      Container(
-                                        width: width,
-                                        decoration: BoxDecoration(
-                                          color: mainColor,
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            data[index]["price"] == null
-                                                ? ProbTextWidget(
-                                                    label: "Price",
-                                                    text: "No data found")
-                                                : Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      SizedBox(height: 10),
-                                                      Html(
-                                                        data: data[index]
-                                                            ["price"],
-                                                        style: {
-                                                          "ul": Style(
-                                                            listStyleType:
-                                                                ListStyleType
-                                                                    .SQUARE,
-                                                            textDecoration:
-                                                                TextDecoration
-                                                                    .none,
-                                                          ),
-                                                          "h1": Style(
-                                                            fontSize:
-                                                                FontSize.larger,
-                                                            color: black
-                                                                .withOpacity(
-                                                                    0.4),
-                                                          ),
-                                                          "li": Style(
-                                                            color: black
-                                                                .withOpacity(
-                                                                    0.4),
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                          "hr": Style(
-                                                            display:
-                                                                Display.NONE,
-                                                          ),
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(height: 10),
-                                    ],
+                      data.isEmpty
+                          ? Padding(
+                              padding: const EdgeInsets.only(top: 200),
+                              child: Center(
+                                child: Text(
+                                  "No queries accepted",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                    color: shadyGrey,
                                   ),
                                 ),
                               ),
-                            );
-                          },
-                        ),
-                      ),
+                            )
+                          : Container(
+                              height: height / 1.25,
+                              child: ListView.builder(
+                                itemCount: data.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: 20),
+                                    child: InkWell(
+                                      child: Container(
+                                        width: width / 1.21,
+                                        padding: EdgeInsets.only(
+                                          left: 10,
+                                          right: 10,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: mainColor1,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: black.withOpacity(0.2),
+                                              blurRadius: 1,
+                                              offset: Offset(0.5, 0.5),
+                                            ),
+                                          ],
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            ProbTextWidget(
+                                              label: "Brand :",
+                                              text: data[index]["mobilebrand"],
+                                            ),
+                                            ProbTextWidget(
+                                              label: "Model :",
+                                              text: data[index]["mobilemodel"],
+                                            ),
+                                            ProbTextWidget(
+                                              label: "Problem :",
+                                              text: data[index]
+                                                  ["singlemobileproblem"],
+                                            ),
+                                            data[index]["email"] == null
+                                                ? ProbTextWidget(
+                                                    label: "Email",
+                                                    text: "No data found")
+                                                : ProbTextWidget(
+                                                    label: "Email :",
+                                                    text: data[index]["email"],
+                                                  ),
+                                            data[index]["contact"] == null
+                                                ? ProbTextWidget(
+                                                    label: "Contact",
+                                                    text: "No data found")
+                                                : ProbTextWidget(
+                                                    label: "Contact :",
+                                                    text: data[index]
+                                                        ["contact"],
+                                                  ),
+                                            SizedBox(height: 10),
+                                            Container(
+                                              width: width,
+                                              decoration: BoxDecoration(
+                                                color: mainColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                              child: Column(
+                                                children: [
+                                                  data[index]["price"] == null
+                                                      ? ProbTextWidget(
+                                                          label: "Price",
+                                                          text: "No data found")
+                                                      : Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            SizedBox(
+                                                                height: 10),
+                                                            Html(
+                                                              data: data[index]
+                                                                  ["price"],
+                                                              style: {
+                                                                "ul": Style(
+                                                                  listStyleType:
+                                                                      ListStyleType
+                                                                          .SQUARE,
+                                                                  textDecoration:
+                                                                      TextDecoration
+                                                                          .none,
+                                                                ),
+                                                                "h1": Style(
+                                                                  fontSize:
+                                                                      FontSize
+                                                                          .larger,
+                                                                  color: black
+                                                                      .withOpacity(
+                                                                          0.4),
+                                                                ),
+                                                                "li": Style(
+                                                                  color: black
+                                                                      .withOpacity(
+                                                                          0.4),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                                "hr": Style(
+                                                                  display:
+                                                                      Display
+                                                                          .NONE,
+                                                                ),
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(height: 10),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
                     ],
                   ),
                 ),

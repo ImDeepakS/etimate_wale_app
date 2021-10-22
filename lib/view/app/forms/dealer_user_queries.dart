@@ -89,139 +89,164 @@ class _DealerUserQueryPageState extends State<DealerUserQueryPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "User Queries",
-                        style: GoogleFonts.poppins(
-                          color: dimGrey,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      Container(
-                        height: height,
-                        child: ListView.builder(
-                          itemCount: data.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 20),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    data[index]["id"],
-                                    style: GoogleFonts.poppins(
-                                      color: dimGrey,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  SizedBox(width: 5),
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              DealerAcceptQuerypage(
-                                            mobile: data[index]["mobilebrand"],
-                                            model: data[index]["mobilemodel"],
-                                            problem: data[index]
-                                                ["singlemobileproblem"],
-                                            price: data[index]["price"] == null
-                                                ? "0"
-                                                : data[index]["price"],
-                                            userid: data[index]["userid"],
-                                            dealerid: data[index]["dealerid"],
-                                            brandid: data[index]["brandid"],
-                                            modelid: data[index]["modelid"],
-                                            problemid: data[index]["Problemid"],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Container(
-                                      width: width / 1.3,
-                                      padding: EdgeInsets.only(
-                                        left: 10,
-                                        right: 10,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: mainColor1,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: black.withOpacity(0.2),
-                                            blurRadius: 1,
-                                            offset: Offset(0.5, 0.5),
-                                          ),
-                                        ],
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          SizedBox(height: 5),
-                                          ProbTextWidget(
-                                            label: "Mobile :",
-                                            text: data[index]["mobilebrand"],
-                                          ),
-                                          ProbTextWidget(
-                                            label: "Mobile :",
-                                            text: data[index]["mobilemodel"],
-                                          ),
-                                          ProbTextWidget(
-                                            label: "Problem",
-                                            text: data[index]
-                                                ["singlemobileproblem"],
-                                          ),
-                                          data[index]["price"] == null
-                                              ? ProbTextWidget(
-                                                  label: "Price",
-                                                  text: "No data found")
-                                              : Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    SizedBox(height: 10),
-                                                    LabelText(label: "Price :"),
-                                                    Html(
-                                                      data: data[index]
-                                                          ["price"],
-                                                      style: {
-                                                        "ul": Style(
-                                                          listStyleType:
-                                                              ListStyleType
-                                                                  .SQUARE,
-                                                          textDecoration:
-                                                              TextDecoration
-                                                                  .none,
-                                                        ),
-                                                        "h1": Style(
-                                                          fontSize:
-                                                              FontSize.larger,
-                                                          color: black
-                                                              .withOpacity(0.4),
-                                                        ),
-                                                        "li": Style(
-                                                          color: black
-                                                              .withOpacity(0.4),
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      },
-                                                    ),
-                                                  ],
-                                                ),
-                                          SizedBox(height: 10),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                      data.isEmpty
+                          ? Text("")
+                          : Text(
+                              "User Queries",
+                              style: GoogleFonts.poppins(
+                                color: dimGrey,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
                               ),
-                            );
-                          },
-                        ),
-                      ),
+                            ),
+                      SizedBox(height: 20),
+                      data.isEmpty
+                          ? Padding(
+                              padding: const EdgeInsets.only(top: 200),
+                              child: Center(
+                                child: Text(
+                                  "No queries received",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                    color: shadyGrey,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Container(
+                              height: height,
+                              child: ListView.builder(
+                                itemCount: data.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: 20),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                DealerAcceptQuerypage(
+                                              mobile: data[index]
+                                                  ["mobilebrand"],
+                                              model: data[index]["mobilemodel"],
+                                              problem: data[index]
+                                                  ["singlemobileproblem"],
+                                              price:
+                                                  data[index]["price"] == null
+                                                      ? "0"
+                                                      : data[index]["price"],
+                                              userid: data[index]["userid"],
+                                              dealerid: data[index]["dealerid"],
+                                              brandid: data[index]["brandid"],
+                                              modelid: data[index]["modelid"],
+                                              problemid: data[index]
+                                                  ["Problemid"],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: Container(
+                                        width: width / 1.3,
+                                        padding: EdgeInsets.only(
+                                          left: 10,
+                                          right: 10,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: mainColor1,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: black.withOpacity(0.2),
+                                              blurRadius: 1,
+                                              offset: Offset(0.5, 0.5),
+                                            ),
+                                          ],
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            SizedBox(height: 5),
+                                            ProbTextWidget(
+                                              label: "Mobile :",
+                                              text: data[index]["mobilebrand"],
+                                            ),
+                                            ProbTextWidget(
+                                              label: "Mobile :",
+                                              text: data[index]["mobilemodel"],
+                                            ),
+                                            ProbTextWidget(
+                                              label: "Problem",
+                                              text: data[index]
+                                                  ["singlemobileproblem"],
+                                            ),
+                                            data[index]["price"] == null
+                                                ? ProbTextWidget(
+                                                    label: "Price",
+                                                    text: "No data found")
+                                                : Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      SizedBox(height: 10),
+                                                      LabelText(
+                                                          label: "Price :"),
+                                                      Container(
+                                                        width: width,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: mainColor,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(20),
+                                                        ),
+                                                        child: Html(
+                                                          data: data[index]
+                                                              ["price"],
+                                                          style: {
+                                                            "ul": Style(
+                                                              listStyleType:
+                                                                  ListStyleType
+                                                                      .SQUARE,
+                                                              textDecoration:
+                                                                  TextDecoration
+                                                                      .none,
+                                                            ),
+                                                            "h1": Style(
+                                                              fontSize: FontSize
+                                                                  .larger,
+                                                              color: black
+                                                                  .withOpacity(
+                                                                      0.4),
+                                                            ),
+                                                            "li": Style(
+                                                              color: black
+                                                                  .withOpacity(
+                                                                      0.4),
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                            "hr": Style(
+                                                              display:
+                                                                  Display.NONE,
+                                                            ),
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                            SizedBox(height: 10),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
                     ],
                   ),
                 ),

@@ -362,50 +362,50 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                           SizedBox(height: 30),
                           LabelText(label: "Add Photograph Of Your Shop"),
                           SizedBox(height: 20),
-                          Row(
-                            children: [
-                              InkWell(
-                                onTap: () async {
-                                  final pickedFile = await picker.pickImage(
-                                      source: ImageSource.gallery);
-                                  if (pickedFile != null) {
-                                    setState(() {
-                                      imgPath = pickedFile.path.trim();
-                                      filename = path.basename(imgPath);
-                                    });
-                                  }
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    color: mainColor1,
-                                    borderRadius: BorderRadius.circular(2),
-                                  ),
-                                  child: Text(
-                                    "Choose File",
-                                    style: GoogleFonts.poppins(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 5),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  width: width / 2,
-                                  child: Text(
-                                    filename,
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 12,
-                                      color: shadyGrey,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 30),
+                          // Row(
+                          //   children: [
+                          //     InkWell(
+                          //       onTap: () async {
+                          //         final pickedFile = await picker.pickImage(
+                          //             source: ImageSource.gallery);
+                          //         if (pickedFile != null) {
+                          //           setState(() {
+                          //             imgPath = pickedFile.path.trim();
+                          //             filename = path.basename(imgPath);
+                          //           });
+                          //         }
+                          //       },
+                          //       child: Container(
+                          //         padding: EdgeInsets.all(10),
+                          //         decoration: BoxDecoration(
+                          //           color: mainColor1,
+                          //           borderRadius: BorderRadius.circular(2),
+                          //         ),
+                          //         child: Text(
+                          //           "Choose File",
+                          //           style: GoogleFonts.poppins(
+                          //             color: Colors.white,
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //     SizedBox(width: 5),
+                          //     Padding(
+                          //       padding: const EdgeInsets.all(8.0),
+                          //       child: SizedBox(
+                          //         width: width / 2,
+                          //         child: Text(
+                          //           filename,
+                          //           style: GoogleFonts.poppins(
+                          //             fontSize: 12,
+                          //             color: shadyGrey,
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          // SizedBox(height: 30),
                           LabelText(label: "Password"),
                           SizedBox(height: 10),
                           TextFieldWidget(
@@ -444,28 +444,35 @@ class _DealerRegisterPageState extends State<DealerRegisterPage> {
                 child: InkWell(
                   onTap: () {
                     FocusManager.instance.primaryFocus!.unfocus();
+                    registerDealer(
+                      context,
+                      usernameController.text,
+                      emailController.text,
+                      phoneController.text,
+                      passwordController.text,
+                      addressController.text,
+                      phoneController1.text,
+                      shopNameController.text,
+                      landlineController.text,
+                      fbController.text,
+                      instaController.text,
+                      shopyearController.text,
+                      _selectedBrand,
+                      _selectedSpecialist,
+                      _selectedAgree,
+                      zipcode,
+                      lat,
+                      lng,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("User created successfully"),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
                     if (_formKey.currentState!.validate()) {
                       setState(() {
-                        registerDealer(
-                          context,
-                          usernameController.text,
-                          emailController.text,
-                          phoneController.text,
-                          passwordController.text,
-                          addressController.text,
-                          phoneController1.text,
-                          shopNameController.text,
-                          landlineController.text,
-                          fbController.text,
-                          instaController.text,
-                          shopyearController.text,
-                          _selectedBrand,
-                          _selectedSpecialist,
-                          _selectedAgree,
-                          zipcode,
-                          lat,
-                          lng,
-                        );
+                        // createUser();
 
                         this.setState(() {
                           usernameController.clear();

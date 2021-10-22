@@ -44,6 +44,23 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
     'Charset': 'utf-8'
   };
 
+  Future deleteTmpData() async {
+    try {
+      final response = await http.post(
+        Uri.parse(
+          "https://estimatewale.com/application/restapi/empty_tmptable.php",
+        ),
+      );
+      var message = jsonDecode(json.encode(response.body));
+
+      if (response.statusCode == 200) {
+        print("message received delete $message");
+      } else {}
+    } on Exception catch (e) {
+      print("Exception is: " + e.toString());
+    }
+  }
+
   Future phoneBrand() async {
     String apiurl =
         "https://estimatewale.com/application/restapi/phone_list.php";
@@ -384,6 +401,7 @@ class _EstimatePricePageState extends State<EstimatePricePage> {
                     //     builder: (context) => DealersListPage(),
                     //   ),
                     // );
+                    deleteTmpData();
                     Navigator.push(
                       context,
                       MaterialPageRoute(

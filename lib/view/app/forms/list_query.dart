@@ -81,35 +81,25 @@ class _QueriesListPageState extends State<QueriesListPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Your Estimate Price List",
-                        style: GoogleFonts.poppins(
-                          color: dimGrey,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      data.isEmpty
+                          ? Text("")
+                          : Text(
+                              "Your Estimate Price List",
+                              style: GoogleFonts.poppins(
+                                color: dimGrey,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                       SizedBox(height: 20),
-                      Container(
-                        height: height,
-                        child: ListView.builder(
-                          itemCount: data.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 20),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    data[index]["id"],
-                                    style: GoogleFonts.poppins(
-                                      color: dimGrey,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  SizedBox(width: 5),
-                                  InkWell(
+                      data.isNotEmpty
+                          ? Container(
+                              height: height,
+                              child: ListView.builder(
+                                itemCount: data.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: 20),
                                     child: Container(
                                       width: width / 1.3,
                                       padding: EdgeInsets.only(
@@ -147,13 +137,23 @@ class _QueriesListPageState extends State<QueriesListPage> {
                                         ],
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
-                      ),
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.only(top: 200),
+                              child: Center(
+                                child: Text(
+                                  "No queries in your list",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                    color: shadyGrey,
+                                  ),
+                                ),
+                              ),
+                            ),
                     ],
                   ),
                 ),
