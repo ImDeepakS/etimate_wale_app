@@ -57,7 +57,7 @@ class _VideoDetailScreenState extends State<VideoDetailScreen> {
       flags: YoutubePlayerFlags(
         enableCaption: false,
         isLive: false,
-        autoPlay: true,
+        autoPlay: false,
       ),
     );
   }

@@ -122,8 +122,7 @@ class _HomePageState extends State<HomePage> {
         height: 90,
         width: width,
         padding: EdgeInsets.only(
-          top: 15,
-          bottom: 15,
+          top: 8,
           left: 10,
           right: 10,
         ),
