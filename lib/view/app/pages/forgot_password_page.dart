@@ -1,4 +1,3 @@
-import 'package:Estimatewale/view/app/homepage.dart';
 import 'package:Estimatewale/view/app/loginpage.dart';
 import 'package:Estimatewale/view/helpers/colors.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,51 +44,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         padding: EdgeInsets.only(left: 20, right: 20),
         child: WebView(
           javascriptMode: JavascriptMode.unrestricted,
-          initialUrl: "https://estimatewale.com/users/forgotpassword",
-          onWebViewCreated: (controller) {
-            this.controller = controller;
-            controller.evaluateJavascript(
-                "document.getElementsByTagName('header')[0].style.display='none'");
-            controller.evaluateJavascript(
-                "document.getElementsByTagName('footer')[0].style.display='none'");
-            controller.evaluateJavascript(
-                "document.getElementsByClassName('bottom_text')[0].style.display='none'");
-          },
-          onPageFinished: (val) {
-            controller.evaluateJavascript(
-                "document.getElementsByTagName('header')[0].style.display='none'");
-            controller.evaluateJavascript(
-                "document.getElementsByTagName('footer')[0].style.display='none'");
-            controller.evaluateJavascript(
-                "document.getElementsByClassName('bottom_text')[0].style.display='none'");
-          },
-          onPageStarted: (val) {
-            controller.evaluateJavascript(
-                "document.getElementsByTagName('header')[0].style.display='none'");
-            controller.evaluateJavascript(
-                "document.getElementsByTagName('footer')[0].style.display='none'");
-            controller.evaluateJavascript(
-                "document.getElementsByClassName('bottom_text')[0].style.display='none'");
-          },
-          onProgress: (val) {
-            setState(() {
-              loading = true;
-            });
-            controller.evaluateJavascript(
-                "document.getElementsByTagName('header')[0].style.display='none'");
-            controller.evaluateJavascript(
-                "document.getElementsByTagName('footer')[0].style.display='none'");
-            controller.evaluateJavascript(
-                "document.getElementsByClassName('bottom_text')[0].style.display='none'");
-          },
-          onWebResourceError: (val) {
-            controller.evaluateJavascript(
-                "document.getElementsByTagName('header')[0].style.display='none'");
-            controller.evaluateJavascript(
-                "document.getElementsByTagName('footer')[0].style.display='none'");
-            controller.evaluateJavascript(
-                "document.getElementsByClassName('bottom_text')[0].style.display='none'");
-          },
+          initialUrl: "https://estimatewale.com/users/forgotpasswordpage",
         ),
       ),
     );

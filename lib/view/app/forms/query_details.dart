@@ -309,7 +309,6 @@ class _DetailedQueryState extends State<DetailedQuery> {
                                             Container(
                                               child: SearchGooglePlacesWidget(
                                                 location: LatLng(45.2, 74.2),
-
                                                 apiKey:
                                                     'AIzaSyAUdIorUk08nLu7lVb4FHwk9hbDqFQSMGk',
                                                 // The language of the autocompletion

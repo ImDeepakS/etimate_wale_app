@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:connectivity/connectivity.dart';
 
 class VideoPage extends StatefulWidget {
   @override
@@ -13,10 +14,15 @@ class VideoPage extends StatefulWidget {
 class _VideoPageState extends State<VideoPage> {
   late WebViewController controller;
 
+  bool isLoading = true;
+  bool pagesLoading = false;
+
   bool loading = false;
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mainColor,
@@ -40,51 +46,20 @@ class _VideoPageState extends State<VideoPage> {
         ),
       ),
       body: WebView(
+        initialUrl: 'https://estimatewale.com/videopage',
         javascriptMode: JavascriptMode.unrestricted,
-        initialUrl: "https://estimatewale.com/videos",
-        onWebViewCreated: (controller) {
-          this.controller = controller;
-          controller.evaluateJavascript(
-              "document.getElementsByTagName('header')[0].style.display='none'");
-          controller.evaluateJavascript(
-              "document.getElementsByTagName('footer')[0].style.display='none'");
-          controller.evaluateJavascript(
-              "document.getElementsByClassName('bottom_text')[0].style.display='none'");
-        },
-        onPageFinished: (val) {
-          controller.evaluateJavascript(
-              "document.getElementsByTagName('header')[0].style.display='none'");
-          controller.evaluateJavascript(
-              "document.getElementsByTagName('footer')[0].style.display='none'");
-          controller.evaluateJavascript(
-              "document.getElementsByClassName('bottom_text')[0].style.display='none'");
-        },
-        onPageStarted: (val) {
-          controller.evaluateJavascript(
-              "document.getElementsByTagName('header')[0].style.display='none'");
-          controller.evaluateJavascript(
-              "document.getElementsByTagName('footer')[0].style.display='none'");
-          controller.evaluateJavascript(
-              "document.getElementsByClassName('bottom_text')[0].style.display='none'");
-        },
-        onProgress: (val) {
+        allowsInlineMediaPlayback: true,
+        gestureNavigationEnabled: true,
+        onPageFinished: (finish) {
           setState(() {
-            loading = true;
+            isLoading = false;
+            pagesLoading = false;
           });
-          controller.evaluateJavascript(
-              "document.getElementsByTagName('header')[0].style.display='none'");
-          controller.evaluateJavascript(
-              "document.getElementsByTagName('footer')[0].style.display='none'");
-          controller.evaluateJavascript(
-              "document.getElementsByClassName('bottom_text')[0].style.display='none'");
         },
-        onWebResourceError: (val) {
-          controller.evaluateJavascript(
-              "document.getElementsByTagName('header')[0].style.display='none'");
-          controller.evaluateJavascript(
-              "document.getElementsByTagName('footer')[0].style.display='none'");
-          controller.evaluateJavascript(
-              "document.getElementsByClassName('bottom_text')[0].style.display='none'");
+        onPageStarted: (start) {
+          setState(() {
+            pagesLoading = true;
+          });
         },
       ),
     );

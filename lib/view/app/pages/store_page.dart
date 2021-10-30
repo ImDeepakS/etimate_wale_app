@@ -139,153 +139,192 @@ class _StorePageState extends State<StorePage> {
                   refreshController.loadFailed();
                 }
               },
-              child: ListView.builder(
-                itemCount: data.length,
-                itemBuilder: (context, index) {
-                  y = data[0]["number_of_result"];
-                  return Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => VideoDetailScreen(
-                              storeAddress: data[index]["address"],
-                              storeImage: data[index]["image"] == null
-                                  ? "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg"
-                                  : "https://estimatewale.com/assets/images/dealers/${data[index]["image"]}",
-                              storeName: data[index]["shopname"],
-                              storeContact: data[index]["contact"],
-                              storeEmail: data[index]["email"],
-                              storeExp: data[index]["shopyear"],
-                              storeUser: data[index]["username"],
-                              videourl: data[index]["videolink"] == null
-                                  ? "https://www.youtube.com/watch?v=ePbL7jLAV1c"
-                                  : data[index]["videolink"],
-                            ),
-                          ),
-                        );
-                      },
-                      child: Card(
-                        child: Container(
-                          width: width,
-                          child: Column(
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 20),
-                                    child: Container(
-                                      height: 90,
-                                      width: width / 3.5,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                            data[index]["image"] == null
-                                                ? "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg"
-                                                : "https://estimatewale.com/assets/images/dealers/${data[index]["image"]}",
-                                          ),
-                                          fit: BoxFit.fill,
-                                        ),
+              child: Column(
+                children: [
+                  data.length > 1
+                      ? ListView.builder(
+                          itemCount: data.length,
+                          itemBuilder: (context, index) {
+                            y = data[0]["number_of_result"];
+                            return Padding(
+                              padding: const EdgeInsets.all(12),
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => VideoDetailScreen(
+                                        storeAddress: data[index]["address"],
+                                        storeImage: data[index]["image"] == null
+                                            ? "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg"
+                                            : "https://estimatewale.com/assets/images/dealers/${data[index]["image"]}",
+                                        storeName: data[index]["shopname"],
+                                        storeContact: data[index]["contact"],
+                                        storeEmail: data[index]["email"],
+                                        storeExp: data[index]["shopyear"],
+                                        storeUser: data[index]["username"],
+                                        videourl: data[index]["videolink"] ==
+                                                null
+                                            ? "https://www.youtube.com/watch?v=ePbL7jLAV1c"
+                                            : data[index]["videolink"],
                                       ),
                                     ),
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                          top: 10,
-                                          left: 15,
-                                        ),
-                                        child: Column(
+                                  );
+                                },
+                                child: Card(
+                                  child: Container(
+                                    width: width,
+                                    child: Column(
+                                      children: [
+                                        Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            SizedBox(
-                                              width: width / 1.8,
-                                              child: Text(
-                                                data[index]["shopname"],
-                                                style: GoogleFonts.poppins(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w600,
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 20),
+                                              child: Container(
+                                                height: 90,
+                                                width: width / 3.5,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  image: DecorationImage(
+                                                    image: NetworkImage(
+                                                      data[index]["image"] ==
+                                                              null
+                                                          ? "https://estimatewale.com/assets/images/dealers/1627452303_Important_Display_Message.jpg"
+                                                          : "https://estimatewale.com/assets/images/dealers/${data[index]["image"]}",
+                                                    ),
+                                                    fit: BoxFit.fill,
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(height: 5),
-                                            Text(
-                                              data[index]["username"],
-                                              style: GoogleFonts.poppins(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.grey.shade500,
-                                              ),
-                                            ),
-                                            SizedBox(height: 5),
-                                            Text(
-                                              data[index]["contact"],
-                                              style: GoogleFonts.poppins(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.grey.shade500,
-                                              ),
-                                            ),
-                                            SizedBox(height: 5),
-                                            SizedBox(
-                                              width: width / 1.8,
-                                              child: Text(
-                                                data[index]["address"],
-                                                style: GoogleFonts.poppins(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Colors.grey.shade500,
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                    top: 10,
+                                                    left: 15,
+                                                  ),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      SizedBox(
+                                                        width: width / 1.8,
+                                                        child: Text(
+                                                          data[index]
+                                                              ["shopname"],
+                                                          style: GoogleFonts
+                                                              .poppins(
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(height: 5),
+                                                      Text(
+                                                        data[index]["username"],
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: Colors
+                                                              .grey.shade500,
+                                                        ),
+                                                      ),
+                                                      SizedBox(height: 5),
+                                                      Text(
+                                                        data[index]["contact"],
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: Colors
+                                                              .grey.shade500,
+                                                        ),
+                                                      ),
+                                                      SizedBox(height: 5),
+                                                      SizedBox(
+                                                        width: width / 1.8,
+                                                        child: Text(
+                                                          data[index]
+                                                              ["address"],
+                                                          style: GoogleFonts
+                                                              .poppins(
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            color: Colors
+                                                                .grey.shade500,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
+                                                SizedBox(height: 12),
+                                              ],
                                             ),
                                           ],
                                         ),
-                                      ),
-                                      SizedBox(height: 12),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                height: height / 26,
-                                width: width,
-                                decoration: BoxDecoration(
-                                  color: mainColor1,
-                                  borderRadius: BorderRadius.only(
-                                    bottomRight: Radius.circular(4),
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.only(right: 15),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        "View more",
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                          color: mainColor,
+                                        Container(
+                                          height: height / 26,
+                                          width: width,
+                                          decoration: BoxDecoration(
+                                            color: mainColor1,
+                                            borderRadius: BorderRadius.only(
+                                              bottomRight: Radius.circular(4),
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.only(right: 15),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Text(
+                                                  "View more",
+                                                  style: GoogleFonts.poppins(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: mainColor,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ],
+                            );
+                          },
+                        )
+                      : Container(
+                          height: height / 1.2,
+                          child: Center(
+                            child: Text(
+                              "No Stores are available in your city",
+                              style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w600,
+                                color: shadyGrey,
+                                fontSize: 16,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  );
-                },
+                ],
               ),
             ),
           ),
